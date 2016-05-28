@@ -13,5 +13,5 @@
 
  ## Buster:
  * Use it to automate you server in case of password authentication.
- * `sshpass` is required so run `sudo apt-get install sshpass` to install it
+ * `sshpass` is required so run `sudo apt-get install sshpass` to install it first.
 ```
