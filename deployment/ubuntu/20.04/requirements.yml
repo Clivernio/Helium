@@ -16,4 +16,4 @@
 collections:
   - name: https://github.com/clivern/oxygen
     type: git
-    version: 1.5.0
+    version: 1.6.0
