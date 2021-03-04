@@ -136,7 +136,30 @@ class Statistics
      */
     public function getSubscribersOverTime(int $days = 7): array
     {
-        return $this->subscriberRepository->getSubscriberOverTime($days, "");
+        $data = $this->subscriberRepository->getSubscriberOverTime(
+            $days,
+            ""
+        );
+
+        $result = [];
+        $dates  = $this->getPeriod($days);
+
+        foreach ($dates as $date => $count) {
+            $found = false;
+
+            foreach ($data as $item) {
+                if ($date === $item['date']) {
+                    $found    = true;
+                    $result[] = ['date' => $date, 'count' => $item['count']];
+                }
+            }
+
+            if (!$found) {
+                $result[] = ['date' => $date, 'count' => 0];
+            }
+        }
+
+        return $result;
     }
 
     /**
@@ -144,7 +167,30 @@ class Statistics
      */
     public function getActiveSubscribersOverTime(int $days = 7): array
     {
-        return $this->subscriberRepository->getSubscriberOverTime($days, SubscriberRepository::SUBSCRIBED);
+        $data = $this->subscriberRepository->getSubscriberOverTime(
+            $days,
+            SubscriberRepository::SUBSCRIBED
+        );
+
+        $result = [];
+        $dates  = $this->getPeriod($days);
+
+        foreach ($dates as $date => $count) {
+            $found = false;
+
+            foreach ($data as $item) {
+                if ($date === $item['date']) {
+                    $found    = true;
+                    $result[] = ['date' => $date, 'count' => $item['count']];
+                }
+            }
+
+            if (!$found) {
+                $result[] = ['date' => $date, 'count' => 0];
+            }
+        }
+
+        return $result;
     }
 
     /**
@@ -152,7 +198,30 @@ class Statistics
      */
     public function getNonActiveSubscribersOverTime(int $days = 7): array
     {
-        return $this->subscriberRepository->getSubscriberOverTime($days, SubscriberRepository::UNSUBSCRIBED);
+        $data = $this->subscriberRepository->getSubscriberOverTime(
+            $days,
+            SubscriberRepository::UNSUBSCRIBED
+        );
+
+        $result = [];
+        $dates  = $this->getPeriod($days);
+
+        foreach ($dates as $date => $count) {
+            $found = false;
+
+            foreach ($data as $item) {
+                if ($date === $item['date']) {
+                    $found    = true;
+                    $result[] = ['date' => $date, 'count' => $item['count']];
+                }
+            }
+
+            if (!$found) {
+                $result[] = ['date' => $date, 'count' => 0];
+            }
+        }
+
+        return $result;
     }
 
     /**
@@ -160,7 +229,30 @@ class Statistics
      */
     public function getPendingSubscribersOverTime(int $days = 7): array
     {
-        return $this->subscriberRepository->getSubscriberOverTime($days, SubscriberRepository::PENDING_VERIFY);
+        $data = $this->subscriberRepository->getSubscriberOverTime(
+            $days,
+            SubscriberRepository::PENDING_VERIFY
+        );
+
+        $result = [];
+        $dates  = $this->getPeriod($days);
+
+        foreach ($dates as $date => $count) {
+            $found = false;
+
+            foreach ($data as $item) {
+                if ($date === $item['date']) {
+                    $found    = true;
+                    $result[] = ['date' => $date, 'count' => $item['count']];
+                }
+            }
+
+            if (!$found) {
+                $result[] = ['date' => $date, 'count' => 0];
+            }
+        }
+
+        return $result;
     }
 
     /**
@@ -168,6 +260,99 @@ class Statistics
      */
     public function getNewslettersSentOutOverTime(int $days = 7): array
     {
-        return $this->newsletterRepository->getNewslettersSentOutOverTime($days);
+        $data = $this->newsletterRepository->getNewslettersSentOutOverTime(
+            $days
+        );
+
+        $result = [];
+        $dates  = $this->getPeriod($days);
+
+        foreach ($dates as $date => $count) {
+            $found = false;
+
+            foreach ($data as $item) {
+                if ($date === $item['date']) {
+                    $found    = true;
+                    $result[] = ['date' => $date, 'count' => $item['count']];
+                }
+            }
+
+            if (!$found) {
+                $result[] = ['date' => $date, 'count' => 0];
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get Latest Sent Out Newsletters.
+     *
+     * @param int|int $limit
+     */
+    public function getLatestSentOutNewsletters(int $limit = 10): array
+    {
+        $records = $this->newsletterRepository->findSentOut(
+            ['createdAt' => 'DESC'],
+            $limit,
+            0
+        );
+
+        $result = [];
+
+        foreach ($records as $record) {
+            $result[] = [
+                'name'      => $record->getName(),
+                'createdAt' => $record->getCreatedAt()->format('Y-m-d H:i:s'),
+            ];
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get Latest Subscribers.
+     *
+     * @param int|int $limit
+     */
+    public function getLatestSubscribers(string $status = "", int $limit = 10): array
+    {
+        $records = $this->subscriberRepository->findManyByStatus(
+            $status,
+            ['createdAt' => 'DESC'],
+            $limit,
+            0
+        );
+
+        $result = [];
+
+        foreach ($records as $record) {
+            $result[] = [
+                'email'     => $record->getEmail(),
+                'createdAt' => $record->getCreatedAt()->format('Y-m-d H:i:s'),
+            ];
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get Period.
+     */
+    public function getPeriod(int $days = 7): array
+    {
+        $period = new \DatePeriod(
+            (new \DateTime())->modify(sprintf("-%s days", $days)),
+            new \DateInterval('P1D'),
+            (new \DateTime())->modify("+1 days")
+        );
+
+        $result = [];
+
+        foreach ($period as $key => $value) {
+            $result[$value->format('Y-m-d')] = 0;
+        }
+
+        return $result;
     }
 }

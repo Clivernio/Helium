@@ -174,7 +174,10 @@ class HomeController extends AbstractController
         // Dispatch verify email task
         $this->worker->dispatch(
             new VerifyEmail(),
-            ["email" => $subscriber->getEmail(), "token" => $subscriber->getToken()]
+            [
+                "email" => $subscriber->getEmail(),
+                "token" => $subscriber->getToken(),
+            ]
         );
 
         return $this->json([

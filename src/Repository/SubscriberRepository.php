@@ -91,7 +91,7 @@ class SubscriberRepository extends ServiceEntityRepository
      *
      * @return int
      */
-    public function countByStatus(string $status): ?int
+    public function countByStatus(string $status = ""): ?int
     {
         if (empty($status)) {
             return $this->createQueryBuilder('s')
@@ -101,7 +101,8 @@ class SubscriberRepository extends ServiceEntityRepository
         }
 
         return $this->createQueryBuilder('s')
-            ->where(sprintf('s.status = %s', $status))
+            ->where('s.status = :status')
+            ->setParameter('status', $status)
             ->select('count(s.id)')
             ->getQuery()
             ->getSingleScalarResult();
@@ -127,12 +128,12 @@ class SubscriberRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
 
         $sql1 = sprintf("SELECT COUNT(*) AS count, DATE(created_at) AS date
-            FROM he_subscriber WHERE created_at >= DATE_SUB(curdate(), INTERVAL %s DAY)
-            AND status = :status
+            FROM he_subscriber s WHERE s.created_at >= DATE_SUB(curdate(), INTERVAL %d DAY)
+            AND s.status = :status
             GROUP BY date", $days);
 
         $sql2 = sprintf("SELECT COUNT(*) AS count, DATE(created_at) AS date
-            FROM he_subscriber WHERE created_at >= DATE_SUB(curdate(), INTERVAL %s DAY)
+            FROM he_subscriber s WHERE s.created_at >= DATE_SUB(curdate(), INTERVAL %d DAY)
             GROUP BY date", $days);
 
         if (!empty($status)) {
@@ -143,8 +144,6 @@ class SubscriberRepository extends ServiceEntityRepository
             $resultSet = $stmt->executeQuery([]);
         }
 
-        $result = $resultSet->fetchAllAssociative();
-
-        return !empty($result) ? $result[0] : [];
+        return $resultSet->fetchAllAssociative();
     }
 }

@@ -98,6 +98,14 @@ class NewsletterRepository extends ServiceEntityRepository
     }
 
     /**
+     * Find Sent Out Newsletters.
+     */
+    public function findSentOut(array $order, int $limit, int $offset): array
+    {
+        return $this->findBy(['deliveryStatus' => self::FINISHED_STATUS], $order, $limit, $offset);
+    }
+
+    /**
      * Count Newsletters.
      *
      * @return int
@@ -147,15 +155,13 @@ class NewsletterRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
 
         $sql = sprintf("SELECT COUNT(*) AS count, DATE(created_at) AS date
-            FROM he_newsletter WHERE created_at >= DATE_SUB(curdate(), INTERVAL %s DAY)
-            AND deliveryStatus = :deliveryStatus
+            FROM he_newsletter n WHERE n.created_at >= DATE_SUB(curdate(), INTERVAL %d DAY)
+            AND n.delivery_status = :deliveryStatus
             GROUP BY date", $days);
 
         $stmt      = $conn->prepare($sql);
-        $resultSet = $stmt->executeQuery(['deliveryStatus' => NewsletterRepository::FINISHED_STATUS]);
+        $resultSet = $stmt->executeQuery(['deliveryStatus' => self::FINISHED_STATUS]);
 
-        $result = $resultSet->fetchAllAssociative();
-
-        return !empty($result) ? $result[0] : [];
+        return $resultSet->fetchAllAssociative();
     }
 }
