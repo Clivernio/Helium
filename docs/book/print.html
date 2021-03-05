@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Introduction</a></li><li class="chapter-item expanded "><a href="Hosting.html"><strong aria-hidden="true">1.</strong> Free Hosting</a></li><li class="chapter-item expanded "><a href="Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="Configuration.html"><strong aria-hidden="true">3.</strong> Configuration</a></li><li class="chapter-item expanded "><a href="Advanced.html"><strong aria-hidden="true">4.</strong> Advanced</a></li><li class="chapter-item expanded "><a href="Support.html"><strong aria-hidden="true">5.</strong> Support</a></li><li class="chapter-item expanded "><a href="Security.html"><strong aria-hidden="true">6.</strong> Security</a></li><li class="chapter-item expanded "><a href="Versioning.html"><strong aria-hidden="true">7.</strong> Versioning</a></li><li class="chapter-item expanded "><a href="Changelog.html"><strong aria-hidden="true">8.</strong> Changelog</a></li><li class="chapter-item expanded "><a href="License.html"><strong aria-hidden="true">9.</strong> License</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Introduction</a></li><li class="chapter-item expanded "><a href="Hosting.html"><strong aria-hidden="true">1.</strong> Free Hosting</a></li><li class="chapter-item expanded "><a href="Requirements.html"><strong aria-hidden="true">2.</strong> Requirements</a></li><li class="chapter-item expanded "><a href="Installation.html"><strong aria-hidden="true">3.</strong> Installation</a></li><li class="chapter-item expanded "><a href="Configuration.html"><strong aria-hidden="true">4.</strong> Configuration</a></li><li class="chapter-item expanded "><a href="Advanced.html"><strong aria-hidden="true">5.</strong> Advanced</a></li><li class="chapter-item expanded "><a href="Translation.html"><strong aria-hidden="true">6.</strong> Translation</a></li><li class="chapter-item expanded "><a href="Support.html"><strong aria-hidden="true">7.</strong> Support</a></li><li class="chapter-item expanded "><a href="Security.html"><strong aria-hidden="true">8.</strong> Security</a></li><li class="chapter-item expanded "><a href="Versioning.html"><strong aria-hidden="true">9.</strong> Versioning</a></li><li class="chapter-item expanded "><a href="Credits.html"><strong aria-hidden="true">10.</strong> Credits</a></li><li class="chapter-item expanded "><a href="Changelog.html"><strong aria-hidden="true">11.</strong> Changelog</a></li><li class="chapter-item expanded "><a href="License.html"><strong aria-hidden="true">12.</strong> License</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -151,8 +151,26 @@
   <img width="20%" src="screenshots/logo.png">
 </p>
 <br/>
-<p>Helium is a <code>Fast</code>, <code>Secure</code> and <code>Reliable</code> <code>Newsletter</code> System, Set up in Minutes.</p>
-<h3 id="features"><a class="header" href="#features">Features</a></h3>
+<p><code>Helium</code> is a Fast, Secure and Reliable Newsletter System. <code>Helium</code> is perfect for weekly articles newsletter, featured articles newsletter, marketing campaigns or even product updates. It integrates easily with most of SMTP providers out there. It is built with Symfony 5.4 LTS to support a broad range of PHP versions plus symfony extended support.</p>
+<h3 id="some-features"><a class="header" href="#some-features">Some Features</a></h3>
+<ul>
+<li>Automated Setup.</li>
+<li>Statistics dashboard with trends in subscribers and newsletters.</li>
+<li>Fast email delivery. you can run any number of workers for massive numbers of subscribers and newsletters.</li>
+<li>Scheduled newsletters support.</li>
+<li>Customizable newsletter page.</li>
+<li>Customizable newsletter emails.</li>
+<li>Powerful templating engine for newsletter emails.</li>
+<li>Powerful templating engine for newsletter page.</li>
+<li>Search engine optimized.</li>
+<li>Integrates easily with any SMTP services like <code>Postfix</code>, <code>Gmail</code>, <code>SendGrid</code>, <code>Sendinblue</code>, <code>Postmark</code>, <code>Mailgun</code>, <code>Mailchimp</code>, <code>Amazon SES</code>, <code>Mailtrap</code>.</li>
+<li>Automated deployment and upgrades with Ansible.</li>
+<li>Translation Ready.</li>
+<li>Fully Ajax.</li>
+<li>Developer Friendly.</li>
+<li>Well documented code.</li>
+<li>Amazing Support.</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h3 id="free-hosting"><a class="header" href="#free-hosting">Free Hosting</a></h3>
 <p>You can get at least 3 months of a free hosting to run <code>Helium</code>. Please feel free to use one of the following links to register:</p>
 <ul>
@@ -162,7 +180,217 @@
 <li><a href="https://aws.amazon.com/free/">12 Month free from AWS.</a></li>
 <li><a href="https://www.linode.com/lp/affiliate-referral/">$100 from Linode.</a></li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h3 id="installation"><a class="header" href="#installation">Installation</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="requirements"><a class="header" href="#requirements">Requirements</a></h3>
+<ul>
+<li>Linux Operating System.</li>
+<li>Apache or Nginx with PHP-FPM</li>
+<li>PHP 7.4+.</li>
+<li>MySQL 5+ or MariaDB.</li>
+<li>Composer.</li>
+</ul>
+<p><em>We suggest using a <code>Virtual Server</code> (VPS) not shared hosting since <code>Helium</code> requires a two running background process to send emails on time. You can get a free VPS for at least three months, <a href="Hosting.html">Please check free hosting section</a></em></p>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="manual-installation"><a class="header" href="#manual-installation">Manual Installation</a></h3>
+<ol>
+<li>
+<p>Please follow this guide to install <a href="https://clivern.com/installing-nginx-mysql-php-on-ubuntu-22-04/">ubuntu 22.02 with Nginx, MySQL, PHP-FPM</a></p>
+</li>
+<li>
+<p>if you deployed helium to this path <code>/var/www/project/</code> you need to create two systemd services.</p>
+</li>
+<li>
+<p>The <code>watcher</code> systemd service.</p>
+</li>
+</ol>
+<pre><code>$ nano /etc/systemd/system/watcher.service
+</code></pre>
+<pre><code>[Unit]
+Description=Helium Watcher
+After=network.target
+
+StartLimitIntervalSec=500
+StartLimitBurst=5
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/var/www/project
+Restart=on-failure
+RestartSec=5s
+Environment=LANG=en_US.UTF-8
+Environment=LC_ALL=en_US.UTF-8
+Environment=LC_LANG=en_US.UTF-8
+ExecStart=php /var/www/project/bin/console watch
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<ol start="4">
+<li>The <code>worker</code> systemd service.</li>
+</ol>
+<pre><code>$ nano /etc/systemd/system/worker.service
+</code></pre>
+<pre><code>[Unit]
+Description=Helium Worker %i
+After=network.target
+
+StartLimitIntervalSec=500
+StartLimitBurst=5
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/var/www/project
+Restart=on-failure
+RestartSec=5s
+Environment=LANG=en_US.UTF-8
+Environment=LC_ALL=en_US.UTF-8
+Environment=LC_LANG=en_US.UTF-8
+ExecStart=php /var/www/project/bin/console messenger:consume async
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<ol start="5">
+<li>Then enable and start them</li>
+</ol>
+<pre><code>$ systemctl enable watcher
+$ systemctl start watcher
+
+$ systemctl enable worker@1
+$ systemctl start worker@1
+</code></pre>
+<h3 id="installation-with-ansible-preferred"><a class="header" href="#installation-with-ansible-preferred">Installation with Ansible (preferred)</a></h3>
+<p>You need to install <code>Python 3</code> locally and use a laptop that has <code>SSH</code> access to the production <code>Linux</code> server. Then please follow these steps:</p>
+<ol>
+<li>Create a python virtual environment.</li>
+</ol>
+<pre><code class="language-zsh">$ python3 -m venv venv
+$ source venv/bin/activate
+</code></pre>
+<ol start="2">
+<li>Install <code>ansible</code></li>
+</ol>
+<pre><code class="language-zsh">$ make config
+</code></pre>
+<ol start="3">
+<li>
+<p>Create <code>hosts.prod</code> from <code>hosts</code> file and replace <code>127.0.0.1</code> with the host IP.</p>
+</li>
+<li>
+<p>Create <code>prod.vault.yml</code> with these configs.</p>
+</li>
+</ol>
+<pre><code class="language-zsh">$ ansible-vault create prod.vault.yml
+</code></pre>
+<pre><code class="language-yaml">install_mysql: true
+root_username: root
+root_password: R2ZBmTR6nED6a71AxeTO2DSck
+app_db_name: helium
+app_db_username: admin
+app_db_password: R2ZBmTR6nED6a71AxeTO2UIok
+allow_access_from: &quot;127.0.0.1&quot;
+
+install_nginx: true
+
+install_php: true
+
+install_composer: true
+
+install_postfix: false
+postfix_hostname: helium
+smtp_sasl_security_options: noanonymous
+smtp_sasl_auth_enable: 'yes'
+smtp_use_tls: 'yes'
+smtp_server: smtp.gmail.com
+smtp_port: 587
+smtp_username: ''
+smtp_password: ''
+inet_interfaces: 127.0.0.1
+</code></pre>
+<p><code>Postfix</code> is disabled but it can be enabled by setting <code>install_postfix: true</code> above and providing the SMTP Server, username and password. You can use your gmail account as an SMTP server by doing the following:</p>
+<ul>
+<li>The <code>SMTP server</code> will be <code>smtp.gmail.com</code> and port <code>587</code></li>
+<li>The <code>SMTP username</code> is your gmail email address.</li>
+<li>The <code>SMTP password</code> can be generated after enabling two factor authentication. Please check this guide to generate the app password https://www.golinuxcloud.com/gmail-smtp-relay-server-postfix/.</li>
+</ul>
+<ol start="5">
+<li>Run ansible playbook to setup the server</li>
+</ol>
+<pre><code class="language-zsh">$ make prod
+</code></pre>
+<p>Here is an <a href="https://clivern.com/installing-nginx-mysql-php-on-ubuntu-22-04/">article explaining the above steps in more details</a></p>
+<p><em>To Deploy Helium Application:</em></p>
+<p>The following steps will require you to upload the code to a private github or gitlab repository, Add the host public key as a deploy key Then provide the repository git link.</p>
+<ol>
+<li>Create <code>helium.vault.yml</code> with these configs.</li>
+</ol>
+<pre><code class="language-zsh">$ ansible-vault create helium.vault.yml
+</code></pre>
+<pre><code class="language-yaml">app_user: appmgmt
+app_group: appmgmt
+
+app_version: 1.0.0
+git_repo: git@github.com:$AUTHOR/$REPO.git
+
+
+workers_counts: 1
+
+hostname: helium.com
+
+php_version: 8.1
+
+app_db_name: helium
+app_db_username: admin
+app_db_password: R2ZBmTR6nED6a71AxeTO2UIok
+
+app_secret: 3999bf7e3a408f15942779447e01dd7a
+app_timezone: UTC
+app_env: prod
+app_locale: en
+messenger_transport: doctrine://default
+mailer_dsn: sendmail://default
+</code></pre>
+<p><em>Please not that <code>mailer_dsn</code> can be one of the following forms:</em></p>
+<pre><code># If Amazon Mailer
+mailer_dsn: ses://ACCESS_KEY:SECRET_KEY@default?region=eu-west-1
+mailer_dsn: ses+smtp://ACCESS_KEY:SECRET_KEY@default?region=eu-west-1
+
+# If Mailchimp
+mailer_dsn: mandrill://KEY@default
+mailer_dsn: mandrill+smtp://USERNAME:PASSWORD@default
+
+# If mailgun
+mailer_dsn: mailgun://KEY:DOMAIN@default?region=us
+mailer_dsn: mailgun+smtp://USERNAME:PASSWORD@default?region=us
+
+# If Mailjet
+mailer_dsn: mailjet+api://PUBLIC_KEY:PRIVATE_KEY@api.mailjet.com
+mailer_dsn: mailjet+smtp://PUBLIC_KEY:PRIVATE_KEY@in-v3.mailjet.com
+
+# If Postmark
+mailer_dsn: postmark://ID@default
+
+# If Sendgrid
+mailer_dsn: sendgrid://KEY@default
+
+# If Sendinblue
+mailer_dsn: sendinblue+api://KEY@default
+mailer_dsn: sendinblue+smtp://USERNAME:PASSWORD@default
+
+# If Mailtrap
+mailer_dsn: smtp://USERNAME:PASSWORD@smtp.mailtrap.io:2525?encryption=tls&amp;auth_mode=login
+</code></pre>
+<ol start="2">
+<li>Run ansible playbook to deploy <code>Helium</code> application.</li>
+</ol>
+<pre><code class="language-zsh">$ make helium
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h3 id="configuration"><a class="header" href="#configuration">Configuration</a></h3>
 <p>Once you have installed <code>Helium</code> on a server. Please follow the following steps setup the application and also send your first newsletter:</p>
 <ul>
@@ -208,6 +436,79 @@
 <p><img src="screenshots/newsletter_list.png" alt="" /></p>
 <p><img src="screenshots/newsletter_add.png" alt="" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h3 id="advanced"><a class="header" href="#advanced">Advanced</a></h3>
+<ol>
+<li><em>Which template engine helium is using?</em></li>
+</ol>
+<p><code>Helium</code> uses the symfony default templating engine <code>Twig</code>. Here is a guide how to use <a href="https://twig.symfony.com/doc/3.x/templates.html">twig</a></p>
+<ol start="2">
+<li><em>How to build a new home page template?</em></li>
+</ol>
+<p>By default helium scans the <code>templates/default/page/home.$layout.html.twig</code>. To create a new layout called creative. create a new file <code>templates/default/page/home.creative.html.twig</code> from <code>templates/default/page/home.default.html.twig</code>. then customize the look and feel.</p>
+<p>You can activate the new layout from the dashboard &gt; settings page, select the <code>creative</code> layout.</p>
+<ol start="3">
+<li><em>How to build a new newsletter email template?</em></li>
+</ol>
+<p>Let's create a new newsletter template for product updates. First we create <code>templates/default/newsletter/product_updates.distro.html.twig</code> and <code>templates/default/newsletter/product_updates.distro.yml</code>.</p>
+<p>By default the following variables are available to be used in your newsletter template</p>
+<ul>
+<li><code>app_name</code></li>
+<li><code>app_url</code></li>
+<li><code>data.unsubscribe_url</code></li>
+</ul>
+<p>You can define some dynamic data in <code>templates/default/newsletter/product_updates.distro.yml</code></p>
+<pre><code>logo_url: 'https://via.placeholder.com/360x170'
+
+updates:
+  -
+    title: How to Setup a HA Cassandra Cluster
+    img_url: 'https://via.placeholder.com/1200x700'
+    link: 'https://clivern.com/how-to-setup-a-ha-cassandra-cluster/'
+    description: &gt;-
+      Apache Cassandra is a NoSQL database with flexible deployment options that’s
+      highly performant (especially for writes), scalable, fault-tolerant, and
+      proven in production. Alternative NoSQL databases include Amazon DynamoDB,
+      Apache HBase, and MongoDB.
+  -
+    title: How to Setup a HA Cassandra Cluster
+    img_url: 'https://via.placeholder.com/1200x700'
+    link: 'https://clivern.com/how-to-setup-a-ha-cassandra-cluster/'
+    description: &gt;-
+      Apache Cassandra is a NoSQL database with flexible deployment options that’s
+      highly performant (especially for writes), scalable, fault-tolerant, and
+      proven in production. Alternative NoSQL databases include Amazon DynamoDB,
+      Apache HBase, and MongoDB.
+
+  -
+    title: How to Setup a HA Cassandra Cluster
+    img_url: 'https://via.placeholder.com/1200x700'
+    link: 'https://clivern.com/how-to-setup-a-ha-cassandra-cluster/'
+    description: &gt;-
+      Apache Cassandra is a NoSQL database with flexible deployment options that’s
+      highly performant (especially for writes), scalable, fault-tolerant, and
+      proven in production. Alternative NoSQL databases include Amazon DynamoDB,
+      Apache HBase, and MongoDB.
+</code></pre>
+<p>You can access the above data from the template using <code>data.logo_url</code> and <code>data.updates</code> like the following</p>
+<pre><code>{% for update in data.updates %}
+    &lt;img src=&quot;{{ update.img_url }}&quot;&gt;
+    &lt;table&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;
+                &lt;td &gt;
+                    &lt;h1&gt;{{ update.title }}&lt;/h1&gt;
+                    &lt;p&gt;{{ update.description }}&lt;/p&gt;
+                    &lt;a href=&quot;{{ update.link }}&quot;&gt;
+                        &lt;span&gt;Learn more&lt;/span&gt;
+                    &lt;/a&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+{% endfor %}
+</code></pre>
+<p><em>Please note that all variables in the <code>product_updates.distro.yml</code> can be accessed by data.$$</em></p>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="translation"><a class="header" href="#translation">Translation</a></h3>
+<p>Please translate the <code>messages.xlf</code> included with the release files and send the translated file to <a href="mailto:support@clivern.com">support@clivern.com</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h3 id="support"><a class="header" href="#support">Support</a></h3>
 <p><em>Please read help files included with my items before anything.</em></p>
 <p>Support for my items includes:</p>
@@ -227,6 +528,15 @@
 <div style="break-before: page; page-break-before: always;"></div><h3 id="versioning"><a class="header" href="#versioning">Versioning</a></h3>
 <p>For transparency into our release cycle and in striving to maintain backward compatibility, Helium is maintained under the <a href="https://semver.org/">Semantic Versioning guidelines</a> and release process is predictable and business-friendly.</p>
 <p>See the changelog section for changelogs for each release version of Helium. It contains summaries of the most noteworthy changes made in each release.</p>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="credits"><a class="header" href="#credits">Credits</a></h3>
+<ul>
+<li><a href="https://symfony.com/">Symfony - PHP Framework.</a></li>
+<li><a href="https://github.com/tabler/tabler">Tabler - HTML Dashboard UI Kit built on Bootstrap.</a></li>
+<li><a href="https://vuejs.org/">Vuejs.</a></li>
+<li><a href="https://jquery.com/">jQuery.</a></li>
+<li><a href="https://www.ansible.com/">Ansible.</a></li>
+<li><a href="https://github.com/rust-lang/mdBook">mdBook.</a></li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h3 id="changelog"><a class="header" href="#changelog">Changelog</a></h3>
 <p>Version 1.0.0:</p>
 <pre><code>- Initial Release.

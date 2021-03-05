@@ -12,35 +12,41 @@
     </p>
 </p>
 
-### Deployment:
+`Helium` is a Fast, Secure and Reliable Newsletter System. `Helium` is perfect for weekly articles newsletter, featured articles newsletter, marketing campaigns or even product updates. It integrates easily with most of SMTP providers out there. It is built with Symfony 5.4 LTS to support a broad range of PHP versions plus symfony extended support.
 
-To deploy `Helium`, please use [this Ansible Playbook.](https://github.com/Colvern/Oxygen)
+
+### Features
+
+- Automated Setup.
+- Statistics dashboard with trends in subscribers and newsletters.
+- Fast email delivery. you can run any number of workers for massive numbers of subscribers and newsletters.
+- Scheduled newsletters support.
+- Customizable newsletter page.
+- Customizable newsletter emails.
+- Powerful templating engine for newsletter emails.
+- Powerful templating engine for newsletter page.
+- Search engine optimized.
+- Integrates easily with any SMTP services like `Postfix`, `Gmail`, `SendGrid`, `Sendinblue`, `Postmark`, `Mailgun`, `Mailchimp`, `Amazon SES`, `Mailtrap`.
+- Automated deployment and upgrades with Ansible.
+- Translation Ready.
+- Fully Ajax.
+- Developer Friendly.
+- Well documented code.
+- Amazing Support.
 
 
 ### Versioning
 
-For transparency into our release cycle and in striving to maintain backward compatibility, Helium is maintained under the [Semantic Versioning guidelines](https://semver.org/) and release process is predictable and business-friendly.
-
-See the [Releases section of our GitHub project](https://github.com/colvern/helium/releases) for changelogs for each release version of Helium. It contains summaries of the most noteworthy changes made in each release.
-
-
-### Bug tracker
-
-If you have any suggestions, bug reports, or annoyances please report them to our issue tracker at https://github.com/colvern/helium/issues
+For transparency into our release cycle and in striving to maintain backward compatibility, `Helium` is maintained under the [Semantic Versioning guidelines](https://semver.org/) and release process is predictable and business-friendly.
 
 
 ### Security Issues
 
-If you discover a security vulnerability within Helium, please send an email to [hello@clivern.com](mailto:hello@clivern.com)
-
-
-### Contributing
-
-We are an open source, community-driven project so please feel free to join us. see the [contributing guidelines](CONTRIBUTING.md) for more details.
+If you discover a security vulnerability within `Helium`, please send an email to [hello@clivern.com](mailto:hello@clivern.com)
 
 
 ### License
 
-© 2022, clivern. Released under [MIT License](https://opensource.org/licenses/mit-license.php).
+This project is released under codecanyon standard and extended licenses. For more info, please check this link [link](https://codecanyon.net/licenses/standard).
 
 **Helium** is authored and maintained by [@clivern](http://github.com/Clivern).
