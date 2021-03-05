@@ -19,7 +19,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -67,7 +66,6 @@ class ResetPasswordController extends AbstractController
     /**
      * Reset Password Web Page.
      */
-    #[Route('/reset-password/{token}', name: 'app_ui_reset_password')]
     public function resetPassword(string $token): Response
     {
         $this->logger->info("Render reset password page");
@@ -95,7 +93,6 @@ class ResetPasswordController extends AbstractController
     /**
      * Reset Password API Endpoint.
      */
-    #[Route('/api/v1/reset-password', name: 'app_endpoint_v1_reset_password', methods: ['POST'])]
     public function resetPasswordEndpoint(Request $request): JsonResponse
     {
         $content = $request->getContent();

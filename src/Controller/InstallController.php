@@ -18,7 +18,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -61,7 +60,6 @@ class InstallController extends AbstractController
     /**
      * Install Web Page.
      */
-    #[Route('/install', name: 'app_ui_install', methods: ['GET', 'HEAD'])]
     public function installPage(): Response
     {
         $this->logger->info("Render install page");
@@ -85,7 +83,6 @@ class InstallController extends AbstractController
      *
      * Adds the options and admin user account
      */
-    #[Route('/api/v1/install', name: 'app_endpoint_v1_install', methods: ['POST'])]
     public function installEndpoint(Request $request): JsonResponse
     {
         $content = $request->getContent();

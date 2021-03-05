@@ -15,7 +15,6 @@ use App\Repository\SubscriberRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -53,7 +52,6 @@ class DashboardController extends AbstractController
     /**
      * Dashboard Web Page.
      */
-    #[Route('/admin/dashboard', name: 'app_ui_dashboard')]
     public function dashboard(): Response
     {
         $this->logger->info("Render dashboard page");

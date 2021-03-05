@@ -15,7 +15,6 @@ use App\Service\Worker;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -53,7 +52,6 @@ class HealthController extends AbstractController
     /**
      * Health Endpoint.
      */
-    #[Route('/_health', name: 'app_health_api_endpoint')]
     public function health(): JsonResponse
     {
         $this->logger->info("Trigger health check");

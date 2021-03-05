@@ -17,7 +17,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -60,7 +59,6 @@ class SettingsController extends AbstractController
     /**
      * Settings Web Page.
      */
-    #[Route('/admin/settings', name: 'app_ui_settings')]
     public function settings(): Response
     {
         $this->logger->info("Render settings page");
@@ -97,7 +95,6 @@ class SettingsController extends AbstractController
     /**
      * Settings API Endpoint.
      */
-    #[Route('/admin/api/v1/settings', name: 'app_endpoint_v1_settings', methods: ['POST'])]
     public function settingsEndpoint(Request $request): JsonResponse
     {
         $content = $request->getContent();

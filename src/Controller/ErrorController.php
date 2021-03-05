@@ -13,7 +13,6 @@ use App\Repository\ConfigRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -46,7 +45,6 @@ class ErrorController extends AbstractController
     /**
      * Error Web Page.
      */
-    #[Route('/500', name: 'app_ui_error')]
     public function error(): Response
     {
         $this->logger->info("Render error page");

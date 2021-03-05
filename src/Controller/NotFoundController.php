@@ -13,7 +13,6 @@ use App\Repository\ConfigRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -46,7 +45,6 @@ class NotFoundController extends AbstractController
     /**
      * Not Found Web Page.
      */
-    #[Route('/404', name: 'app_ui_not_found')]
     public function notFound(): Response
     {
         $this->logger->info("Render not found page");

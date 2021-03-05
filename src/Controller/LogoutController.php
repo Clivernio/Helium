@@ -12,7 +12,6 @@ namespace App\Controller;
 use App\Repository\ConfigRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -45,7 +44,6 @@ class LogoutController extends AbstractController
     /**
      * Logout Endpoint.
      */
-    #[Route('/logout', name: 'app_ui_logout')]
     public function logout()
     {
         $this->logger->info("Trigger logout action");

@@ -16,7 +16,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -60,7 +59,6 @@ class TemplateController extends AbstractController
     /**
      * Template Navigate Page.
      */
-    #[Route('/admin/newsletter/preview/{name}', name: 'app_ui_newsletter_preview')]
     public function newsletterPreview(string $name): Response
     {
         $this->logger->info("Render newsletter preview page");

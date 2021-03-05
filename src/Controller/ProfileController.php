@@ -17,7 +17,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -60,7 +59,6 @@ class ProfileController extends AbstractController
     /**
      * Profile Web Page.
      */
-    #[Route('/admin/profile', name: 'app_ui_profile')]
     public function profile(): Response
     {
         $this->logger->info("Render profile page");
@@ -80,7 +78,6 @@ class ProfileController extends AbstractController
     /**
      * Update Profile API Endpoint.
      */
-    #[Route('/admin/api/v1/profile', name: 'app_endpoint_v1_profile', methods: ['POST'])]
     public function profileEndpoint(Request $request): JsonResponse
     {
         $content = $request->getContent();

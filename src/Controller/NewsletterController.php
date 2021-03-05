@@ -22,7 +22,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -67,7 +66,6 @@ class NewsletterController extends AbstractController
     /**
      * Newsletter Web Page.
      */
-    #[Route('/admin/newsletter', name: 'app_ui_newsletter_index')]
     public function newsletterIndex(): Response
     {
         $this->logger->info("Render newsletter index page");
@@ -87,7 +85,6 @@ class NewsletterController extends AbstractController
     /**
      * Newsletter Add Web Page.
      */
-    #[Route('/admin/newsletter/add', name: 'app_ui_newsletter_add')]
     public function newsletterAdd(): Response
     {
         $this->logger->info("Render newsletter add page");
@@ -110,7 +107,6 @@ class NewsletterController extends AbstractController
     /**
      * Newsletter Edit Web Page.
      */
-    #[Route('/admin/newsletter/edit/{id}', name: 'app_ui_newsletter_edit')]
     public function newsletterEdit(int $id): Response
     {
         $this->logger->info(sprintf("Render newsletter with id %s edit page", $id));
@@ -158,7 +154,6 @@ class NewsletterController extends AbstractController
     /**
      * Newsletter View Web Page.
      */
-    #[Route('/admin/newsletter/view/{id}', name: 'app_ui_newsletter_view')]
     public function newsletterView(int $id): Response
     {
         $this->logger->info(sprintf("Render newsletter with id %s view page", $id));
@@ -204,7 +199,6 @@ class NewsletterController extends AbstractController
     /**
      * Newsletter List API Endpoint.
      */
-    #[Route('/admin/api/v1/newsletter', name: 'app_endpoint_v1_newsletter_list', methods: ['GET', 'HEAD'])]
     public function newsletterListEndpoint(Request $request): JsonResponse
     {
         $this->logger->info("Trigger newsletter list v1 endpoint");
@@ -270,7 +264,6 @@ class NewsletterController extends AbstractController
     /**
      * Newsletter Add API Endpoint.
      */
-    #[Route('/admin/api/v1/newsletter', name: 'app_endpoint_v1_newsletter_add', methods: ['POST'])]
     public function newsletterAddEndpoint(Request $request): JsonResponse
     {
         $this->logger->info("Trigger newsletter add v1 endpoint");
@@ -330,7 +323,6 @@ class NewsletterController extends AbstractController
     /**
      * Newsletter Edit API Endpoint.
      */
-    #[Route('/admin/api/v1/newsletter/{id}', name: 'app_endpoint_v1_newsletter_edit', methods: ['PUT'])]
     public function newsletterEditEndpoint(Request $request, int $id): JsonResponse
     {
         $this->logger->info("Trigger newsletter edit v1 endpoint");
@@ -393,7 +385,6 @@ class NewsletterController extends AbstractController
     /**
      * Newsletter Delete API Endpoint.
      */
-    #[Route('/admin/api/v1/newsletter/{id}', name: 'app_endpoint_v1_newsletter_delete', methods: ['DELETE'])]
     public function newsletterDeleteEndpoint(Request $request, int $id): JsonResponse
     {
         $this->logger->info("Trigger newsletter delete v1 endpoint");
@@ -418,7 +409,6 @@ class NewsletterController extends AbstractController
     /**
      * Newsletter Preview API Endpoint.
      */
-    #[Route('/admin/api/v1/newsletter/preview', name: 'app_endpoint_v1_newsletter_preview', methods: ['POST'])]
     public function newsletterPreviewEndpoint(Request $request): JsonResponse
     {
         $this->logger->info("Trigger newsletter add v1 endpoint");

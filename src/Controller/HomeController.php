@@ -23,7 +23,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -73,7 +72,6 @@ class HomeController extends AbstractController
     /**
      * Home Web Page.
      */
-    #[Route('/', name: 'app_ui_home')]
     public function home(): Response
     {
         $this->logger->info("Render home page");
@@ -109,7 +107,6 @@ class HomeController extends AbstractController
     /**
      * Verify Subscriber.
      */
-    #[Route('/verify/{email}/{token}', name: 'app_ui_verify_subscriber')]
     public function verifySubscriber(string $email, string $token): Response
     {
         $this->logger->info(sprintf("Verify subscriber with email %s and token %s", $email, $token));
@@ -148,7 +145,6 @@ class HomeController extends AbstractController
     /**
      * Unsubscribe Page.
      */
-    #[Route('/unsubscribe/{email}/{token}', name: 'app_ui_unsubscribe')]
     public function unsubscribe(string $email, string $token): Response
     {
         $this->logger->info(sprintf("Verify subscriber with email %s and token %s", $email, $token));
@@ -194,7 +190,6 @@ class HomeController extends AbstractController
     /**
      * Subscribe API Endpoint.
      */
-    #[Route('/api/v1/subscribe', name: 'app_endpoint_v1_subscribe', methods: ['POST'])]
     public function subscribeEndpoint(Request $request): JsonResponse
     {
         $this->logger->info("Trigger subscribe v1 endpoint");
@@ -249,7 +244,6 @@ class HomeController extends AbstractController
     /**
      * Unsubscribe API Endpoint.
      */
-    #[Route('/api/v1/unsubscribe', name: 'app_endpoint_v1_unsubscribe', methods: ['POST'])]
     public function unsubscribeEndpoint(Request $request): JsonResponse
     {
         $this->logger->info("Trigger unsubscribe v1 endpoint");

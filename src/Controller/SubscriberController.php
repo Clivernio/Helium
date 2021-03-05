@@ -20,7 +20,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -63,7 +62,6 @@ class SubscriberController extends AbstractController
     /**
      * Subscriber Index Web Page.
      */
-    #[Route('/admin/subscriber', name: 'app_ui_subscriber_index')]
     public function subscriberIndex(): Response
     {
         $this->logger->info("Render subscriber index page");
@@ -83,7 +81,6 @@ class SubscriberController extends AbstractController
     /**
      * Subscriber Add Web Page.
      */
-    #[Route('/admin/subscriber/add', name: 'app_ui_subscriber_add')]
     public function subscriberAdd(): Response
     {
         $this->logger->info("Render subscriber add page");
@@ -103,7 +100,6 @@ class SubscriberController extends AbstractController
     /**
      * Subscriber Edit Web Page.
      */
-    #[Route('/admin/subscriber/edit/{id}', name: 'app_ui_subscriber_edit')]
     public function subscriberEdit(int $id): Response
     {
         $this->logger->info("Render subscriber edit page");
@@ -135,7 +131,6 @@ class SubscriberController extends AbstractController
     /**
      * Subscriber List API Endpoint.
      */
-    #[Route('/admin/api/v1/subscriber', name: 'app_endpoint_v1_subscriber_list', methods: ['GET', 'HEAD'])]
     public function subscriberListEndpoint(Request $request): JsonResponse
     {
         $this->logger->info("Trigger subscriber list v1 endpoint");
@@ -184,7 +179,6 @@ class SubscriberController extends AbstractController
     /**
      * Subscriber Add API Endpoint.
      */
-    #[Route('/admin/api/v1/subscriber', name: 'app_endpoint_v1_subscriber_add', methods: ['POST'])]
     public function subscriberAddEndpoint(Request $request): JsonResponse
     {
         $this->logger->info("Trigger subscriber add v1 endpoint");
@@ -219,7 +213,6 @@ class SubscriberController extends AbstractController
     /**
      * Subscriber Edit API Endpoint.
      */
-    #[Route('/admin/api/v1/subscriber/{id}', name: 'app_endpoint_v1_subscriber_edit', methods: ['PUT'])]
     public function subscriberEditEndpoint(Request $request, int $id): JsonResponse
     {
         $this->logger->info("Trigger subscriber edit v1 endpoint");

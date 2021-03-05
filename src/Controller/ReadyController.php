@@ -13,7 +13,6 @@ use App\Repository\ConfigRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -46,7 +45,6 @@ class ReadyController extends AbstractController
     /**
      * Ready Endpoint.
      */
-    #[Route('/_ready', name: 'app_ready_api_endpoint')]
     public function ready(): JsonResponse
     {
         $this->logger->info("Trigger readiness check");

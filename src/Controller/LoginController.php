@@ -19,7 +19,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -67,7 +66,6 @@ class LoginController extends AbstractController
     /**
      * Login Web Page.
      */
-    #[Route('/login', name: 'app_ui_login')]
     public function login(): Response
     {
         $this->logger->info("Render login page");
@@ -90,7 +88,6 @@ class LoginController extends AbstractController
     /**
      * Login API Endpoint.
      */
-    #[Route('/api/v1/login', name: 'app_endpoint_v1_login', methods: ['POST'])]
     public function loginEndpoint(Request $request): JsonResponse
     {
         $content = $request->getContent();

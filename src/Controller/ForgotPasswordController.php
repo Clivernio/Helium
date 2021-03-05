@@ -19,7 +19,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -67,7 +66,6 @@ class ForgotPasswordController extends AbstractController
     /**
      * Forgot Password Web Page.
      */
-    #[Route('/forgot-password', name: 'app_ui_forgot_password')]
     public function forgotPassword(): Response
     {
         $this->logger->info("Render forgot password page");
@@ -89,7 +87,6 @@ class ForgotPasswordController extends AbstractController
     /**
      * Forgot Password API Endpoint.
      */
-    #[Route('/api/v1/forgot-password', name: 'app_endpoint_v1_forgot_password', methods: ['POST'])]
     public function forgotPasswordEndpoint(Request $request): JsonResponse
     {
         $content = $request->getContent();
