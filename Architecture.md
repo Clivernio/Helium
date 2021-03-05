@@ -3,10 +3,10 @@
     <h3 align="center">Helium</h3>
     <p align="center">Fast, Secure and Reliable Newsletter System, Set up in Minutes.</p>
     <p align="center">
-        <a href="https://github.com/ionsio/Helium/actions/workflows/php.yml">
-            <img src="https://github.com/ionsio/Helium/actions/workflows/php.yml/badge.svg">
+        <a href="https://github.com/Colvern/Helium/actions/workflows/php.yml">
+            <img src="https://github.com/Colvern/Helium/actions/workflows/php.yml/badge.svg">
         </a>
-        <a href="https://github.com/ionsio/Helium/blob/master/LICENSE">
+        <a href="https://github.com/Colvern/Helium/blob/master/LICENSE">
             <img src="https://img.shields.io/badge/LICENSE-MIT-orange.svg">
         </a>
     </p>
