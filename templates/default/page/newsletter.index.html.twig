@@ -47,7 +47,10 @@
                       <td class="text-muted">${newsletter.createdAt}</td>
                       <td class="text-muted">${newsletter.updatedAt}</td>
                       <td>
-                        <a :href="newsletter.editLink">{% trans %}Edit{% endtrans %}</a>
+                        <a :href="newsletter.editLink" class="text-muted">{% trans %}Edit{% endtrans %}</a> -
+                        <a href="#" :endpoint="newsletter.deleteLink" class="text-danger" v-on:click.prevent="deleteNewsletter">
+                          {% trans %}Delete{% endtrans %}
+                        </a>
                       </td>
                     </tr>
                   </tbody>

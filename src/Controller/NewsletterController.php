@@ -243,8 +243,15 @@ class NewsletterController extends AbstractController
                 'deliveryType'   => $outDeliveryType,
                 'createdAt'      => $newsletter->getCreatedAt()->format('Y-m-d H:i:s'),
                 'updatedAt'      => $newsletter->getUpdatedAt()->format('Y-m-d H:i:s'),
-                'editLink'       => $this->generateUrl('app_ui_newsletter_edit', ['id' => $newsletter->getId()]),
-                'viewLink'       => $this->generateUrl('app_ui_newsletter_view', ['id' => $newsletter->getId()]),
+                'editLink'       => $this->generateUrl('app_ui_newsletter_edit', [
+                    'id' => $newsletter->getId(),
+                ]),
+                'viewLink' => $this->generateUrl('app_ui_newsletter_view', [
+                    'id' => $newsletter->getId(),
+                ]),
+                'deleteLink' => $this->generateUrl('app_endpoint_v1_newsletter_delete', [
+                    'id' => $newsletter->getId(),
+                ]),
             ];
         }
 
@@ -381,13 +388,9 @@ class NewsletterController extends AbstractController
 
         $data = json_decode($content);
 
-        if (empty($data->csrf_token) || !$this->isCsrfTokenValid('newsletter-delete-action', $data->csrf_token)) {
-            throw new InvalidRequest('Invalid request');
-        }
-
         $this->logger->info(sprintf("Delete newsletter with id %s", $id));
 
-        $this->newsletterModule->deleteById($id);
+        $this->newsletterModule->deleteOneById($id);
 
         $this->logger->info(sprintf("Newsletter with id %s deleted", $id));
 

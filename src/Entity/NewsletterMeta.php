@@ -31,7 +31,7 @@ class NewsletterMeta
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $value = null;
 
-    #[ORM\OneToOne(targetEntity: Newsletter::class, mappedBy: 'newsletter')]
+    #[ORM\ManyToOne(targetEntity: Newsletter::class, inversedBy: 'metas')]
     private $newsletter;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]

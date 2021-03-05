@@ -718,6 +718,29 @@ helium_app.newsletter_index_screen = (Vue, axios, $) => {
                         toastr.clear();
                         toastr.error(error.response.data.errorMessage);
                     });
+            },
+
+            deleteNewsletter(event) {
+                event.preventDefault();
+
+                let _self = $(event.target);
+
+                if (window.confirm("Are you sure?")) {
+                    axios.delete(_self.attr("endpoint"))
+                        .then((response) => {
+                            if (response.status >= 200) {
+                                toastr.clear();
+                                toastr.info(response.data.successMessage);
+                            }
+                            setTimeout(() => {
+                                location.reload();
+                            }, 3000);
+                        })
+                        .catch((error) => {
+                            toastr.clear();
+                            toastr.error(error.response.data.errorMessage);
+                        });
+                }
             }
         },
         mounted() {
