@@ -111,7 +111,7 @@ class NewsletterController extends AbstractController
     #[Route('/admin/newsletter/edit/{id}', name: 'app_ui_newsletter_edit')]
     public function newsletterEdit(int $id): Response
     {
-        $this->logger->info("Render newsletter edit page");
+        $this->logger->info(sprintf("Render newsletter with id %s edit page", $id));
 
         $newsletter = $this->newsletterModule->findOneById($id);
 
@@ -159,7 +159,7 @@ class NewsletterController extends AbstractController
     #[Route('/admin/newsletter/view/{id}', name: 'app_ui_newsletter_view')]
     public function newsletterView(int $id): Response
     {
-        $this->logger->info("Render newsletter view page");
+        $this->logger->info(sprintf("Render newsletter with id %s view page", $id));
 
         $newsletter = $this->newsletterModule->findOneById($id);
 
