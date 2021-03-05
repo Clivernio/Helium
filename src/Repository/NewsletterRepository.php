@@ -113,7 +113,7 @@ class NewsletterRepository extends ServiceEntityRepository
     public function countAll(string $deliveryStatus = '', string $deliveryType = ''): ?int
     {
         if (!empty($deliveryStatus) && !empty($deliveryType)) {
-            return intval($this->createQueryBuilder('s')
+            return (int) ($this->createQueryBuilder('s')
                 ->where('s.deliveryStatus = :deliveryStatus')
                 ->andWhere('s.deliveryType = :deliveryType')
                 ->setParameter('deliveryStatus', $deliveryStatus)
@@ -124,7 +124,7 @@ class NewsletterRepository extends ServiceEntityRepository
         }
 
         if (!empty($deliveryStatus)) {
-            return intval($this->createQueryBuilder('s')
+            return (int) ($this->createQueryBuilder('s')
                 ->where('s.deliveryStatus = :deliveryStatus')
                 ->setParameter('deliveryStatus', $deliveryStatus)
                 ->select('count(s.id)')
@@ -133,7 +133,7 @@ class NewsletterRepository extends ServiceEntityRepository
         }
 
         if (!empty($deliveryType)) {
-            return intval($this->createQueryBuilder('s')
+            return (int) ($this->createQueryBuilder('s')
                 ->where('s.deliveryType = :deliveryType')
                 ->setParameter('deliveryType', $deliveryType)
                 ->select('count(s.id)')
@@ -141,7 +141,7 @@ class NewsletterRepository extends ServiceEntityRepository
                 ->getSingleScalarResult());
         }
 
-        return intval($this->createQueryBuilder('s')
+        return (int) ($this->createQueryBuilder('s')
             ->select('count(s.id)')
             ->getQuery()
             ->getSingleScalarResult());
