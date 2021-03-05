@@ -14,7 +14,7 @@
 
 ### Deployment:
 
-To deploy `Helium`, please use [this Ansible Playbook.](https://github.com/colvern/Oxygen)
+To deploy `Helium`, please use [this Ansible Playbook.](https://github.com/Colvern/Oxygen)
 
 
 ### Versioning
