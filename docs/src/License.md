@@ -1,3 +1,5 @@
 ### License
 
-This project is released under codecanyon standard and extended licenses. For more info, please check this link [link](https://codecanyon.net/licenses/standard).
+© 2022, Clivern. Released under [MIT License](https://opensource.org/licenses/mit-license.php).
+
+**Helium** is authored and maintained by [@clivern](http://github.com/Clivern).

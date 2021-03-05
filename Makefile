@@ -154,23 +154,6 @@ watch:
 	@$(php) bin/console watch
 
 
-## release: Release the project
-.PHONY: release
-release:
-	@echo ">> ============= Release The Project ============= <<"
-	cp -r ./docs/book/* ./release/out/1.0.0/documentation/
-
-
-## code: Release the code
-.PHONY: code
-code:
-	@echo ">> ============= Release The Code ============= <<"
-	zip -r code.zip "./" -x "release/*" -x ".git/*" -x "vendor/*" -x "var/*" -x "screenshots/*"
-	zip -r screenshots.zip "./screenshots"
-	mv screenshots.zip ./release/
-	mv code.zip ./release/helium/1.0.0/
-
-
 ## ci: Run CI Checks
 .PHONY: ci
 ci: config purge composer lint test

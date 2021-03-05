@@ -77,7 +77,7 @@ app_user: appmgmt
 app_group: appmgmt
 
 app_version: 1.0.0
-git_repo: git@github.com:Colvern/Helium.git
+git_repo: git@github.com:Clivern/Helium.git
 
 workers_counts: 1
 
