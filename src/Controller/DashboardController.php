@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Module\Statistics as StatisticsModule;
 use App\Repository\ConfigRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,11 +37,13 @@ class DashboardController extends AbstractController
     public function __construct(
         LoggerInterface $logger,
         ConfigRepository $configRepository,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        StatisticsModule $statisticsModule
     ) {
         $this->logger           = $logger;
         $this->translator       = $translator;
         $this->configRepository = $configRepository;
+        $this->statisticsModule = $statisticsModule;
     }
 
     /**

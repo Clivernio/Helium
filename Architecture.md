@@ -52,3 +52,21 @@ Basically `Helium` should run as three processes:
 - `UNSUBSCRIBED`: The user unsubscribed by using the unsubscribe link sent on the email.
 - `TRASHED`: Not usable right now.
 - `REMOVED`: Not usable, used for delete requests.
+
+
+### Metrics Collected:
+
+- Total Subscribers.
+- Active Subscribers.
+- Non Active Subscribers.
+- Newsletters On Hold
+- Draft Newsletters.
+- Scheduled Newsletters.
+- Newsletters Pending.
+- Newsletters In Progress.
+- Newsletters Sent Out.
+- Newsletter Sending Out Progress. This measured for each newsletter.
+- New Subscribers Over Time.
+- New Active Subscribers Over Time.
+- Non Active Subscribers Over Time.
+- Newsletters Sent Out Over Time.

@@ -102,11 +102,60 @@ class NewsletterRepository extends ServiceEntityRepository
      *
      * @return int
      */
-    public function countAll(): ?int
+    public function countAll(string $deliveryStatus = '', string $deliveryType = ''): ?int
     {
+        if (!empty($deliveryStatus) && !empty($deliveryType)) {
+            return $this->createQueryBuilder('s')
+                ->where('s.deliveryStatus = :deliveryStatus')
+                ->andWhere('s.deliveryType = :deliveryType')
+                ->setParameter('deliveryStatus', $deliveryStatus)
+                ->setParameter('deliveryType', $deliveryType)
+                ->select('count(s.id)')
+                ->getQuery()
+                ->getSingleScalarResult();
+        }
+
+        if (!empty($deliveryStatus)) {
+            return $this->createQueryBuilder('s')
+                ->where('s.deliveryStatus = :deliveryStatus')
+                ->setParameter('deliveryStatus', $deliveryStatus)
+                ->select('count(s.id)')
+                ->getQuery()
+                ->getSingleScalarResult();
+        }
+
+        if (!empty($deliveryType)) {
+            return $this->createQueryBuilder('s')
+                ->where('s.deliveryType = :deliveryType')
+                ->setParameter('deliveryType', $deliveryType)
+                ->select('count(s.id)')
+                ->getQuery()
+                ->getSingleScalarResult();
+        }
+
         return $this->createQueryBuilder('s')
             ->select('count(s.id)')
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    /**
+     * Get Newsletters Sent Out Over Time.
+     */
+    public function getNewslettersSentOutOverTime(int $days = 7): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = sprintf("SELECT COUNT(*) AS count, DATE(created_at) AS date
+            FROM he_newsletter WHERE created_at >= DATE_SUB(curdate(), INTERVAL %s DAY)
+            AND deliveryStatus = :deliveryStatus
+            GROUP BY date", $days);
+
+        $stmt      = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['deliveryStatus' => NewsletterRepository::FINISHED_STATUS]);
+
+        $result = $resultSet->fetchAllAssociative();
+
+        return !empty($result) ? $result[0] : [];
     }
 }

@@ -118,4 +118,33 @@ class SubscriberRepository extends ServiceEntityRepository
 
         return $this->findBy(['status' => $status], $order, $limit, $offset);
     }
+
+    /**
+     * Get Subscribers Over Time.
+     */
+    public function getSubscriberOverTime(int $days = 7, string $status = ""): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql1 = sprintf("SELECT COUNT(*) AS count, DATE(created_at) AS date
+            FROM he_subscriber WHERE created_at >= DATE_SUB(curdate(), INTERVAL %s DAY)
+            AND status = :status
+            GROUP BY date", $days);
+
+        $sql2 = sprintf("SELECT COUNT(*) AS count, DATE(created_at) AS date
+            FROM he_subscriber WHERE created_at >= DATE_SUB(curdate(), INTERVAL %s DAY)
+            GROUP BY date", $days);
+
+        if (!empty($status)) {
+            $stmt      = $conn->prepare($sql1);
+            $resultSet = $stmt->executeQuery(['status' => $status]);
+        } else {
+            $stmt      = $conn->prepare($sql2);
+            $resultSet = $stmt->executeQuery([]);
+        }
+
+        $result = $resultSet->fetchAllAssociative();
+
+        return !empty($result) ? $result[0] : [];
+    }
 }

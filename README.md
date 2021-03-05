@@ -24,6 +24,14 @@ $ docker-compose up -d
 ```
 
 
+### Roadmap
+
+- URL Shortening & Clicks Tracking.
+- Archive with All Newsletters.
+- RSS Feed.
+- Better than YAML to Build Newsletters.
+
+
 ### Versioning
 
 For transparency into our release cycle and in striving to maintain backward compatibility, Helium is maintained under the [Semantic Versioning guidelines](https://semver.org/) and release process is predictable and business-friendly.
