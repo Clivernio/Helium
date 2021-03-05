@@ -21,6 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -108,9 +109,24 @@ class NewsletterController extends AbstractController
      * Newsletter Edit Web Page.
      */
     #[Route('/admin/newsletter/edit/{id}', name: 'app_ui_newsletter_edit')]
-    public function newsletterEdit(): Response
+    public function newsletterEdit(int $id): Response
     {
         $this->logger->info("Render newsletter edit page");
+
+        $newsletter = $this->newsletterModule->findOneById($id);
+
+        if (empty($newsletter)) {
+            throw new NotFoundHttpException(sprintf("Newsletter with id %s not found", $id));
+        }
+
+        $datetime = $newsletter->getDeliveryTime();
+        $date     = (new \DateTimeImmutable())->format("Y-m-d");
+        $time     = (new \DateTimeImmutable())->format("H:i");
+
+        if (!empty($datetime)) {
+            $date = $datetime->format("Y-m-d");
+            $time = $datetime->format("H:i");
+        }
 
         return $this->render('page/newsletter.edit.html.twig', [
             'title' => $this->translator->trans("Newsletters") . " | "
@@ -118,7 +134,18 @@ class NewsletterController extends AbstractController
             'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
             'templates'      => $this->newsletterModule->getTemplates(),
             'tmp_id'         => Uuid::uuid4()->toString(),
-            'user'           => [
+            'newsletter'     => [
+                'id'             => $id,
+                'name'           => $newsletter->getName(),
+                'email'          => $newsletter->getSender(),
+                'deliveryType'   => $newsletter->getDeliveryType(),
+                'deliveryStatus' => $newsletter->getDeliveryStatus(),
+                'deliveryDate'   => $date,
+                'deliveryTime'   => $time,
+                'templateName'   => $newsletter->getTemplate(),
+                'templateInputs' => $newsletter->getContent(),
+            ],
+            'user' => [
                 'first_name' => $this->getUser()->getFirstName(),
                 'last_name'  => $this->getUser()->getLastName(),
                 'job'        => $this->getUser()->getJob(),
@@ -130,18 +157,103 @@ class NewsletterController extends AbstractController
      * Newsletter View Web Page.
      */
     #[Route('/admin/newsletter/view/{id}', name: 'app_ui_newsletter_view')]
-    public function newsletterView(): Response
+    public function newsletterView(int $id): Response
     {
         $this->logger->info("Render newsletter view page");
+
+        $newsletter = $this->newsletterModule->findOneById($id);
+
+        if (empty($newsletter)) {
+            throw new NotFoundHttpException(sprintf("Newsletter with id %s not found", $id));
+        }
+
+        $datetime = $newsletter->getDeliveryTime();
+        $date     = (new \DateTimeImmutable())->format("Y-m-d");
+        $time     = (new \DateTimeImmutable())->format("H:i");
+
+        if (!empty($datetime)) {
+            $date = $datetime->format("Y-m-d");
+            $time = $datetime->format("H:i");
+        }
 
         return $this->render('page/newsletter.view.html.twig', [
             'title' => $this->translator->trans("Newsletters") . " | "
             . $this->configRepository->findValueByName("he_app_name", "Helium"),
             'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
-            'user'           => [
+            'newsletter'     => [
+                'id'             => $id,
+                'name'           => $newsletter->getName(),
+                'email'          => $newsletter->getSender(),
+                'deliveryType'   => $newsletter->getDeliveryType(),
+                'deliveryStatus' => $newsletter->getDeliveryStatus(),
+                'deliveryDate'   => $date,
+                'deliveryTime'   => $time,
+                'templateName'   => $newsletter->getTemplate(),
+                'templateInputs' => $newsletter->getContent(),
+            ],
+            'user' => [
                 'first_name' => $this->getUser()->getFirstName(),
                 'last_name'  => $this->getUser()->getLastName(),
                 'job'        => $this->getUser()->getJob(),
+            ],
+        ]);
+    }
+
+    /**
+     * Newsletter List API Endpoint.
+     */
+    #[Route('/api/v1/newsletter', name: 'app_endpoint_v1_newsletter_list', methods: ['GET', 'HEAD'])]
+    public function newsletterListEndpoint(Request $request): JsonResponse
+    {
+        $this->logger->info("Trigger newsletter list v1 endpoint");
+
+        $limit  = !empty($request->get("limit")) ? (int) ($request->get("limit")) : 20;
+        $offset = !empty($request->get("offset")) ? (int) ($request->get("offset")) : 0;
+
+        $result      = [];
+        $newsletters = $this->newsletterModule->list($limit, $offset);
+
+        foreach ($newsletters as $newsletter) {
+            $outDeliveryStatus = str_replace([
+                NewsletterRepository::ON_HOLD_STATUS,
+                NewsletterRepository::PENDING_STATUS,
+                NewsletterRepository::IN_PROGRESS_STATUS,
+                NewsletterRepository::FINISHED_STATUS,
+            ], [
+                $this->translator->trans("On Hold"),
+                $this->translator->trans("Pending"),
+                $this->translator->trans("In Progress"),
+                $this->translator->trans("Finished"),
+            ], $newsletter->getDeliveryStatus());
+
+            $outDeliveryType = str_replace([
+                NewsletterRepository::DRAFT_TYPE,
+                NewsletterRepository::NOW_TYPE,
+                NewsletterRepository::SCHEDULED_TYPE,
+            ], [
+                $this->translator->trans("Draft"),
+                $this->translator->trans("Now"),
+                $this->translator->trans("Scheduled"),
+            ], $newsletter->getDeliveryType());
+
+            $result[] = [
+                'id'             => $newsletter->getId(),
+                'name'           => $newsletter->getName(),
+                'deliveryStatus' => $outDeliveryStatus,
+                'deliveryType'   => $outDeliveryType,
+                'createdAt'      => $newsletter->getCreatedAt()->format('Y-m-d H:i:s'),
+                'updatedAt'      => $newsletter->getUpdatedAt()->format('Y-m-d H:i:s'),
+                'editLink'       => $this->generateUrl('app_ui_newsletter_edit', ['id' => $newsletter->getId()]),
+                'viewLink'       => $this->generateUrl('app_ui_newsletter_view', ['id' => $newsletter->getId()]),
+            ];
+        }
+
+        return $this->json([
+            'newsletters' => $result,
+            '_metadata'   => [
+                'limit'      => $limit,
+                'offset'     => $offset,
+                'totalCount' => $this->newsletterModule->countAll(),
             ],
         ]);
     }
@@ -168,7 +280,7 @@ class NewsletterController extends AbstractController
         }
 
         if (NewsletterRepository::SCHEDULED_TYPE === $data->deliveryType) {
-            $deliveryTime = new DateTimeImmutable(sprintf(
+            $deliveryTime = new \DateTimeImmutable(sprintf(
                 "%s %s",
                 $data->deliveryDate,
                 $data->deliveryTime
@@ -223,7 +335,30 @@ class NewsletterController extends AbstractController
 
         $this->logger->info(sprintf("Update newsletter with id %s", $id));
 
-        // ..
+        if (NewsletterRepository::SCHEDULED_TYPE === $data->deliveryType) {
+            $deliveryTime = new \DateTimeImmutable(sprintf(
+                "%s %s",
+                $data->deliveryDate,
+                $data->deliveryTime
+            ));
+            $deliveryStatus = NewsletterRepository::ON_HOLD_STATUS;
+        } elseif (NewsletterRepository::DRAFT_TYPE === $data->deliveryType) {
+            $deliveryTime   = new \DateTimeImmutable();
+            $deliveryStatus = NewsletterRepository::ON_HOLD_STATUS;
+        } elseif (NewsletterRepository::NOW_TYPE === $data->deliveryType) {
+            $deliveryTime   = new \DateTimeImmutable();
+            $deliveryStatus = NewsletterRepository::PENDING_STATUS;
+        }
+
+        $this->newsletterModule->edit($id, [
+            'name'           => $data->name,
+            'template'       => $data->templateName,
+            'content'        => $data->templateInputs,
+            'deliveryStatus' => $deliveryStatus,
+            'deliveryType'   => $data->deliveryType,
+            'deliveryTime'   => $deliveryTime,
+            'sender'         => $data->email,
+        ]);
 
         $this->logger->info(sprintf("Newsletter with id %s updated", $id));
 
@@ -289,11 +424,11 @@ class NewsletterController extends AbstractController
         $value = json_encode([
             'templateName'   => $data->templateName,
             'templateInputs' => $data->templateInputs,
-            'datetime'       => new \DateTimeImmutable(),
+            'date'           => (new \DateTimeImmutable())->format('Y-m-d'),
             'type'           => 'newsletter_cached_data',
         ]);
 
-        // @TODO: cleanup old cached data
+        $this->newsletterModule->cleanupCachedData();
 
         if (empty($config)) {
             $config = Config::fromArray([

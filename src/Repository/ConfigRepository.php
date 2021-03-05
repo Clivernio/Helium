@@ -83,10 +83,14 @@ class ConfigRepository extends ServiceEntityRepository
     }
 
     /**
-     * Find options list by keys.
+     * Find options with a value containing a text.
      */
-    public function findMany(array $keys): array
+    public function findManyLike(string $value): array
     {
-        return [];
+        return $this->createQueryBuilder('s')
+            ->where('s.value LIKE :value')
+            ->setParameter('value', $value)
+            ->getQuery()
+            ->getResult();
     }
 }

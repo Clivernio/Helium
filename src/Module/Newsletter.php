@@ -49,11 +49,19 @@ class Newsletter
     }
 
     /**
+     * Find a Newsletter by ID.
+     */
+    public function findOneById(int $id): NewsletterEntity
+    {
+        return $this->newsletterRepository->findOneByID($id);
+    }
+
+    /**
      * Delete a Newsletter by ID.
      */
     public function deleteOneById(int $id): void
     {
-        $newsletter = $this->newsletterRepository->findOneByID($id);
+        $newsletter = $this->findOneById($id);
 
         if (empty($newsletter)) {
             throw new ResourceNotFound(sprintf("Newsletter with id %s not found", $id));
@@ -107,7 +115,7 @@ class Newsletter
         }
 
         if (!empty($data['content'])) {
-            $newsletter->setName($data['content']);
+            $newsletter->setContent($data['content']);
         }
 
         if (!empty($data['sender'])) {
@@ -128,6 +136,10 @@ class Newsletter
 
         if (!empty($data['deliveryTime'])) {
             $newsletter->setDeliveryTime($data['deliveryTime']);
+        }
+
+        if (null === $data['deliveryTime']) {
+            $newsletter->setDeliveryTime(nulll);
         }
 
         $this->newsletterRepository->save($newsletter, true);
@@ -180,5 +192,43 @@ class Newsletter
         }
 
         return $slug;
+    }
+
+    /**
+     * Cleanup Cached Data.
+     */
+    public function cleanupCachedData()
+    {
+        $configs = $this->configRepository->findManyLike('newsletter_cached_data');
+
+        foreach ($configs as $config) {
+            $data = json_decode($config->getValue());
+
+            // Delete data older that two days ago
+            if ((new \DateTimeImmutable($data->date))->format('Y-m-d')
+             < (new \DateTimeImmutable())->modify("-2 days")->format('Y-m-d')) {
+                $this->configRepository->remove($config, true);
+            }
+        }
+    }
+
+    /**
+     * Count Newsletter By Status.
+     */
+    public function countAll(): ?int
+    {
+        return $this->newsletterRepository->countAll();
+    }
+
+    /**
+     * List Newsletter.
+     */
+    public function list(int $limit = 20, int $offset = 0): array
+    {
+        return $this->newsletterRepository->findMany(
+            ['createdAt' => 'DESC'],
+            $limit,
+            $offset
+        );
     }
 }

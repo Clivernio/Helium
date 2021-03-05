@@ -72,7 +72,7 @@ class NewsletterRepository extends ServiceEntityRepository
     /**
      * Find a Newsletter By ID.
      */
-    public function findOneByID(int $id): ?Subscriber
+    public function findOneByID(int $id): ?Newsletter
     {
         $newsletter = $this->findOneBy(['id' => $id]);
 
@@ -82,10 +82,31 @@ class NewsletterRepository extends ServiceEntityRepository
     /**
      * Find a Newsletter By Slug.
      */
-    public function findOneBySlug(string $slug): ?Subscriber
+    public function findOneBySlug(string $slug): ?Newsletter
     {
         $newsletter = $this->findOneBy(['slug' => $slug]);
 
         return !empty($newsletter) ? $newsletter : null;
+    }
+
+    /**
+     * Find Many Newsletters.
+     */
+    public function findMany(array $order, int $limit, int $offset): array
+    {
+        return $this->findBy([], $order, $limit, $offset);
+    }
+
+    /**
+     * Count Newsletters.
+     *
+     * @return int
+     */
+    public function countAll(): ?int
+    {
+        return $this->createQueryBuilder('s')
+            ->select('count(s.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }

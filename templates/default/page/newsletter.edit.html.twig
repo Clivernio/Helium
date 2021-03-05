@@ -19,18 +19,58 @@
     <!-- Page body -->
     <div class="page-body">
       <div class="container-xl" id="app_newsletter_edit">
-	      <form class="card" action="{{ path('app_endpoint_v1_newsletter_edit') }}" v-on:submit.prevent="newsletterEditAction" method="post" data-redirect-url="{{ path('app_ui_newsletter_index') }}">
-	        <div class="card-body">
-	      	  <input type="hidden" name="csrf_token" value="{{ csrf_token('newsletter-edit-action') }}"/>
-            <input type="hidden" name="_tmp_id" value="{{ tmp_id }}">
-	      	  <!---/////--->
-	        </div>
-	        <div class="card-footer text-end">
-	          <button type="submit" class="btn btn-primary">
-	            {% trans %}Submit{% endtrans %}
-	          </button>
-	        </div>
-	      </form>
+        <form class="card" action="{{ path('app_endpoint_v1_newsletter_edit', {'id': newsletter.id}) }}" v-on:submit.prevent="newsletterEditAction" method="post" data-redirect-url="{{ path('app_ui_newsletter_index') }}" data-sync-preview="{{ path('app_endpoint_v1_newsletter_preview') }}">
+          <div class="card-body">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token('newsletter-update-action') }}"/>
+            <input type="hidden" name="tempId" value="{{ tmp_id }}">
+            <div class="mb-3">
+              <label class="form-label required">{% trans %}Name{% endtrans %}</label>
+              <input type="text" class="form-control" name="name" placeholder="PHP Weekly Newsletter 1" value="{{ newsletter.name }}" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label required">{% trans %}From Address{% endtrans %}</label>
+              <input type="email" class="form-control" name="email" placeholder="hello@domain.com" value="{{ newsletter.email }}" required>
+            </div>
+            <div class="mb-3">
+              <div class="form-label required">{% trans %}Delivery Type{% endtrans %}</div>
+              <select name="deliveryType" class="form-select" v-model="deliveryType" v-on:change="deliveryTypeChange" required>
+                <option value="">{% trans %}Select a value{% endtrans %}</option>
+                <option value="DRAFT" {% if newsletter.deliveryType == "DRAFT" %} selected {% endif %}>{% trans %}Draft{% endtrans %}</option>
+                <option value="NOW" {% if newsletter.deliveryType == "NOW" %} selected {% endif %}>{% trans %}Now{% endtrans %}</option>
+                <option value="SCHEDULED" {% if newsletter.deliveryType == "SCHEDULED" %} selected {% endif %}>{% trans %}Scheduled{% endtrans %}</option>
+              </select>
+            </div>
+            <div class="mb-3" v-show="showDeliveryTime">
+              <label class="form-label required">{% trans %}Date (Year-month-day){% endtrans %}</label>
+              <input type="date" name="deliveryDate" class="form-control" value="{{ newsletter.deliveryDate }}" required/>
+            </div>
+            <div class="mb-3" v-show="showDeliveryTime">
+              <label class="form-label required">{% trans %}Hour (H:M PM/AM){% endtrans %}</label>
+              <input type="time" name="deliveryTime" class="form-control" placeholder="00:00 PM" value="{{ newsletter.deliveryTime }}" required />
+            </div>
+            <div class="mb-3">
+              <div class="form-label required">{% trans %}Template{% endtrans %}</div>
+              <select name="templateName" class="form-select" v-model="templateName" v-on:change="templateNameChange" required>
+                <option value="">{% trans %}Select a template{% endtrans %}</option>
+                {% for template in templates %}
+                  <option value="{{ template.name }}" data-default="{{ template.defaults }}" {% if newsletter.templateName == template.name %} selected {% endif %}>{{ template.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label required">{% trans %}Template Inputs{% endtrans %}</label>
+              <textarea name="templateInputs" rows="5" class="form-control" v-model="templateInputs" v-on:change="templateInputsChange" placeholder="{% trans %}The inputs in a YAML format{% endtrans %}">{{ newsletter.templateInputs }}</textarea>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a href="{{ path('app_ui_newsletter_preview', {name: tmp_id}) }}" target="_blank" class="btn btn-secondary" v-show="showPreview">
+              {% trans %}Preview{% endtrans %}
+            </a>
+            <button type="submit" class="btn btn-primary">
+              {% trans %}Submit{% endtrans %}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
 {% endblock %}

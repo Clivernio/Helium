@@ -28,13 +28,37 @@
           <div class="col-12">
             <div class="card">
               <div class="table-responsive">
-
+                <table class="table table-vcenter card-table table-striped">
+                  <thead>
+                    <tr>
+                      <th>{% trans %}Name{% endtrans %}</th>
+                      <th>{% trans %}Delivery Status{% endtrans %}</th>
+                      <th>{% trans %}Delivery Type{% endtrans %}</th>
+                      <th>{% trans %}Created At{% endtrans %}</th>
+                      <th>{% trans %}Updated At{% endtrans %}</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="newsletter in newsletters">
+                      <td>${newsletter.name}</td>
+                      <td class="text-muted">${newsletter.deliveryStatus}</td>
+                      <td class="text-muted">${newsletter.deliveryType}</td>
+                      <td class="text-muted">${newsletter.createdAt}</td>
+                      <td class="text-muted">${newsletter.updatedAt}</td>
+                      <td>
+                        <a :href="newsletter.editLink">{% trans %}Edit{% endtrans %}</a> -
+                        <a :href="newsletter.viewLink">{% trans %}View{% endtrans %}</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
           <br/>
           <div class="col-12 text-center" v-show="showLoad">
-            <button v-on:click.prevent="getNextNewsletters" class="btn btn-light">{% trans %}Load More!{% endtrans %}</button>
+            <button v-on:click.prevent="getNextNewsletter" class="btn btn-light">{% trans %}Load More!{% endtrans %}</button>
           </div>
         </div>
       </div>

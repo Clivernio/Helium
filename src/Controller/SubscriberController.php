@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Exception\InvalidRequest;
-use App\Exception\ResourceNotFound;
 use App\Module\Subscriber as SubscriberModule;
 use App\Repository\ConfigRepository;
 use App\Repository\SubscriberRepository;
@@ -20,6 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -111,7 +111,7 @@ class SubscriberController extends AbstractController
         $subscriber = $this->subscriberModule->findOneById($id);
 
         if (empty($subscriber)) {
-            throw new ResourceNotFound(sprintf("Subscriber with id %s not found", $id));
+            throw new NotFoundHttpException(sprintf("Subscriber with id %s not found", $id));
         }
 
         return $this->render('page/subscriber.edit.html.twig', [

@@ -47,7 +47,7 @@ class Newsletter
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $content = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $deliveryTime = null;
 
     #[ORM\OneToMany(targetEntity: NewsletterMeta::class, mappedBy: 'newsletter', cascade: ['ALL'])]
@@ -205,7 +205,7 @@ class Newsletter
      *
      * @return DateTimeImmutable
      */
-    public function setDeliveryTime(\DateTimeImmutable $deliveryTime): self
+    public function setDeliveryTime(?\DateTimeImmutable $deliveryTime): self
     {
         $this->deliveryTime = $deliveryTime;
 
