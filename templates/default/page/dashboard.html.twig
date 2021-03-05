@@ -144,7 +144,7 @@
                   <table class="table table-vcenter">
                     <thead>
                       <tr>
-                        <th>{% trans %}Subscriber{% endtrans %}</th>
+                        <th>{% trans %}Latest Subscribers{% endtrans %}</th>
                         <th>{% trans %}Date{% endtrans %}</th>
                       </tr>
                     </thead>
@@ -198,7 +198,7 @@
                   <table class="table table-vcenter">
                     <thead>
                       <tr>
-                        <th>{% trans %}Subscriber{% endtrans %}</th>
+                        <th>{% trans %}Latest Subscribers{% endtrans %}</th>
                         <th>{% trans %}Date{% endtrans %}</th>
                       </tr>
                     </thead>
@@ -388,7 +388,7 @@
                   <table class="table table-vcenter">
                     <thead>
                       <tr>
-                        <th>{% trans %}Subscriber{% endtrans %}</th>
+                        <th>{% trans %}Latest Subscribers{% endtrans %}</th>
                         <th>{% trans %}Date{% endtrans %}</th>
                       </tr>
                     </thead>
@@ -442,7 +442,7 @@
                   <table class="table table-vcenter">
                     <thead>
                       <tr>
-                        <th>{% trans %}Subscriber{% endtrans %}</th>
+                        <th>{% trans %}Latest Subscribers{% endtrans %}</th>
                         <th>{% trans %}Date{% endtrans %}</th>
                       </tr>
                     </thead>
@@ -496,7 +496,7 @@
                   <table class="table table-vcenter">
                     <thead>
                       <tr>
-                        <th>{% trans %}Newsletter{% endtrans %}</th>
+                        <th>{% trans %}Latest Newsletters{% endtrans %}</th>
                         <th>{% trans %}Date{% endtrans %}</th>
                       </tr>
                     </thead>
@@ -558,7 +558,7 @@
       			curve: "smooth",
       		},
       		series: [{
-      			name: "Subscribers",
+      			name: "{% trans %}Subscribers{% endtrans %}",
       			data: [
               {% for subscriber in statistics.subscribers_over_time %}
                 {{ subscriber.count }},
@@ -631,7 +631,7 @@
             curve: "smooth",
           },
           series: [{
-            name: "Subscribers",
+            name: "{% trans %}Subscribers{% endtrans %}",
             data: [
               {% for subscriber in statistics.active_subscribers_over_time %}
                 {{ subscriber.count }},
@@ -704,7 +704,7 @@
             curve: "smooth",
           },
           series: [{
-            name: "Subscribers",
+            name: "{% trans %}Subscribers{% endtrans %}",
             data: [
               {% for subscriber in statistics.non_active_subscribers_over_time %}
                 {{ subscriber.count }},
@@ -777,7 +777,7 @@
             curve: "smooth",
           },
           series: [{
-            name: "Subscribers",
+            name: "{% trans %}Subscribers{% endtrans %}",
             data: [
               {% for subscriber in statistics.pending_subscribers_over_time %}
                 {{ subscriber.count }},
@@ -850,7 +850,7 @@
             curve: "smooth",
           },
           series: [{
-            name: "Newsletters",
+            name: "{% trans %}Newsletters{% endtrans %}",
             data: [
               {% for subscriber in statistics.newsletters_sentout_over_time %}
                 {{ subscriber.count }},

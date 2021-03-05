@@ -32,6 +32,9 @@ class DashboardController extends AbstractController
     /** @var TranslatorInterface */
     private $translator;
 
+    /** @var StatisticsModule */
+    private $statisticsModule;
+
     /**
      * Class Constructor.
      */
@@ -80,8 +83,11 @@ class DashboardController extends AbstractController
                 'non_active_subscribers_over_time' => $this->statisticsModule->getNonActiveSubscribersOverTime(),
                 'pending_subscribers_over_time'    => $this->statisticsModule->getPendingSubscribersOverTime(),
                 'newsletters_sentout_over_time'    => $this->statisticsModule->getNewslettersSentOutOverTime(),
-                'latest_subscribers'               => $this->statisticsModule->getLatestSubscribers("", 10),
-                'latest_active_subscribers'        => $this->statisticsModule->getLatestSubscribers(
+                'latest_subscribers'               => $this->statisticsModule->getLatestSubscribers(
+                    "",
+                    10
+                ),
+                'latest_active_subscribers' => $this->statisticsModule->getLatestSubscribers(
                     SubscriberRepository::SUBSCRIBED,
                     10
                 ),
