@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ea99ebe9ad08bc5b798482d312514d86",
+    "content-hash": "493a7d10295c41d6fee0c9533f1a8099",
     "packages": [
         {
             "name": "async-aws/core",
@@ -4779,77 +4779,6 @@
                 }
             ],
             "time": "2022-05-10T14:24:36+00:00"
-        },
-        {
-            "name": "symfony/oh-my-smtp-mailer",
-            "version": "v5.4.11",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/oh-my-smtp-mailer.git",
-                "reference": "254e26005b7d47ff4143be89cf533193c180cd3e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/oh-my-smtp-mailer/zipball/254e26005b7d47ff4143be89cf533193c180cd3e",
-                "reference": "254e26005b7d47ff4143be89cf533193c180cd3e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2.5",
-                "psr/event-dispatcher": "^1",
-                "symfony/mailer": "^5.3.0|^6.0"
-            },
-            "require-dev": {
-                "symfony/http-client": "^4.4|^5.0|^6.0"
-            },
-            "type": "symfony-mailer-bridge",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Mailer\\Bridge\\OhMySmtp\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                },
-                {
-                    "name": "Paul Oms",
-                    "homepage": "https://ohmysmtp.com"
-                }
-            ],
-            "description": "Symfony OhMySMTP Mailer Bridge",
-            "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/oh-my-smtp-mailer/tree/v5.4.11"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "abandoned": "symfony/mail-pace-mailer",
-            "time": "2022-06-27T16:58:25+00:00"
         },
         {
             "name": "symfony/password-hasher",
