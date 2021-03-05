@@ -22,7 +22,6 @@ Here is the possbile values:
 - `deliveryType == DRAFT`: the newsletter still not finished yet.
 - `deliveryType == NOW`: Worker should start sending the newsletter right away.
 - `deliveryType == SCHEDULED && deliveryTime is set`: Worker should start sending the newsletter when `deliveryTime` is reached.
-
 - `deliveryStatus == ON_HOLD`: Newsletter sending is blocked. mostly if `deliveryType == DRAFT` or `deliveryType == SCHEDULED && deliveryTime is set`
 - `deliveryStatus == PENDING`: Newsletter sending is pending to be picked by workers. mostly if `deliveryType == NOW`
 - `deliveryStatus == IN_PROGRESS`: Newsletter sending is in progress.
