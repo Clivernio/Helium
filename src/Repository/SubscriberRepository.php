@@ -94,18 +94,18 @@ class SubscriberRepository extends ServiceEntityRepository
     public function countByStatus(string $status = ""): ?int
     {
         if (empty($status)) {
-            return $this->createQueryBuilder('s')
+            return intval($this->createQueryBuilder('s')
                 ->select('count(s.id)')
                 ->getQuery()
-                ->getSingleScalarResult();
+                ->getSingleScalarResult());
         }
 
-        return $this->createQueryBuilder('s')
+        return intval($this->createQueryBuilder('s')
             ->where('s.status = :status')
             ->setParameter('status', $status)
             ->select('count(s.id)')
             ->getQuery()
-            ->getSingleScalarResult();
+            ->getSingleScalarResult());
     }
 
     /**
