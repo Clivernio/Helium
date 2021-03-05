@@ -85,19 +85,19 @@ class DashboardController extends AbstractController
                 'newsletters_sentout_over_time'    => $this->statisticsModule->getNewslettersSentOutOverTime(),
                 'latest_subscribers'               => $this->statisticsModule->getLatestSubscribers(
                     "",
-                    10
+                    5
                 ),
                 'latest_active_subscribers' => $this->statisticsModule->getLatestSubscribers(
                     SubscriberRepository::SUBSCRIBED,
-                    10
+                    5
                 ),
                 'latest_non_active_subscribers' => $this->statisticsModule->getLatestSubscribers(
                     SubscriberRepository::UNSUBSCRIBED,
-                    10
+                    5
                 ),
                 'latest_unverified_subscribers' => $this->statisticsModule->getLatestSubscribers(
                     SubscriberRepository::PENDING_VERIFY,
-                    10
+                    5
                 ),
                 'latest_newsletters_sent_out' => $this->statisticsModule->getLatestSentOutNewsletters(),
             ],

@@ -28,8 +28,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 class WatchCommand extends Command
 {
-    public const IN_PROGRESS = "IN_PROGRESS";
-    public const DONE        = "DONE";
     /**
      * @var string
      */
@@ -169,7 +167,7 @@ class WatchCommand extends Command
     private function createDelivery(int $newsletterId, int $subscriberId): DeliveryEntity
     {
         $delivery = DeliveryEntity::fromArray([
-            'status'     => self::IN_PROGRESS,
+            'status'     => DeliveryRepository::IN_PROGRESS,
             'subscriber' => $this->subscriberRepository->findOneByID($subscriberId),
             'newsletter' => $this->newsletterRepository->findOneByID($newsletterId),
         ]);

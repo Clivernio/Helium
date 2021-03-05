@@ -23,6 +23,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Yaml\Exception\ParseException;
+use Symfony\Component\Yaml\Yaml;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -286,6 +288,12 @@ class NewsletterController extends AbstractController
             throw new InvalidRequest('Invalid request');
         }
 
+        try {
+            Yaml::parse(trim($data->templateInputs));
+        } catch (ParseException $exception) {
+            throw new InvalidRequest('Invalid template inputs! It has to be a valid yaml.');
+        }
+
         if (NewsletterRepository::SCHEDULED_TYPE === $data->deliveryType) {
             $deliveryTime = new \DateTimeImmutable(sprintf(
                 "%s %s",
@@ -305,7 +313,7 @@ class NewsletterController extends AbstractController
             'name'           => $data->name,
             'slug'           => $this->newsletterModule->generateSlug($data->name),
             'template'       => $data->templateName,
-            'content'        => $data->templateInputs,
+            'content'        => trim($data->templateInputs),
             'deliveryStatus' => $deliveryStatus,
             'deliveryType'   => $data->deliveryType,
             'deliveryTime'   => $deliveryTime,
@@ -340,6 +348,12 @@ class NewsletterController extends AbstractController
             throw new InvalidRequest('Invalid request');
         }
 
+        try {
+            Yaml::parse(trim($data->templateInputs));
+        } catch (ParseException $exception) {
+            throw new InvalidRequest('Invalid template inputs! It has to be a valid yaml.');
+        }
+
         $this->logger->info(sprintf("Update newsletter with id %s", $id));
 
         if (NewsletterRepository::SCHEDULED_TYPE === $data->deliveryType) {
@@ -360,7 +374,7 @@ class NewsletterController extends AbstractController
         $this->newsletterModule->edit($id, [
             'name'           => $data->name,
             'template'       => $data->templateName,
-            'content'        => $data->templateInputs,
+            'content'        => trim($data->templateInputs),
             'deliveryStatus' => $deliveryStatus,
             'deliveryType'   => $data->deliveryType,
             'deliveryTime'   => $deliveryTime,

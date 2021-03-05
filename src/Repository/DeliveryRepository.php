@@ -20,6 +20,10 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class DeliveryRepository extends ServiceEntityRepository
 {
+    public const IN_PROGRESS = "IN_PROGRESS";
+    public const FAILED      = "FAILED";
+    public const SUCCEEDED   = "SUCCEEDED";
+
     /**
      * Class Constructor.
      *

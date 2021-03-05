@@ -94,12 +94,14 @@ class TemplateController extends AbstractController
             ));
         }
 
+        $defaults['unsubscribe_url'] = "#";
+
         return $this->render(sprintf('newsletter/%s.html.twig', $name), [
             'app_name'       => $this->configRepository->findValueByName("he_app_name", ""),
             'app_url'        => $this->configRepository->findValueByName("he_app_url", ""),
             'app_email'      => $this->configRepository->findValueByName("he_app_email", ""),
             'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
-            'defaults'       => $defaults,
+            'data'           => $defaults,
         ]);
     }
 }
