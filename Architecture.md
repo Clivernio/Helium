@@ -13,7 +13,7 @@
 </p>
 
 
-### Newsletter Delivery
+### Newsletter Entity
 
 There three dynamic values, the `deliveryType`, `deliveryTime` and `deliveryStatus`. The user can set the values of `deliveryType` and `deliveryTime` while `deliveryStatus` is internal.
 
@@ -34,3 +34,12 @@ There is some rules about editing a newsletter during each delivery status.
 - `deliveryStatus == PENDING`: Only `name`, `sender`, `template` and `inputs`. `deliveryType` can't change anymore.
 - `deliveryStatus == IN_PROGRESS`: Only `name`, `sender`, `template` and `inputs`. `deliveryType` can't change anymore.
 - `deliveryStatus == FINISHED`: Only `name`, `template` and `inputs`. `deliveryType` and `sender` can't change anymore.
+
+
+### Newsletter Delivery Process
+
+Basically `Helium` should run as three processes.
+
+1. The http web process: Serves http requests.
+2. The worker process: Watch the newsletters and create async tasks to send emails.
+3. The symfony messenger process: Send emails to the end user in Async manner.
