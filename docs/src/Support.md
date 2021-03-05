@@ -13,4 +13,4 @@ Support for my items do not include:
 
 - Customization and installation services.
 
-*Please send any support request to this email [support@clivern.com](mailto:support@clivern.com). We’re glad to help!*
+*Please send any support request to this email [hello@clivern.com](mailto:hello@clivern.com). We’re glad to help!*

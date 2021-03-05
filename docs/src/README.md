@@ -13,7 +13,7 @@
 
 ### Some Features
 
-- Automated Setup.
+- Easy Setup.
 - Statistics dashboard with trends in subscribers and newsletters.
 - Fast email delivery. you can run any number of workers for massive numbers of subscribers and newsletters.
 - Scheduled newsletters support.
