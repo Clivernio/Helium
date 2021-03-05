@@ -5,6 +5,7 @@
 - [Free Hosting](Hosting.md)
 - [Installation](INSTALLATION.md)
 - [Configuration](Configuration.md)
+- [Newsletters](Newsletters.md)
 - [Support](Support.md)
 - [Security](Security.md)
 - [Changelog](CHANGELOG.md)
