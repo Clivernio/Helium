@@ -11,4 +11,4 @@
 
 - Customization and installation services.
 
-*In order to reach out, please send an email to [hello+helium@clivern.com](mailto:hello+helium@clivern.com)*
+*In order to reach out, please send an email to [hello@clivern.com](mailto:hello@clivern.com)*
