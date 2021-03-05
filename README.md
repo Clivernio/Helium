@@ -12,24 +12,9 @@
     </p>
 </p>
 
+### Deployment:
 
-## Documentation
-
-### Installation:
-
-To run the application locally with `docker` & `docker-compose`
-
-```zsh
-$ docker-compose up -d
-```
-
-
-### Roadmap
-
-- URL Shortening & Clicks Tracking.
-- Archive with All Newsletters.
-- RSS Feed.
-- Better than YAML to Build Newsletters.
+To deploy `Helium`, please use [this Ansible Playbook.](https://github.com/ionsio/Oxygen)
 
 
 ### Versioning
