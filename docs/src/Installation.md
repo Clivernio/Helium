@@ -4,7 +4,19 @@
 
 2. if you deployed helium to this path `/var/www/project/` you need to create two systemd services.
 
-3. The `watcher` systemd service.
+3. To install PHP packages optimized for production.
+
+```zsh
+$ make prod_composer
+```
+
+4. To migrate the database, you can use the following command
+
+```zsh
+$ make migrate
+```
+
+5. The `watcher` systemd service.
 
 ```
 $ nano /etc/systemd/system/watcher.service
@@ -36,7 +48,7 @@ PrivateTmp=true
 WantedBy=multi-user.target
 ```
 
-4. The `worker` systemd service.
+6. The `worker` systemd service.
 
 ```
 $ nano /etc/systemd/system/worker.service
@@ -68,7 +80,7 @@ PrivateTmp=true
 WantedBy=multi-user.target
 ```
 
-5. Then enable and start them
+7. Then enable and start them
 
 ```
 $ systemctl enable watcher

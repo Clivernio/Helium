@@ -31,6 +31,13 @@ composer:
 	@$(composer) install
 
 
+## prod_composer: Install packages on production
+.PHONY: prod_composer
+prod_composer:
+	@echo ">> ============= Install Packages On Production ============= <<"
+	@$(composer) install  --no-dev --optimize-autoloader
+
+
 ## fix-diff: Format diff
 .PHONY: fix-diff
 fix-diff:
