@@ -9,58 +9,71 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\NewsletterRepository;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Newsletter Entity.
  */
-#[ORM\Table(name: 'he_newsletter')]
-#[ORM\Entity(repositoryClass: NewsletterRepository::class)]
 class Newsletter
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: Types::INTEGER)]
+    /**
+     * @var int
+     */
     private ?int $id = null;
 
-    #[ORM\Column(length: 150)]
+    /**
+     * @var string
+     */
     private ?string $name = null;
 
-    #[ORM\Column(length: 150)]
+    /**
+     * @var string
+     */
     private ?string $slug = null;
 
-    #[ORM\Column(length: 30)]
+    /**
+     * @var string
+     */
     private ?string $deliveryStatus = null; // ON_HOLD, PENDING, IN_PROGRESS, FINISHED
 
-    #[ORM\Column(length: 30)]
+    /**
+     * @var string
+     */
     private ?string $deliveryType = null; // DRAFT, NOW, SCHEDULED
 
-    #[ORM\Column(length: 150)]
+    /**
+     * @var string
+     */
     private ?string $template = null;
 
-    #[ORM\Column(length: 150)]
+    /**
+     * @var string
+     */
     private ?string $sender = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    /**
+     * @var string
+     */
     private ?string $content = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    private ?\DateTimeImmutable $deliveryTime = null;
+    /**
+     * @var DateTime
+     */
+    private ?\DateTime $deliveryTime = null;
 
-    #[ORM\OneToMany(targetEntity: NewsletterMeta::class, mappedBy: 'newsletter', cascade: ['ALL'])]
     private Collection $metas;
 
-    #[ORM\OneToMany(targetEntity: Delivery::class, mappedBy: 'newsletter', cascade: ['ALL'])]
     private Collection $deliveries;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $createdAt = null;
+    /**
+     * @var DateTime
+     */
+    private ?\DateTime $createdAt = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $updatedAt = null;
+    /**
+     * @var DateTime
+     */
+    private ?\DateTime $updatedAt = null;
 
     /**
      * Get ID.
@@ -191,9 +204,9 @@ class Newsletter
     /**
      * Get Delivery Time.
      *
-     * @return DateTimeImmutable
+     * @return DateTime
      */
-    public function getDeliveryTime(): ?\DateTimeImmutable
+    public function getDeliveryTime(): ?\DateTime
     {
         return $this->deliveryTime;
     }
@@ -201,11 +214,11 @@ class Newsletter
     /**
      * Set Delivery Time.
      *
-     * @param \DateTimeImmutable
+     * @param \DateTime
      *
-     * @return DateTimeImmutable
+     * @return DateTime
      */
-    public function setDeliveryTime(?\DateTimeImmutable $deliveryTime): self
+    public function setDeliveryTime(?\DateTime $deliveryTime): self
     {
         $this->deliveryTime = $deliveryTime;
 
@@ -287,9 +300,9 @@ class Newsletter
     /**
      * Get CreatedAt.
      *
-     * @return DateTimeImmutable
+     * @return DateTime
      */
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
@@ -297,11 +310,11 @@ class Newsletter
     /**
      * Set Created At.
      *
-     * @param \DateTimeImmutable
+     * @param \DateTime
      *
-     * @return DateTimeImmutable
+     * @return DateTime
      */
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -311,9 +324,9 @@ class Newsletter
     /**
      * Get Updated At.
      *
-     * @return DateTimeImmutable
+     * @return DateTime
      */
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
     }
@@ -321,11 +334,11 @@ class Newsletter
     /**
      * Set Updated At.
      *
-     * @param \DateTimeImmutable
+     * @param \DateTime
      *
      * @return Newsletter
      */
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    public function setUpdatedAt(\DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
@@ -346,7 +359,7 @@ class Newsletter
             ->setDeliveryTime($data['deliveryTime'])
             ->setTemplate($data['template'])
             ->setContent($data['content'])
-            ->setCreatedAt(empty($data['createdAt']) ? new \DateTimeImmutable() : $data['createdAt'])
-            ->setUpdatedAt(empty($data['updatedAt']) ? new \DateTimeImmutable() : $data['updatedAt']);
+            ->setCreatedAt(empty($data['createdAt']) ? new \DateTime() : $data['createdAt'])
+            ->setUpdatedAt(empty($data['updatedAt']) ? new \DateTime() : $data['updatedAt']);
     }
 }

@@ -9,51 +9,61 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User Entity.
  */
-#[ORM\Table(name: 'he_user')]
-#[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: Types::INTEGER)]
+    /**
+     * @var int
+     */
     private ?int $id = null;
 
-    #[ORM\Column(length: 180, unique: true)]
+    /**
+     * @var string
+     */
     private ?string $email;
 
-    #[ORM\Column(length: 180)]
+    /**
+     * @var string
+     */
     private ?string $firstName;
 
-    #[ORM\Column(length: 180)]
+    /**
+     * @var string
+     */
     private ?string $lastName;
 
-    #[ORM\Column(length: 200)]
+    /**
+     * @var string
+     */
     private ?string $job;
 
-    #[ORM\Column(type: Types::JSON, nullable: false)]
     private array $roles = [];
 
-    #[ORM\OneToMany(targetEntity: UserMeta::class, mappedBy: 'user', cascade: ['ALL'])]
+    /**
+     * @var Collection
+     */
     private ?Collection $metas = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: false)]
+    /**
+     * @var string
+     */
     private ?string $password;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $createdAt = null;
+    /**
+     * @var DateTime
+     */
+    private ?\DateTime $createdAt = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $updatedAt = null;
+    /**
+     * @var DateTime
+     */
+    private ?\DateTime $updatedAt = null;
 
     /**
      * Get ID.
@@ -238,9 +248,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Get CreatedAt.
      *
-     * @return DateTimeImmutable
+     * @return DateTime
      */
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
@@ -248,11 +258,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Set Created At.
      *
-     * @param \DateTimeImmutable
+     * @param \DateTime
      *
-     * @return DateTimeImmutable
+     * @return DateTime
      */
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -262,9 +272,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Get Updated At.
      *
-     * @return DateTimeImmutable
+     * @return DateTime
      */
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
     }
@@ -272,11 +282,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Set Updated At.
      *
-     * @param \DateTimeImmutable
+     * @param \DateTime
      *
      * @return Config
      */
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    public function setUpdatedAt(\DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 

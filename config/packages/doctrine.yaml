@@ -13,9 +13,10 @@ doctrine:
         mappings:
             App:
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Entity'
+                dir: '%kernel.project_dir%/config/packages/doctrine'
                 prefix: 'App\Entity'
                 alias: App
+                type: yml
 
 when@test:
     doctrine:

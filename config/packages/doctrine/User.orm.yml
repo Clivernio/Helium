@@ -1,0 +1,44 @@
+App\Entity\User:
+    type: entity
+    table: he_user
+    repositoryClass: App\Repository\UserRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        email:
+            type: string
+            length: 180
+            nullable: false
+        firstName:
+            type: string
+            length: 180
+            nullable: false
+        lastName:
+            type: string
+            length: 180
+            nullable: false
+        job:
+            type: string
+            length: 200
+            nullable: false
+        roles:
+            type: json
+            nullable: false
+        password:
+            type: text
+            nullable: false
+        createdAt:
+            type: datetime
+            nullable: false
+        updatedAt:
+            type: datetime
+            nullable: false
+
+    oneToMany:
+        metas:
+            targetEntity: UserMeta
+            mappedBy: user
+            cascade: [ ALL ]

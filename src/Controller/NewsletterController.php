@@ -118,8 +118,8 @@ class NewsletterController extends AbstractController
         }
 
         $datetime = $newsletter->getDeliveryTime();
-        $date     = (new \DateTimeImmutable())->format("Y-m-d");
-        $time     = (new \DateTimeImmutable())->format("H:i");
+        $date     = (new \DateTime())->format("Y-m-d");
+        $time     = (new \DateTime())->format("H:i");
 
         if (!empty($datetime)) {
             $date = $datetime->format("Y-m-d");
@@ -165,8 +165,8 @@ class NewsletterController extends AbstractController
         }
 
         $datetime = $newsletter->getDeliveryTime();
-        $date     = (new \DateTimeImmutable())->format("Y-m-d");
-        $time     = (new \DateTimeImmutable())->format("H:i");
+        $date     = (new \DateTime())->format("Y-m-d");
+        $time     = (new \DateTime())->format("H:i");
 
         if (!empty($datetime)) {
             $date = $datetime->format("Y-m-d");
@@ -288,17 +288,17 @@ class NewsletterController extends AbstractController
         }
 
         if (NewsletterRepository::SCHEDULED_TYPE === $data->deliveryType) {
-            $deliveryTime = new \DateTimeImmutable(sprintf(
+            $deliveryTime = new \DateTime(sprintf(
                 "%s %s",
                 $data->deliveryDate,
                 $data->deliveryTime
             ));
             $deliveryStatus = NewsletterRepository::ON_HOLD_STATUS;
         } elseif (NewsletterRepository::DRAFT_TYPE === $data->deliveryType) {
-            $deliveryTime   = new \DateTimeImmutable();
+            $deliveryTime   = new \DateTime();
             $deliveryStatus = NewsletterRepository::ON_HOLD_STATUS;
         } elseif (NewsletterRepository::NOW_TYPE === $data->deliveryType) {
-            $deliveryTime   = new \DateTimeImmutable();
+            $deliveryTime   = new \DateTime();
             $deliveryStatus = NewsletterRepository::PENDING_STATUS;
         }
 
@@ -349,17 +349,17 @@ class NewsletterController extends AbstractController
         $this->logger->info(sprintf("Update newsletter with id %s", $id));
 
         if (NewsletterRepository::SCHEDULED_TYPE === $data->deliveryType) {
-            $deliveryTime = new \DateTimeImmutable(sprintf(
+            $deliveryTime = new \DateTime(sprintf(
                 "%s %s",
                 $data->deliveryDate,
                 $data->deliveryTime
             ));
             $deliveryStatus = NewsletterRepository::ON_HOLD_STATUS;
         } elseif (NewsletterRepository::DRAFT_TYPE === $data->deliveryType) {
-            $deliveryTime   = new \DateTimeImmutable();
+            $deliveryTime   = new \DateTime();
             $deliveryStatus = NewsletterRepository::ON_HOLD_STATUS;
         } elseif (NewsletterRepository::NOW_TYPE === $data->deliveryType) {
-            $deliveryTime   = new \DateTimeImmutable();
+            $deliveryTime   = new \DateTime();
             $deliveryStatus = NewsletterRepository::PENDING_STATUS;
         }
 
@@ -431,7 +431,7 @@ class NewsletterController extends AbstractController
         $value = json_encode([
             'templateName'   => $data->templateName,
             'templateInputs' => $data->templateInputs,
-            'date'           => (new \DateTimeImmutable())->format('Y-m-d'),
+            'date'           => (new \DateTime())->format('Y-m-d'),
             'type'           => 'newsletter_cached_data',
         ]);
 

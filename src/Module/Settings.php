@@ -60,7 +60,7 @@ class Settings
             } else {
                 $this->logger->info(sprintf("Update a config with key %s", $key));
                 $config->setValue($value);
-                $config->setUpdatedAt(new \DateTimeImmutable());
+                $config->setUpdatedAt(new \DateTime());
             }
 
             $this->logger->info(sprintf("Store a config with key %s", $key));

@@ -9,42 +9,50 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\TaskRepository;
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Task Entity.
  */
-#[ORM\Table(name: 'he_task')]
-#[ORM\Entity(repositoryClass: TaskRepository::class)]
 class Task
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: Types::INTEGER)]
+    /**
+     * @var int
+     */
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
+    /**
+     * @var string
+     */
     private ?string $uuid = null;
 
-    #[ORM\Column(length: 30)]
+    /**
+     * @var string
+     */
     private ?string $status = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    /**
+     * @var string
+     */
     private ?string $payload = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    /**
+     * @var string
+     */
     private ?string $result = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $runAt = null;
+    /**
+     * @var DateTime
+     */
+    private ?\DateTime $runAt = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $createdAt = null;
+    /**
+     * @var DateTime
+     */
+    private ?\DateTime $createdAt = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $updatedAt = null;
+    /**
+     * @var DateTime
+     */
+    private ?\DateTime $updatedAt = null;
 
     /**
      * Get ID.
@@ -155,9 +163,9 @@ class Task
     /**
      * Get CreatedAt.
      *
-     * @return DateTimeImmutable
+     * @return DateTime
      */
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
@@ -165,11 +173,11 @@ class Task
     /**
      * Set Created At.
      *
-     * @param \DateTimeImmutable
+     * @param \DateTime
      *
-     * @return DateTimeImmutable
+     * @return DateTime
      */
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -179,9 +187,9 @@ class Task
     /**
      * Get Updated At.
      *
-     * @return DateTimeImmutable
+     * @return DateTime
      */
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
     }
@@ -189,11 +197,11 @@ class Task
     /**
      * Set Updated At.
      *
-     * @param \DateTimeImmutable
+     * @param \DateTime
      *
      * @return Task
      */
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    public function setUpdatedAt(\DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
@@ -203,9 +211,9 @@ class Task
     /**
      * Get Run At.
      *
-     * @return DateTimeImmutable
+     * @return DateTime
      */
-    public function getRunAt(): ?\DateTimeImmutable
+    public function getRunAt(): ?\DateTime
     {
         return $this->runAt;
     }
@@ -213,11 +221,11 @@ class Task
     /**
      * Set Run At.
      *
-     * @param \DateTimeImmutable
+     * @param \DateTime
      *
      * @return Task
      */
-    public function setRunAt(\DateTimeImmutable $runAt): self
+    public function setRunAt(\DateTime $runAt): self
     {
         $this->runAt = $runAt;
 
@@ -234,8 +242,8 @@ class Task
             ->setUuid($data['uuid'])
             ->setPayload($data['payload'])
             ->setResult($data['result'])
-            ->setRunAt(empty($data['runAt']) ? new \DateTimeImmutable() : $data['runAt'])
-            ->setCreatedAt(empty($data['createdAt']) ? new \DateTimeImmutable() : $data['createdAt'])
-            ->setUpdatedAt(empty($data['updatedAt']) ? new \DateTimeImmutable() : $data['updatedAt']);
+            ->setRunAt(empty($data['runAt']) ? new \DateTime() : $data['runAt'])
+            ->setCreatedAt(empty($data['createdAt']) ? new \DateTime() : $data['createdAt'])
+            ->setUpdatedAt(empty($data['updatedAt']) ? new \DateTime() : $data['updatedAt']);
     }
 }

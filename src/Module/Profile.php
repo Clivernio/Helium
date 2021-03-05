@@ -51,7 +51,7 @@ class Profile
         $user->setFirstName($data["firstName"]);
         $user->setLastName($data["lastName"]);
         $user->setJob($data["jobTitle"]);
-        $user->setUpdatedAt(new \DateTimeImmutable());
+        $user->setUpdatedAt(new \DateTime());
 
         $this->userRepository->add($user, true);
     }

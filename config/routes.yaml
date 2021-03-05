@@ -85,6 +85,7 @@ app_ui_newsletter_view:
 
 app_endpoint_v1_newsletter_list:
     path: /admin/api/v1/newsletter
+    methods: GET|HEAD
     controller: App\Controller\NewsletterController::newsletterListEndpoint
 
 app_endpoint_v1_newsletter_add:

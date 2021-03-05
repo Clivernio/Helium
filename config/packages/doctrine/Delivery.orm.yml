@@ -1,0 +1,29 @@
+App\Entity\Delivery:
+    type: entity
+    table: he_delivery
+    repositoryClass: App\Repository\DeliveryRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        status:
+            type: string
+            length: 30
+            nullable: false
+        createdAt:
+            type: datetime
+            nullable: false
+        updatedAt:
+            type: datetime
+            nullable: false
+
+    manyToOne:
+        subscriber:
+            targetEntity: Subscriber
+            inversedBy: deliveries
+
+        newsletter:
+            targetEntity: Newsletter
+            inversedBy: deliveries

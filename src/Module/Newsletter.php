@@ -205,8 +205,8 @@ class Newsletter
             $data = json_decode($config->getValue());
 
             // Delete data older that two days ago
-            if ((new \DateTimeImmutable($data->date))->format('Y-m-d')
-             < (new \DateTimeImmutable())->modify("-2 days")->format('Y-m-d')) {
+            if ((new \DateTime($data->date))->format('Y-m-d')
+             < (new \DateTime())->modify("-2 days")->format('Y-m-d')) {
                 $this->configRepository->remove($config, true);
             }
         }

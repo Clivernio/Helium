@@ -9,36 +9,40 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\UserMetaRepository;
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * UserMeta Entity.
  */
-#[ORM\Table(name: 'he_user_meta')]
-#[ORM\Entity(repositoryClass: UserMetaRepository::class)]
 class UserMeta
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: Types::INTEGER)]
+    /**
+     * @var int
+     */
     private ?int $id = null;
 
-    #[ORM\Column(length: 100)]
+    /**
+     * @var string
+     */
     private ?string $name = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    /**
+     * @var string
+     */
     private ?string $value = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'metas')]
+    /**
+     * @var User
+     */
     private $user;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $createdAt = null;
+    /**
+     * @var DateTime
+     */
+    private ?\DateTime $createdAt = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $updatedAt = null;
+    /**
+     * @var DateTime
+     */
+    private ?\DateTime $updatedAt = null;
 
     /**
      * Get ID.
@@ -125,9 +129,9 @@ class UserMeta
     /**
      * Get CreatedAt.
      *
-     * @return DateTimeImmutable
+     * @return DateTime
      */
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
@@ -135,11 +139,11 @@ class UserMeta
     /**
      * Set Created At.
      *
-     * @param \DateTimeImmutable
+     * @param \DateTime
      *
-     * @return DateTimeImmutable
+     * @return DateTime
      */
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -149,9 +153,9 @@ class UserMeta
     /**
      * Get Updated At.
      *
-     * @return DateTimeImmutable
+     * @return DateTime
      */
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
     }
@@ -159,11 +163,11 @@ class UserMeta
     /**
      * Set Updated At.
      *
-     * @param \DateTimeImmutable
+     * @param \DateTime
      *
      * @return UserMeta
      */
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    public function setUpdatedAt(\DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
@@ -179,7 +183,7 @@ class UserMeta
             ->setName($data['name'])
             ->setValue($data['value'])
             ->setUser($data['user'])
-            ->setCreatedAt(empty($data['createdAt']) ? new \DateTimeImmutable() : $data['createdAt'])
-            ->setUpdatedAt(empty($data['updatedAt']) ? new \DateTimeImmutable() : $data['updatedAt']);
+            ->setCreatedAt(empty($data['createdAt']) ? new \DateTime() : $data['createdAt'])
+            ->setUpdatedAt(empty($data['updatedAt']) ? new \DateTime() : $data['updatedAt']);
     }
 }

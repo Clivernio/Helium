@@ -1,0 +1,29 @@
+App\Entity\Config:
+    type: entity
+    table: he_config
+    repositoryClass: App\Repository\ConfigRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 60
+            nullable: false
+            unique: true
+        value:
+            type: text
+            unique: false
+            nullable: true
+        autoload:
+            type: string
+            length: 30
+            nullable: false
+        createdAt:
+            type: datetime
+            nullable: false
+        updatedAt:
+            type: datetime
+            nullable: false

@@ -9,43 +9,46 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\SubscriberRepository;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Subscriber Entity.
  */
-#[ORM\Table(name: 'he_subscriber')]
-#[ORM\Entity(repositoryClass: SubscriberRepository::class)]
 class Subscriber
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: Types::INTEGER)]
+    /**
+     * @var int
+     */
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, unique: true)]
+    /**
+     * @var string
+     */
     private ?string $email = null;
 
-    #[ORM\Column(length: 200)]
+    /**
+     * @var string
+     */
     private ?string $token = null;
 
-    #[ORM\Column(length: 30)]
+    /**
+     * @var string
+     */
     private ?string $status = null;
 
-    #[ORM\OneToMany(targetEntity: SubscriberMeta::class, mappedBy: 'subscriber', cascade: ['ALL'])]
     private Collection $metas;
 
-    #[ORM\OneToMany(targetEntity: Delivery::class, mappedBy: 'subscriber', cascade: ['ALL'])]
     private Collection $deliveries;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $createdAt = null;
+    /**
+     * @var DateTime
+     */
+    private ?\DateTime $createdAt = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $updatedAt = null;
+    /**
+     * @var DateTime
+     */
+    private ?\DateTime $updatedAt = null;
 
     /**
      * Get ID.
@@ -152,9 +155,9 @@ class Subscriber
     /**
      * Get CreatedAt.
      *
-     * @return DateTimeImmutable
+     * @return DateTime
      */
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
@@ -162,11 +165,11 @@ class Subscriber
     /**
      * Set Created At.
      *
-     * @param \DateTimeImmutable
+     * @param \DateTime
      *
-     * @return DateTimeImmutable
+     * @return DateTime
      */
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -176,9 +179,9 @@ class Subscriber
     /**
      * Get Updated At.
      *
-     * @return DateTimeImmutable
+     * @return DateTime
      */
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
     }
@@ -186,11 +189,11 @@ class Subscriber
     /**
      * Set Updated At.
      *
-     * @param \DateTimeImmutable
+     * @param \DateTime
      *
      * @return Subscriber
      */
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    public function setUpdatedAt(\DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
@@ -206,7 +209,7 @@ class Subscriber
             ->setEmail($data['email'])
             ->setStatus($data['status'])
             ->setToken($data['token'])
-            ->setCreatedAt(empty($data['createdAt']) ? new \DateTimeImmutable() : $data['createdAt'])
-            ->setUpdatedAt(empty($data['updatedAt']) ? new \DateTimeImmutable() : $data['updatedAt']);
+            ->setCreatedAt(empty($data['createdAt']) ? new \DateTime() : $data['createdAt'])
+            ->setUpdatedAt(empty($data['updatedAt']) ? new \DateTime() : $data['updatedAt']);
     }
 }

@@ -92,8 +92,8 @@ class Install
         $user->setFirstName("Joe");
         $user->setLastName("Doe");
         $user->setJob("Software Engineer");
-        $user->setCreatedAt(new \DateTimeImmutable());
-        $user->setUpdatedAt(new \DateTimeImmutable());
+        $user->setCreatedAt(new \DateTime());
+        $user->setUpdatedAt(new \DateTime());
         $user->setPassword($hashedPassword);
         $this->userRepository->add($user, true);
     }
