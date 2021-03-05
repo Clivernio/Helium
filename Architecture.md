@@ -38,8 +38,8 @@ There is some rules about editing a newsletter during each delivery status.
 
 ### Newsletter Delivery Process
 
-Basically `Helium` should run as three processes.
+Basically `Helium` should run as three processes:
 
-1. The http web process: Serves http requests.
-2. The worker process: Watch the newsletters and create async tasks to send emails.
-3. The symfony messenger process: Send emails to the end user in Async manner.
+1. The http web process: Serves http requests. Runs with `nginx` & `php-fpm`.
+2. The worker process: Watch the newsletters and create async tasks to send emails. Runs as a `systemd` process.
+3. The symfony messenger process: Send emails to the end user in Async manner. Runs as a `systemd` process.
