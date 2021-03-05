@@ -20,9 +20,9 @@
       include_vars: "prod.vault.yml"
 
   roles:
-    - { role: roles/common, become: yes }
-    - { role: roles/database, become: yes, when: install_mysql == true }
-    - { role: roles/nginx, become: yes, when: install_nginx == true }
-    - { role: roles/php, become: yes, when: install_php == true }
-    - { role: roles/composer, become: yes, when: install_composer == true }
-    - { role: roles/postfix, become: yes, when: install_postfix == true }
+    - { role: clivern.oxygen.common, become: yes }
+    - { role: clivern.oxygen.database, become: yes, when: install_mysql == true }
+    - { role: clivern.oxygen.nginx, become: yes, when: install_nginx == true }
+    - { role: clivern.oxygen.php, become: yes, when: install_php == true }
+    - { role: clivern.oxygen.composer, become: yes, when: install_composer == true }
+    - { role: clivern.oxygen.postfix, become: yes, when: install_postfix == true }

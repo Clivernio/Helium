@@ -16,8 +16,13 @@
 - hosts: server
 
   pre_tasks:
-    - name: Include helium vault
-      include_vars: "helium.vault.yml"
+    - name: Include prod vault
+      include_vars: "prod.vault.yml"
 
   roles:
-    - { role: roles/helium, become: yes }
+    - { role: clivern.oxygen.common, become: yes }
+    - { role: clivern.oxygen.database, become: yes, when: install_mysql == true }
+    - { role: clivern.oxygen.nginx, become: yes, when: install_nginx == true }
+    - { role: clivern.oxygen.php, become: yes, when: install_php == true }
+    - { role: clivern.oxygen.composer, become: yes, when: install_composer == true }
+    - { role: clivern.oxygen.postfix, become: yes, when: install_postfix == true }

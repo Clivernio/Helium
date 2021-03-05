@@ -127,6 +127,7 @@ allow_access_from: "127.0.0.1"
 install_nginx: true
 
 install_php: true
+php_version: 8.1 # or 7.4 on Ubuntu 20.04
 
 install_composer: true
 
@@ -174,12 +175,11 @@ app_group: appmgmt
 app_version: 1.0.0
 git_repo: git@github.com:$AUTHOR/$REPO.git
 
-
 workers_counts: 1
 
 hostname: helium.com
 
-php_version: 8.1
+php_version: 8.1 # or 7.4 on Ubuntu 20.04
 
 app_db_name: helium
 app_db_username: admin
