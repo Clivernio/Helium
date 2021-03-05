@@ -23,17 +23,23 @@
           <div class="card-body">
             <input type="hidden" name="csrf_token" value="{{ csrf_token('newsletter-update-action') }}"/>
             <input type="hidden" name="tempId" value="{{ tmp_id }}">
+            {% if newsletter.deliveryStatus == 'FINISHED' %}
+              <input type="hidden" name="email" value="{{ newsletter.email }}">
+            {% endif %}
+            {% if newsletter.deliveryStatus == 'PENDING' or newsletter.deliveryStatus == 'IN_PROGRESS' or newsletter.deliveryStatus == 'FINISHED' %}
+              <input type="hidden" name="deliveryType" value="{{ newsletter.deliveryType }}">
+            {% endif %}
             <div class="mb-3">
               <label class="form-label required">{% trans %}Name{% endtrans %}</label>
-              <input type="text" class="form-control" name="name" placeholder="PHP Weekly Newsletter 1" value="{{ newsletter.name }}" required>
+              <input type="text" class="form-control" name="name" placeholder="PHP Weekly Newsletter" value="{{ newsletter.name }}" required>
             </div>
             <div class="mb-3">
               <label class="form-label required">{% trans %}From Address{% endtrans %}</label>
-              <input type="email" class="form-control" name="email" placeholder="hello@domain.com" value="{{ newsletter.email }}" required>
+              <input type="email" class="form-control" name="email" placeholder="hello@domain.com" value="{{ newsletter.email }}" required {% if newsletter.deliveryStatus == 'FINISHED' %} disabled {% endif %}>
             </div>
             <div class="mb-3">
               <div class="form-label required">{% trans %}Delivery Type{% endtrans %}</div>
-              <select name="deliveryType" class="form-select" v-model="deliveryType" v-on:change="deliveryTypeChange" required>
+              <select name="deliveryType" class="form-select" v-model="deliveryType" v-on:change="deliveryTypeChange" required {% if newsletter.deliveryStatus == 'PENDING' or newsletter.deliveryStatus == 'IN_PROGRESS' or newsletter.deliveryStatus == 'FINISHED' %} disabled {% endif %}>
                 <option value="">{% trans %}Select a value{% endtrans %}</option>
                 <option value="DRAFT" {% if newsletter.deliveryType == "DRAFT" %} selected {% endif %}>{% trans %}Draft{% endtrans %}</option>
                 <option value="NOW" {% if newsletter.deliveryType == "NOW" %} selected {% endif %}>{% trans %}Now{% endtrans %}</option>
