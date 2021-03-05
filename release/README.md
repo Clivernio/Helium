@@ -1,14 +1,14 @@
-<p>Helium is a Fast, Secure and Reliable Newsletter System. Helium is perfect for weekly articles newsletter, featured articles newsletter, marketing campaigns or even product updates. It integrates easily with most of SMTP providers out there. It is built with Symfony 5.4 LTS to support a broad range of PHP versions plus symfony extended support.</p>
+<p>Helium is a Fast, Secure and Reliable Newsletter System. Helium is perfect for weekly articles newsletter, featured articles newsletter, marketing campaigns or even product updates. It integrates easily with most of SMTP providers out there. It is built with Symfony and VueJs.</p>
 
 
 <h3 id="item-description__live-demonstration"><strong>Live Demo:</strong></h3>
 <p>Please Note that most of the features are disabled in the demo!</p>
 <ul>
     <li>
-        <a href="https://helium.clivern.com/login" rel="nofollow">Dashboard.</a>
+        <a href="https://helium.clivern.com/login" rel="nofollow" target="_blank">Dashboard.</a>
     </li>
     <li>
-        <a href="https://helium.clivern.com/" rel="nofollow">Home.</a>
+        <a href="https://helium.clivern.com/" rel="nofollow" target="_blank">Home.</a>
     </li>
 </ul>
 
@@ -79,6 +79,19 @@
     <li>Composer.</li>
 </ul>
 <p>We suggest using a Virtual Server (VPS) not a shared hosting since Helium requires a two running background process to send emails on time.</p>
+
+
+<h3 id="item-description__credits"><strong>Credits:</strong></h3>
+<ul>
+    <li><a href="https://symfony.com/" target="_blank">Symfony - PHP Framework.</a></li>
+    <li><a href="https://github.com/tabler/tabler" target="_blank">Tabler - HTML Dashboard UI Kit built on Bootstrap.</a></li>
+    <li><a href="https://vuejs.org/" target="_blank">Vuejs.</a></li>
+    <li><a href="https://jquery.com/" target="_blank">jQuery.</a></li>
+    <li><a href="https://axios-http.com/" target="_blank">Axios.</a></li>
+    <li><a href="https://codeseven.github.io/toastr/" target="_blank">Toastr.</a></li>
+    <li><a href="https://www.ansible.com/" target="_blank">Ansible.</a></li>
+    <li><a href="https://github.com/rust-lang/mdBook" target="_blank">mdBook.</a></li>
+</ul>
 
 
 <h3 id="item-description__versioning"><strong>Versioning:</strong></h3>
