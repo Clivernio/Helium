@@ -78,7 +78,7 @@
     <li>MySQL 5+ or MariaDB.</li>
     <li>Composer.</li>
 </ul>
-<p>We suggest using a Virtual Server (VPS) not shared hosting since Helium requires a two running background process to send emails on time.</p>
+<p>We suggest using a Virtual Server (VPS) not a shared hosting since Helium requires a two running background process to send emails on time.</p>
 
 
 <h3 id="item-description__versioning"><strong>Versioning:</strong></h3>

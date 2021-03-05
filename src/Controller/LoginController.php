@@ -83,6 +83,7 @@ class LoginController extends AbstractController
             'title' => $this->translator->trans("Login") . " | "
             . $this->configRepository->findValueByName("he_app_name", "Helium"),
             'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
+            'is_demo'        => isset($_ENV['DEMO_MODE']),
         ]);
     }
 

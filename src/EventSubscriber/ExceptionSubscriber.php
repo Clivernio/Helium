@@ -125,10 +125,14 @@ class ExceptionSubscriber implements EventSubscriberInterface
             $e->getTraceAsString()
         ));
 
-        $event->setResponse(new JsonResponse([
-            'errorMessage'  => $this->translator->trans('Internal server error!'),
-            'correlationId' => $event->getRequest()->headers->get('X-Correlation-ID', ''),
-        ], Response::HTTP_INTERNAL_SERVER_ERROR));
+        if (strpos($event->getRequest()->get('_route'), "_ui_")) {
+            $event->setResponse(new RedirectResponse($this->router->generate('app_ui_error')));
+        } else {
+            $event->setResponse(new JsonResponse([
+                'errorMessage'  => $this->translator->trans('Internal server error!'),
+                'correlationId' => $event->getRequest()->headers->get('X-Correlation-ID', ''),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR));
+        }
     }
 
     /**
