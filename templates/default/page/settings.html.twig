@@ -24,7 +24,27 @@
             <input type="email" class="form-control" name="appEmail" value="{{ app_email }}" required>
           </div>
           <div class="mb-3">
-            <label class="form-label">{% trans %}Application Layout{% endtrans %}</label>
+            <label class="form-label">{% trans %}Newsletter Title{% endtrans %}</label>
+            <input type="text" class="form-control" name="appNewsletterTitle" value="{{ app_newsletter_title }}" placeholder="Subscribe Today">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}Newsletter Description{% endtrans %}</label>
+            <input type="text" class="form-control" name="appNewsletterDescription" value="{{ app_newsletter_description }}" placeholder="Never miss a recipe">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}Newsletter Footer{% endtrans %}</label>
+            <input type="text" class="form-control" name="appNewsletterFooter" value="{{ app_newsletter_footer }}" placeholder="We won’t send you spam. Unsubscribe at any time.">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}SEO Description{% endtrans %}</label>
+            <input type="text" class="form-control" name="appMetaDescription" value="{{ app_meta_description }}" placeholder="Fast, Secure and Reliable Newsletter System, Set up in Minutes.">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}SEO Keywords{% endtrans %}</label>
+            <input type="text" class="form-control" name="appMetaKeywords" value="{{ app_meta_keywords }}" placeholder="helium, clivern, codecanyon, newsletter">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}Home Layout{% endtrans %}</label>
             <select class="form-select" name="appLayout" required>
               {% for layout in home_layouts %}
                 <option value="{{ layout.id }}" {% if app_home_layout == layout.id %} selected {% endif %}>{{ layout.name }}</option>
@@ -52,8 +72,24 @@
             </select>
           </div>
           <div class="mb-3">
-            <label class="form-label">{% trans %}Mailer DSN{% endtrans %}</label>
-            <input type="text" class="form-control" name="appMailerDSN" value="{{ mailer_dsn }}">
+            <label class="form-label">{% trans %}Twitter Card Title{% endtrans %}</label>
+            <input type="text" class="form-control" name="appMetaTwitterTitle" value="{{ app_meta_twitter_title }}" placeholder="Helium">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}Twitter Card Description{% endtrans %}</label>
+            <input type="text" class="form-control" name="appMetaTwitterDescription" value="{{ app_meta_twitter_description }}" placeholder="Fast, Secure and Reliable Newsletter System, Set up in Minutes.">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}Twitter Card Image URL{% endtrans %}</label>
+            <input type="text" class="form-control" name="appMetaTwitterImage" value="{{ app_meta_twitter_image }}" placeholder="https://helium.com/header.jpeg">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}Twitter Card Site{% endtrans %}</label>
+            <input type="text" class="form-control" name="appMetaTwitterSite" value="{{ app_meta_twitter_site }}" placeholder="@clivernco">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}Twitter Card Creator{% endtrans %}</label>
+            <input type="text" class="form-control" name="appMetaTwitterCreator" value="{{ app_meta_twitter_creator }}" placeholder="@clivernco">
           </div>
         </div>
         <div class="card-footer text-end">

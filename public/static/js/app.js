@@ -1,7 +1,7 @@
 var helium_app = helium_app || {};
 
 // Login Page
-helium_app.login_screen = (Vue, axios, Cookies, $) => {
+helium_app.login_screen = (Vue, axios, $) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -51,7 +51,7 @@ helium_app.login_screen = (Vue, axios, Cookies, $) => {
 }
 
 // Reset Password Page
-helium_app.reset_password_screen = (Vue, axios, Cookies, $) => {
+helium_app.reset_password_screen = (Vue, axios, $) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -101,7 +101,7 @@ helium_app.reset_password_screen = (Vue, axios, Cookies, $) => {
 }
 
 // Install Page
-helium_app.install_screen = (Vue, axios, Cookies, $) => {
+helium_app.install_screen = (Vue, axios, $) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -151,7 +151,7 @@ helium_app.install_screen = (Vue, axios, Cookies, $) => {
 }
 
 // Forgot Password Page
-helium_app.forgot_password_screen = (Vue, axios, Cookies, $) => {
+helium_app.forgot_password_screen = (Vue, axios, $) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -201,7 +201,7 @@ helium_app.forgot_password_screen = (Vue, axios, Cookies, $) => {
 }
 
 // Admin Settings Page
-helium_app.settings_screen = (Vue, axios, Cookies, $) => {
+helium_app.settings_screen = (Vue, axios, $) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -248,7 +248,7 @@ helium_app.settings_screen = (Vue, axios, Cookies, $) => {
 }
 
 // Admin Profile Page
-helium_app.profile_screen = (Vue, axios, Cookies, $) => {
+helium_app.profile_screen = (Vue, axios, $) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -295,7 +295,7 @@ helium_app.profile_screen = (Vue, axios, Cookies, $) => {
 }
 
 // Subscriber Index Page
-helium_app.subscriber_index_screen = (Vue, axios, Cookies, $) => {
+helium_app.subscriber_index_screen = (Vue, axios, $) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -350,7 +350,7 @@ helium_app.subscriber_index_screen = (Vue, axios, Cookies, $) => {
 }
 
 // Subscriber Add Page
-helium_app.subscriber_add_screen = (Vue, axios, Cookies, $) => {
+helium_app.subscriber_add_screen = (Vue, axios, $) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -400,7 +400,7 @@ helium_app.subscriber_add_screen = (Vue, axios, Cookies, $) => {
 }
 
 // Subscriber Edit Page
-helium_app.subscriber_edit_screen = (Vue, axios, Cookies, $) => {
+helium_app.subscriber_edit_screen = (Vue, axios, $) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -450,7 +450,7 @@ helium_app.subscriber_edit_screen = (Vue, axios, Cookies, $) => {
 }
 
 // Newsletter Add Page
-helium_app.newsletter_add_screen = (Vue, axios, Cookies, $) => {
+helium_app.newsletter_add_screen = (Vue, axios, $) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -565,7 +565,7 @@ helium_app.newsletter_add_screen = (Vue, axios, Cookies, $) => {
 }
 
 // Newsletter Edit Page
-helium_app.newsletter_edit_screen = (Vue, axios, Cookies, $) => {
+helium_app.newsletter_edit_screen = (Vue, axios, $) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -687,7 +687,7 @@ helium_app.newsletter_edit_screen = (Vue, axios, Cookies, $) => {
 }
 
 // Newsletter Index Page
-helium_app.newsletter_index_screen = (Vue, axios, Cookies, $) => {
+helium_app.newsletter_index_screen = (Vue, axios, $) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -741,6 +741,54 @@ helium_app.newsletter_index_screen = (Vue, axios, Cookies, $) => {
 
 }
 
+// Home Subscribe
+helium_app.home_subscribe = (Vue, axios, $) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#app_home_page',
+        data() {
+            return {
+                isInProgress: false,
+            }
+        },
+        methods: {
+            subscribeAction(event) {
+                event.preventDefault();
+                this.isInProgress = true;
+
+                let inputs = {};
+                let _self = $(event.target);
+                let _form = _self.closest("form");
+
+                _form.find("button").attr("disabled", "disabled");
+
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                axios.post(_form.attr('action'), inputs)
+                    .then((response) => {
+                        if (response.status >= 200) {
+                            toastr.clear();
+                            toastr.info(response.data.successMessage);
+                        }
+                        $('input[name="email"]').val("");
+                        _form.find("button").removeAttr("disabled");
+                    })
+                    .catch((error) => {
+                        this.isInProgress = false;
+                        // Show error
+                        toastr.clear();
+                        toastr.error(error.response.data.errorMessage);
+                        _form.find("button").removeAttr("disabled");
+                    });
+            }
+        }
+    });
+
+}
+
 $(document).ready(() => {
     axios.defaults.headers.common = {
         'X-Requested-With': 'XMLHttpRequest'
@@ -750,7 +798,6 @@ $(document).ready(() => {
         helium_app.login_screen(
             Vue,
             axios,
-            Cookies,
             $
         );
     }
@@ -759,7 +806,6 @@ $(document).ready(() => {
         helium_app.reset_password_screen(
             Vue,
             axios,
-            Cookies,
             $
         );
     }
@@ -768,7 +814,6 @@ $(document).ready(() => {
         helium_app.install_screen(
             Vue,
             axios,
-            Cookies,
             $
         );
     }
@@ -777,7 +822,6 @@ $(document).ready(() => {
         helium_app.forgot_password_screen(
             Vue,
             axios,
-            Cookies,
             $
         );
     }
@@ -786,7 +830,6 @@ $(document).ready(() => {
         helium_app.settings_screen(
             Vue,
             axios,
-            Cookies,
             $
         );
     }
@@ -795,7 +838,6 @@ $(document).ready(() => {
         helium_app.profile_screen(
             Vue,
             axios,
-            Cookies,
             $
         );
     }
@@ -804,7 +846,6 @@ $(document).ready(() => {
         helium_app.subscriber_index_screen(
             Vue,
             axios,
-            Cookies,
             $
         );
     }
@@ -813,7 +854,6 @@ $(document).ready(() => {
         helium_app.subscriber_add_screen(
             Vue,
             axios,
-            Cookies,
             $
         );
     }
@@ -822,7 +862,6 @@ $(document).ready(() => {
         helium_app.subscriber_edit_screen(
             Vue,
             axios,
-            Cookies,
             $
         );
     }
@@ -831,7 +870,6 @@ $(document).ready(() => {
         helium_app.newsletter_add_screen(
             Vue,
             axios,
-            Cookies,
             $
         );
     }
@@ -840,7 +878,6 @@ $(document).ready(() => {
         helium_app.newsletter_edit_screen(
             Vue,
             axios,
-            Cookies,
             $
         );
     }
@@ -849,8 +886,16 @@ $(document).ready(() => {
         helium_app.newsletter_index_screen(
             Vue,
             axios,
-            Cookies,
             $
         );
     }
+
+    if (document.getElementById("app_home_page")) {
+        helium_app.home_subscribe(
+            Vue,
+            axios,
+            $
+        );
+    }
+
 });

@@ -46,7 +46,52 @@
         "mailtrap"
       ]
     },
-    "appMailerDSN": {
+    "appMetaDescription": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 200
+    },
+    "appMetaKeywords": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 200
+    },
+    "appMetaTwitterTitle": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 200
+    },
+    "appMetaTwitterDescription": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 200
+    },
+    "appMetaTwitterImage": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 10000
+    },
+    "appMetaTwitterSite": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 200
+    },
+    "appMetaTwitterCreator": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 200
+    },
+    "appNewsletterTitle": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 200
+    },
+    "appNewsletterDescription": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 200
+    },
+    "appNewsletterFooter": {
       "type": "string",
       "minLength": 0,
       "maxLength": 200
@@ -59,6 +104,16 @@
     "appLayout",
     "appGoogleTrackingCode",
     "appMailerProdvider",
-    "appMailerDSN"
+    "appMetaDescription",
+    "appMetaKeywords",
+    "appMetaTwitterTitle",
+    "appMetaTwitterDescription",
+    "appMetaTwitterImage",
+    "appMetaTwitterSite",
+    "appMetaTwitterCreator",
+    "appNewsletterTitle",
+    "appNewsletterDescription",
+    "appNewsletterFooter"
   ]
 }
+

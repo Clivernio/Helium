@@ -10,15 +10,19 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Exception\InvalidRequest;
+use App\Message\VerifyEmail;
 use App\Module\Install as InstallModule;
 use App\Module\Subscriber as SubscriberModule;
 use App\Repository\ConfigRepository;
 use App\Repository\SubscriberRepository;
+use App\Service\Validator;
+use App\Service\Worker;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -39,6 +43,12 @@ class HomeController extends AbstractController
     /** @var SubscriberModule */
     private $subscriberModule;
 
+    /** @var Worker */
+    private $worker;
+
+    /** @var Validator */
+    private $validator;
+
     /**
      * Class Constructor.
      */
@@ -47,13 +57,17 @@ class HomeController extends AbstractController
         ConfigRepository $configRepository,
         TranslatorInterface $translator,
         InstallModule $installModule,
-        SubscriberModule $subscriberModule
+        SubscriberModule $subscriberModule,
+        Worker $worker,
+        Validator $validator
     ) {
         $this->logger           = $logger;
         $this->translator       = $translator;
         $this->configRepository = $configRepository;
         $this->installModule    = $installModule;
         $this->subscriberModule = $subscriberModule;
+        $this->worker           = $worker;
+        $this->validator        = $validator;
     }
 
     /**
@@ -74,15 +88,67 @@ class HomeController extends AbstractController
         $layout = $this->configRepository->findValueByName("he_app_home_layout", "default");
 
         return $this->render(sprintf('page/home.%s.html.twig', $layout), [
+            'title'                  => $this->configRepository->findValueByName("he_app_name", "Helium"),
+            'analytics_code'         => $this->configRepository->findValueByName("he_google_analytics_code", ""),
+            'newsletter_title'       => $this->configRepository->findValueByName("he_newsletter_title", ""),
+            'newsletter_description' => $this->configRepository->findValueByName("he_newsletter_description", ""),
+            'newsletter_footer'      => $this->configRepository->findValueByName("he_newsletter_footer", ""),
+            "meta"                   => [
+                "description"         => $this->configRepository->findValueByName("he_seo_description", ""),
+                "keywords"            => $this->configRepository->findValueByName("he_seo_keywords", ""),
+                "canonical"           => $this->configRepository->findValueByName("he_seo_canonical", ""),
+                "twitter_title"       => $this->configRepository->findValueByName("he_seo_twitter_title", ""),
+                "twitter_description" => $this->configRepository->findValueByName("he_seo_twitter_description", ""),
+                "twitter_image"       => $this->configRepository->findValueByName("he_seo_twitter_image", ""),
+                "twitter_site"        => $this->configRepository->findValueByName("he_seo_twitter_site", ""),
+                "twitter_creator"     => $this->configRepository->findValueByName("he_seo_twitter_creator", ""),
+            ],
+        ]);
+    }
+
+    /**
+     * Verify Subscriber.
+     */
+    #[Route('/verify/{email}/{token}', name: 'app_ui_verify_subscriber')]
+    public function verifySubscriber(string $email, string $token): Response
+    {
+        $this->logger->info(sprintf("Verify subscriber with email %s and token %s", $email, $token));
+
+        $result = $this->subscriberModule->verifySubscriber($email, $token);
+
+        if (!$result) {
+            throw new NotFoundHttpException(sprintf("Newsletter with email %s not found", $email));
+        }
+
+        $subscriber = $this->subscriberModule->findOneByEmail(
+            $email
+        );
+
+        $this->subscriberModule->edit(
+            $subscriber->getId(),
+            ['status' => SubscriberRepository::SUBSCRIBED]
+        );
+
+        return $this->render('page/verify.html.twig', [
             'title'          => $this->configRepository->findValueByName("he_app_name", "Helium"),
             'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
+            "meta"           => [
+                "description"         => $this->configRepository->findValueByName("he_seo_description", ""),
+                "keywords"            => $this->configRepository->findValueByName("he_seo_keywords", ""),
+                "canonical"           => $this->configRepository->findValueByName("he_seo_canonical", ""),
+                "twitter_title"       => $this->configRepository->findValueByName("he_seo_twitter_title", ""),
+                "twitter_description" => $this->configRepository->findValueByName("he_seo_twitter_description", ""),
+                "twitter_image"       => $this->configRepository->findValueByName("he_seo_twitter_image", ""),
+                "twitter_site"        => $this->configRepository->findValueByName("he_seo_twitter_site", ""),
+                "twitter_creator"     => $this->configRepository->findValueByName("he_seo_twitter_creator", ""),
+            ],
         ]);
     }
 
     /**
      * Subscribe API Endpoint.
      */
-    #[Route('/api/v1/subscribe', name: 'app_endpoint_v1_subscribe')]
+    #[Route('/api/v1/subscribe', name: 'app_endpoint_v1_subscribe', methods: ['POST'])]
     public function subscribeEndpoint(Request $request): JsonResponse
     {
         $this->logger->info("Trigger subscribe v1 endpoint");
@@ -100,14 +166,20 @@ class HomeController extends AbstractController
             throw new InvalidRequest('Invalid request');
         }
 
-        $this->subscriberModule->add([
+        $subscriber = $this->subscriberModule->add([
             'email'  => $data->email,
             'status' => SubscriberRepository::PENDING_VERIFY,
         ]);
 
+        // Dispatch verify email task
+        $this->worker->dispatch(
+            new VerifyEmail(),
+            ["email" => $subscriber->getEmail(), "token" => $subscriber->getToken()]
+        );
+
         return $this->json([
             'successMessage' => $this->translator->trans(
-                'Email subscribed successfully. Please check your inbox to verify!'
+                'Email added successfully. Please check your inbox to verify!'
             ),
         ]);
     }

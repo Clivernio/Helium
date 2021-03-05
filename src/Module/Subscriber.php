@@ -151,4 +151,18 @@ class Subscriber
     {
         return $this->subscriberRepository->findOneByEmail($email);
     }
+
+    /**
+     * Verify Subscriber by Email and Token.
+     */
+    public function verifySubscriber(string $email, string $token): bool
+    {
+        $subscriber = $this->subscriberRepository->findOneByEmail($email);
+
+        if (empty($subscriber)) {
+            return false;
+        }
+
+        return $token === $subscriber->getToken();
+    }
 }

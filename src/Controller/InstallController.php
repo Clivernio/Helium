@@ -115,14 +115,25 @@ class InstallController extends AbstractController
 
         // Install application
         $this->installModule->installApplication([
-            'he_app_installed'         => 'done',
-            'he_app_name'              => $data->appName,
-            'he_app_url'               => $data->appURL,
-            'he_app_email'             => $data->appEmail,
-            'he_app_home_layout'       => 'default',
-            'he_google_analytics_code' => '',
-            'he_mailer_provider'       => 'disabled',
-            'he_mailer_dsn'            => 'null://null',
+            'he_app_installed'           => 'done',
+            'he_app_name'                => $data->appName,
+            'he_app_url'                 => $data->appURL,
+            'he_app_email'               => $data->appEmail,
+            'he_app_home_layout'         => 'default',
+            'he_google_analytics_code'   => '',
+            'he_mailer_provider'         => 'disabled',
+            'he_mailer_dsn'              => 'null://null',
+            'he_seo_description'         => "",
+            'he_seo_keywords'            => "",
+            'he_seo_canonical'           => $data->appURL,
+            'he_seo_twitter_title'       => "",
+            'he_seo_twitter_description' => "",
+            'he_seo_twitter_image'       => "",
+            'he_seo_twitter_site'        => "",
+            'he_seo_twitter_creator'     => "",
+            'he_newsletter_title'        => "Subscribe Today",
+            'he_newsletter_description'  => "Never miss a news",
+            'he_newsletter_footer'       => "We won’t send you spam. Unsubscribe at any time.",
         ]);
 
         // Create admin account
