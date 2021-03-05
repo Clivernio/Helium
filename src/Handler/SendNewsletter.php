@@ -88,12 +88,16 @@ class SendNewsletter
             . $this->configRepository->findValueByName("he_app_name", "Helium");
 
             $content                    = Yaml::parse(trim($delivery->getNewsletter()->getContent()));
-            $content["unsubscribe_url"] = $this->router->generate('app_ui_unsubscribe', [
+            $content["unsubscribe_url"] = rtrim($this->configRepository->findValueByName("he_app_url", ""), "/")
+            . $this->router->generate('app_ui_unsubscribe', [
                 'email' => $delivery->getSubscriber()->getEmail(),
                 'token' => $delivery->getSubscriber()->getToken(),
             ]);
 
+            $content["subject"] = $subject;
+
             $email_data = [
+                'subject'        => $subject,
                 'app_name'       => $this->configRepository->findValueByName("he_app_name", ""),
                 'app_url'        => $this->configRepository->findValueByName("he_app_url", ""),
                 'app_email'      => $this->configRepository->findValueByName("he_app_email", ""),
@@ -110,9 +114,10 @@ class SendNewsletter
             );
         } catch (\Exception $e) {
             $this->logger->error(sprintf(
-                "Task with UUID %s, Delivery ID %s failed",
+                "Task with UUID %s, Delivery ID %s failed: %s",
                 $data['task_id'],
-                $data['delivery_id']
+                $data['delivery_id'],
+                $e->getMessage()
             ));
 
             $this->worker->updateTaskStatus(

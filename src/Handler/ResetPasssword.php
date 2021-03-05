@@ -15,6 +15,7 @@ use App\Service\Mailer;
 use App\Service\Worker;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -38,6 +39,9 @@ class ResetPasssword
     /** @var TranslatorInterface */
     private $translator;
 
+    /** @var RouterInterface */
+    private $router;
+
     /**
      * Class Constructor.
      */
@@ -46,13 +50,15 @@ class ResetPasssword
         Worker $worker,
         Mailer $mailer,
         ConfigRepository $configRepository,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        RouterInterface $router
     ) {
         $this->logger           = $logger;
         $this->worker           = $worker;
         $this->mailer           = $mailer;
         $this->configRepository = $configRepository;
         $this->translator       = $translator;
+        $this->router           = $router;
     }
 
     /**
@@ -75,11 +81,17 @@ class ResetPasssword
 
             $from = $this->configRepository->findValueByName("he_app_email", "no_reply@example.com");
 
+            $reset_url = rtrim($this->configRepository->findValueByName("he_app_url", ""), "/")
+            . $this->router->generate('app_ui_reset_password', [
+                'token' => $data['token'],
+            ]);
+
             $email_data = [
-                "subject"  => $subject,
-                "app_name" => $this->configRepository->findValueByName("he_app_name", "Helium"),
-                "app_url"  => $this->configRepository->findValueByName("he_app_url"),
-                "token"    => $data['token'],
+                "subject"   => $subject,
+                "app_name"  => $this->configRepository->findValueByName("he_app_name", "Helium"),
+                "app_url"   => $this->configRepository->findValueByName("he_app_url"),
+                "token"     => $data['token'],
+                "reset_url" => $reset_url,
             ];
 
             $this->mailer->send(
@@ -91,10 +103,11 @@ class ResetPasssword
             );
         } catch (\Exception $e) {
             $this->logger->error(sprintf(
-                "Task with UUID %s, email %s and token %s failed",
+                "Task with UUID %s, email %s and token %s failed: %s",
                 $data['task_id'],
                 $data['email'],
-                $data['token']
+                $data['token'],
+                $e->getMessage()
             ));
 
             $this->worker->updateTaskStatus(
