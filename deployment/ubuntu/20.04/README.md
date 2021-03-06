@@ -76,7 +76,7 @@ $ ansible-vault create helium.vault.yml
 app_user: appmgmt
 app_group: appmgmt
 
-app_version: 1.0.1
+app_version: 1.0.2
 git_repo: git@github.com:Clivern/Helium.git
 
 workers_counts: 1
