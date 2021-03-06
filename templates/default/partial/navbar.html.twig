@@ -1,0 +1,113 @@
+<header class="navbar navbar-expand-md navbar-light d-print-none">
+  <div class="container-xl">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
+      <a href="{{ path('app_ui_home') }}" target="_blank">
+        <img src="/static/logo.png" width="110" height="32" alt="Tabler" class="navbar-brand-image">
+      </a>
+    </h1>
+    <div class="navbar-nav flex-row order-md-last">
+      <div class="nav-item dropdown">
+        <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
+          <span class="avatar avatar-sm" style="background-image: url(/static/avatar.png)"></span>
+          <div class="d-none d-xl-block ps-2">
+            <div>{{ user.first_name }} {{ user.last_name }}</div>
+            <div class="mt-1 small text-muted">{{ user.job }}</div>
+          </div>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+          <a href="{{ path('app_ui_profile') }}" class="dropdown-item">{% trans %}Profile{% endtrans %}</a>
+          <div class="dropdown-divider"></div>
+          <a href="{{ path('app_ui_settings') }}" class="dropdown-item">{% trans %}Settings{% endtrans %}</a>
+          <a href="{{ path('app_ui_logout') }}" class="dropdown-item">{% trans %}Logout{% endtrans %}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="navbar-expand-md">
+  <div class="collapse navbar-collapse" id="navbar-menu">
+    <div class="navbar navbar-light">
+      <div class="container-xl">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_ui_dashboard') }}">
+              <span class="nav-link-icon d-md-none d-lg-inline-block">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-activity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                   <path d="M3 12h4l3 8l4 -16l3 8h4"></path>
+                </svg>
+              </span>
+              <span class="nav-link-title">
+                {% trans %}Dashboard{% endtrans %}
+              </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_ui_newsletter_index') }}" >
+              <span class="nav-link-icon d-md-none d-lg-inline-block">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-article" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                   <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                   <path d="M7 8h10"></path>
+                   <path d="M7 12h10"></path>
+                   <path d="M7 16h10"></path>
+                </svg>
+              </span>
+              <span class="nav-link-title">
+                {% trans %}Newsletters{% endtrans %}
+              </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_ui_subscriber_index') }}" >
+              <span class="nav-link-icon d-md-none d-lg-inline-block">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-at" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                   <circle cx="12" cy="12" r="4"></circle>
+                   <path d="M16 12v1.5a2.5 2.5 0 0 0 5 0v-1.5a9 9 0 1 0 -5.5 8.28"></path>
+                </svg>
+              </span>
+              <span class="nav-link-title">
+                {% trans %}Subscribers{% endtrans %}
+              </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_ui_settings') }}" >
+              <span class="nav-link-icon d-md-none d-lg-inline-block">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-settings-automation" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                   <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"></path>
+                   <path d="M10 9v6l5 -3z"></path>
+                </svg>
+              </span>
+              <span class="nav-link-title">
+                {% trans %}Settings{% endtrans %}
+              </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://clivern.com/support/" >
+              <span class="nav-link-icon d-md-none d-lg-inline-block">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-message-dots" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                   <path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4"></path>
+                   <line x1="12" y1="11" x2="12" y2="11.01"></line>
+                   <line x1="8" y1="11" x2="8" y2="11.01"></line>
+                   <line x1="16" y1="11" x2="16" y2="11.01"></line>
+                </svg>
+              </span>
+              <span class="nav-link-title">
+                {% trans %}Support{% endtrans %}
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

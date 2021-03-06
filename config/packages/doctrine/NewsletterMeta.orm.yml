@@ -1,0 +1,29 @@
+App\Entity\NewsletterMeta:
+    type: entity
+    table: he_newsletter_meta
+    repositoryClass: App\Repository\NewsletterMetaRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 100
+            nullable: false
+        value:
+            type: text
+            unique: false
+            nullable: true
+        createdAt:
+            type: datetime
+            nullable: false
+        updatedAt:
+            type: datetime
+            nullable: false
+
+    manyToOne:
+        newsletter:
+            targetEntity: Newsletter
+            inversedBy: metas

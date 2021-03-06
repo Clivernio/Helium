@@ -1,0 +1,267 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Advanced - Helium</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Introduction</a></li><li class="chapter-item expanded "><a href="Hosting.html"><strong aria-hidden="true">1.</strong> Free Hosting</a></li><li class="chapter-item expanded "><a href="Requirements.html"><strong aria-hidden="true">2.</strong> Requirements</a></li><li class="chapter-item expanded "><a href="Installation.html"><strong aria-hidden="true">3.</strong> Installation</a></li><li class="chapter-item expanded "><a href="Configuration.html"><strong aria-hidden="true">4.</strong> Configuration</a></li><li class="chapter-item expanded "><a href="Advanced.html" class="active"><strong aria-hidden="true">5.</strong> Advanced</a></li><li class="chapter-item expanded "><a href="Translation.html"><strong aria-hidden="true">6.</strong> Translation</a></li><li class="chapter-item expanded "><a href="Support.html"><strong aria-hidden="true">7.</strong> Support</a></li><li class="chapter-item expanded "><a href="Security.html"><strong aria-hidden="true">8.</strong> Security</a></li><li class="chapter-item expanded "><a href="Versioning.html"><strong aria-hidden="true">9.</strong> Versioning</a></li><li class="chapter-item expanded "><a href="Credits.html"><strong aria-hidden="true">10.</strong> Credits</a></li><li class="chapter-item expanded "><a href="Changelog.html"><strong aria-hidden="true">11.</strong> Changelog</a></li><li class="chapter-item expanded "><a href="License.html"><strong aria-hidden="true">12.</strong> License</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Helium</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h3 id="advanced"><a class="header" href="#advanced">Advanced</a></h3>
+<ol>
+<li><em>Which template engine helium is using?</em></li>
+</ol>
+<p><code>Helium</code> uses the symfony default templating engine <code>Twig</code>. Here is a guide how to use <a href="https://twig.symfony.com/doc/3.x/templates.html">twig</a></p>
+<ol start="2">
+<li><em>How to build a new home page template?</em></li>
+</ol>
+<p>By default helium scans the <code>templates/default/page/home.$layout.html.twig</code>. To create a new layout called creative. create a new file <code>templates/default/page/home.creative.html.twig</code> from <code>templates/default/page/home.default.html.twig</code>. then customize the look and feel.</p>
+<p>You can activate the new layout from the dashboard &gt; settings page, select the <code>creative</code> layout.</p>
+<ol start="3">
+<li><em>How to build a new newsletter email template?</em></li>
+</ol>
+<p>Let's create a new newsletter template for product updates. First we create <code>templates/default/newsletter/product_updates.distro.html.twig</code> and <code>templates/default/newsletter/product_updates.distro.yml</code>.</p>
+<p>By default the following variables are available to be used in your newsletter template</p>
+<ul>
+<li><code>app_name</code></li>
+<li><code>app_url</code></li>
+<li><code>data.unsubscribe_url</code></li>
+</ul>
+<p>You can define some dynamic data in <code>templates/default/newsletter/product_updates.distro.yml</code></p>
+<pre><code>logo_url: 'https://via.placeholder.com/360x170'
+
+updates:
+  -
+    title: How to Setup a HA Cassandra Cluster
+    img_url: 'https://via.placeholder.com/1200x700'
+    link: 'https://clivern.com/how-to-setup-a-ha-cassandra-cluster/'
+    description: &gt;-
+      Apache Cassandra is a NoSQL database with flexible deployment options that’s
+      highly performant (especially for writes), scalable, fault-tolerant, and
+      proven in production. Alternative NoSQL databases include Amazon DynamoDB,
+      Apache HBase, and MongoDB.
+  -
+    title: How to Setup a HA Cassandra Cluster
+    img_url: 'https://via.placeholder.com/1200x700'
+    link: 'https://clivern.com/how-to-setup-a-ha-cassandra-cluster/'
+    description: &gt;-
+      Apache Cassandra is a NoSQL database with flexible deployment options that’s
+      highly performant (especially for writes), scalable, fault-tolerant, and
+      proven in production. Alternative NoSQL databases include Amazon DynamoDB,
+      Apache HBase, and MongoDB.
+
+  -
+    title: How to Setup a HA Cassandra Cluster
+    img_url: 'https://via.placeholder.com/1200x700'
+    link: 'https://clivern.com/how-to-setup-a-ha-cassandra-cluster/'
+    description: &gt;-
+      Apache Cassandra is a NoSQL database with flexible deployment options that’s
+      highly performant (especially for writes), scalable, fault-tolerant, and
+      proven in production. Alternative NoSQL databases include Amazon DynamoDB,
+      Apache HBase, and MongoDB.
+</code></pre>
+<p>You can access the above data from the template using <code>data.logo_url</code> and <code>data.updates</code> like the following</p>
+<pre><code>{% for update in data.updates %}
+    &lt;img src=&quot;{{ update.img_url }}&quot;&gt;
+    &lt;table&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;
+                &lt;td &gt;
+                    &lt;h1&gt;{{ update.title }}&lt;/h1&gt;
+                    &lt;p&gt;{{ update.description }}&lt;/p&gt;
+                    &lt;a href=&quot;{{ update.link }}&quot;&gt;
+                        &lt;span&gt;Learn more&lt;/span&gt;
+                    &lt;/a&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+{% endfor %}
+</code></pre>
+<p><em>Please note that all variables in the <code>product_updates.distro.yml</code> can be accessed by data.$$</em></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Configuration.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="Translation.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Configuration.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="Translation.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

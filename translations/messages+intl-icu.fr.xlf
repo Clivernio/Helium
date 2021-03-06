@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="TnDx.SS" resname="Reset Password">
+        <source>Reset Password</source>
+        <target>__Reset Password</target>
+      </trans-unit>
+      <trans-unit id="mun7vLH" resname="Verify Email">
+        <source>Verify Email</source>
+        <target>__Verify Email</target>
+      </trans-unit>
+      <trans-unit id="Y03f6Ot" resname="Email added successfully. Please check your inbox to verify!">
+        <source>Email added successfully. Please check your inbox to verify!</source>
+        <target>__Email added successfully. Please check your inbox to verify!</target>
+      </trans-unit>
+      <trans-unit id="3Xe4CFX" resname="Email unsubscribed successfully!">
+        <source>Email unsubscribed successfully!</source>
+        <target>__Email unsubscribed successfully!</target>
+      </trans-unit>
+      <trans-unit id=".f1B3nr" resname="Forgot Password">
+        <source>Forgot Password</source>
+        <target>__Forgot Password</target>
+      </trans-unit>
+      <trans-unit id="pbLWdLc" resname="An email sent to update your password.">
+        <source>An email sent to update your password.</source>
+        <target>__An email sent to update your password.</target>
+      </trans-unit>
+      <trans-unit id="BgTNMTj" resname="500">
+        <source>500</source>
+        <target>__500</target>
+      </trans-unit>
+      <trans-unit id="nWMiwfT" resname="Login">
+        <source>Login</source>
+        <target>__Login</target>
+      </trans-unit>
+      <trans-unit id="sNUACgm" resname="User logged in successfully.">
+        <source>User logged in successfully.</source>
+        <target>__User logged in successfully.</target>
+      </trans-unit>
+      <trans-unit id="Z7aWRoY" resname="Dashboard">
+        <source>Dashboard</source>
+        <target>__Dashboard</target>
+      </trans-unit>
+      <trans-unit id="bM_LfWm" resname="Profile updated successfully.">
+        <source>Profile updated successfully.</source>
+        <target>__Profile updated successfully.</target>
+      </trans-unit>
+      <trans-unit id="LK0Hi8f" resname="Password updated successfully.">
+        <source>Password updated successfully.</source>
+        <target>__Password updated successfully.</target>
+      </trans-unit>
+      <trans-unit id="CEl437m" resname="Newsletters">
+        <source>Newsletters</source>
+        <target>__Newsletters</target>
+      </trans-unit>
+      <trans-unit id="V9BKpVE" resname="On Hold">
+        <source>On Hold</source>
+        <target>__On Hold</target>
+      </trans-unit>
+      <trans-unit id="MxVRsN5" resname="Pending">
+        <source>Pending</source>
+        <target>__Pending</target>
+      </trans-unit>
+      <trans-unit id="tMxLB8M" resname="In Progress">
+        <source>In Progress</source>
+        <target>__In Progress</target>
+      </trans-unit>
+      <trans-unit id="eAT3p5q" resname="Finished">
+        <source>Finished</source>
+        <target>__Finished</target>
+      </trans-unit>
+      <trans-unit id="6.Eu9Hz" resname="Draft">
+        <source>Draft</source>
+        <target>__Draft</target>
+      </trans-unit>
+      <trans-unit id=".hgBPZP" resname="Now">
+        <source>Now</source>
+        <target>__Now</target>
+      </trans-unit>
+      <trans-unit id="RyTzRMH" resname="Scheduled">
+        <source>Scheduled</source>
+        <target>__Scheduled</target>
+      </trans-unit>
+      <trans-unit id="KVo.iMB" resname="Newsletter created successfully.">
+        <source>Newsletter created successfully.</source>
+        <target>__Newsletter created successfully.</target>
+      </trans-unit>
+      <trans-unit id="D1XGP2D" resname="Newsletter updated successfully.">
+        <source>Newsletter updated successfully.</source>
+        <target>__Newsletter updated successfully.</target>
+      </trans-unit>
+      <trans-unit id="2e.l3Ta" resname="Newsletter deleted successfully.">
+        <source>Newsletter deleted successfully.</source>
+        <target>__Newsletter deleted successfully.</target>
+      </trans-unit>
+      <trans-unit id="kOFE9PC" resname="Newsletter preview update successfully.">
+        <source>Newsletter preview update successfully.</source>
+        <target>__Newsletter preview update successfully.</target>
+      </trans-unit>
+      <trans-unit id="3jIvh7X" resname="General Settings">
+        <source>General Settings</source>
+        <target>__General Settings</target>
+      </trans-unit>
+      <trans-unit id="DbMYBSw" resname="Settings updated successfully.">
+        <source>Settings updated successfully.</source>
+        <target>__Settings updated successfully.</target>
+      </trans-unit>
+      <trans-unit id="o0TInWY" resname="Subscribers">
+        <source>Subscribers</source>
+        <target>__Subscribers</target>
+      </trans-unit>
+      <trans-unit id="d_B3lfn" resname="Pending Verification">
+        <source>Pending Verification</source>
+        <target>__Pending Verification</target>
+      </trans-unit>
+      <trans-unit id="dQgbWT0" resname="Disabled">
+        <source>Disabled</source>
+        <target>__Disabled</target>
+      </trans-unit>
+      <trans-unit id="ksHN.fT" resname="Enabled">
+        <source>Enabled</source>
+        <target>__Enabled</target>
+      </trans-unit>
+      <trans-unit id="TsC5lES" resname="Trashed">
+        <source>Trashed</source>
+        <target>__Trashed</target>
+      </trans-unit>
+      <trans-unit id="z6iSMII" resname="Subscriber created successfully.">
+        <source>Subscriber created successfully.</source>
+        <target>__Subscriber created successfully.</target>
+      </trans-unit>
+      <trans-unit id="e2Z_JUj" resname="Subscriber deleted successfully.">
+        <source>Subscriber deleted successfully.</source>
+        <target>__Subscriber deleted successfully.</target>
+      </trans-unit>
+      <trans-unit id="P5t9Kxj" resname="Subscriber updated successfully.">
+        <source>Subscriber updated successfully.</source>
+        <target>__Subscriber updated successfully.</target>
+      </trans-unit>
+      <trans-unit id="Vpykn0q" resname="Install">
+        <source>Install</source>
+        <target>__Install</target>
+      </trans-unit>
+      <trans-unit id="Gr5so8p" resname="Application is already installed!">
+        <source>Application is already installed!</source>
+        <target>__Application is already installed!</target>
+      </trans-unit>
+      <trans-unit id="JSZm1R2" resname="Application installed successfully.">
+        <source>Application installed successfully.</source>
+        <target>__Application installed successfully.</target>
+      </trans-unit>
+      <trans-unit id="azwjjrz" resname="404">
+        <source>404</source>
+        <target>__404</target>
+      </trans-unit>
+      <trans-unit id="e_gh9hW" resname="Internal server error!">
+        <source>Internal server error!</source>
+        <target>__Internal server error!</target>
+      </trans-unit>
+      <trans-unit id="eVXpy1K" resname="Enter your new password.">
+        <source>Enter your new password.</source>
+        <target>__Enter your new password.</target>
+      </trans-unit>
+      <trans-unit id="588_9PF" resname="Password">
+        <source>Password</source>
+        <target>__Password</target>
+      </trans-unit>
+      <trans-unit id="u9pwK0s" resname="Your password">
+        <source>Your password</source>
+        <target>__Your password</target>
+      </trans-unit>
+      <trans-unit id="FV_BbAQ" resname="Submit">
+        <source>Submit</source>
+        <target>__Submit</target>
+      </trans-unit>
+      <trans-unit id="P6fF7xk" resname="Your email address">
+        <source>Your email address</source>
+        <target>__Your email address</target>
+      </trans-unit>
+      <trans-unit id="zA442px" resname="Subscribe">
+        <source>Subscribe</source>
+        <target>__Subscribe</target>
+      </trans-unit>
+      <trans-unit id="PpLvt2Z" resname="Unsubscribe">
+        <source>Unsubscribe</source>
+        <target>__Unsubscribe</target>
+      </trans-unit>
+      <trans-unit id="dZDyyIl" resname="We are sad to see you go!">
+        <source>We are sad to see you go!</source>
+        <target>__We are sad to see you go!</target>
+      </trans-unit>
+      <trans-unit id="pPxBd6y" resname="Oops… You just found an error page">
+        <source>Oops… You just found an error page</source>
+        <target>__Oops… You just found an error page</target>
+      </trans-unit>
+      <trans-unit id="cGAvAci" resname="We are sorry but our server encountered an internal error">
+        <source>We are sorry but our server encountered an internal error</source>
+        <target>__We are sorry but our server encountered an internal error</target>
+      </trans-unit>
+      <trans-unit id="7ECoiEP" resname="Take me home">
+        <source>Take me home</source>
+        <target>__Take me home</target>
+      </trans-unit>
+      <trans-unit id="cefc0zG" resname="Edit Subscriber">
+        <source>Edit Subscriber</source>
+        <target>__Edit Subscriber</target>
+      </trans-unit>
+      <trans-unit id="Cb8l7zC" resname="Email Address">
+        <source>Email Address</source>
+        <target>__Email Address</target>
+      </trans-unit>
+      <trans-unit id="kg5BPH1" resname="Status">
+        <source>Status</source>
+        <target>__Status</target>
+      </trans-unit>
+      <trans-unit id="4tClSWj" resname="Delete">
+        <source>Delete</source>
+        <target>__Delete</target>
+      </trans-unit>
+      <trans-unit id="wdySxoD" resname="Add New">
+        <source>Add New</source>
+        <target>__Add New</target>
+      </trans-unit>
+      <trans-unit id="lpzL089" resname="Email">
+        <source>Email</source>
+        <target>__Email</target>
+      </trans-unit>
+      <trans-unit id="PUQzcBC" resname="Created At">
+        <source>Created At</source>
+        <target>__Created At</target>
+      </trans-unit>
+      <trans-unit id="41yOT1y" resname="Updated At">
+        <source>Updated At</source>
+        <target>__Updated At</target>
+      </trans-unit>
+      <trans-unit id="RkxP.QG" resname="Edit">
+        <source>Edit</source>
+        <target>__Edit</target>
+      </trans-unit>
+      <trans-unit id="U22tGy5" resname="No Records Found!">
+        <source>No Records Found!</source>
+        <target>__No Records Found!</target>
+      </trans-unit>
+      <trans-unit id="qkSocHe" resname="Load More!">
+        <source>Load More!</source>
+        <target>__Load More!</target>
+      </trans-unit>
+      <trans-unit id="Slh6vE0" resname="Edit Newsletter">
+        <source>Edit Newsletter</source>
+        <target>__Edit Newsletter</target>
+      </trans-unit>
+      <trans-unit id="3NHVIj9" resname="Name">
+        <source>Name</source>
+        <target>__Name</target>
+      </trans-unit>
+      <trans-unit id="YGQ_rmN" resname="From Address">
+        <source>From Address</source>
+        <target>__From Address</target>
+      </trans-unit>
+      <trans-unit id="D67.RIA" resname="Delivery Type">
+        <source>Delivery Type</source>
+        <target>__Delivery Type</target>
+      </trans-unit>
+      <trans-unit id="AZxuY6r" resname="Select a value">
+        <source>Select a value</source>
+        <target>__Select a value</target>
+      </trans-unit>
+      <trans-unit id="gfR9jyJ" resname="Date (Year-month-day)">
+        <source>Date (Year-month-day)</source>
+        <target>__Date (Year-month-day)</target>
+      </trans-unit>
+      <trans-unit id="JsR30Nn" resname="Hour (H:M PM/AM)">
+        <source>Hour (H:M PM/AM)</source>
+        <target>__Hour (H:M PM/AM)</target>
+      </trans-unit>
+      <trans-unit id="BXXynfi" resname="Template">
+        <source>Template</source>
+        <target>__Template</target>
+      </trans-unit>
+      <trans-unit id="0RVtB8p" resname="Select a template">
+        <source>Select a template</source>
+        <target>__Select a template</target>
+      </trans-unit>
+      <trans-unit id="Q4.1dp7" resname="Template Inputs">
+        <source>Template Inputs</source>
+        <target>__Template Inputs</target>
+      </trans-unit>
+      <trans-unit id="vbjiu.z" resname="The inputs in a YAML format">
+        <source>The inputs in a YAML format</source>
+        <target>__The inputs in a YAML format</target>
+      </trans-unit>
+      <trans-unit id="MksTT1f" resname="Preview">
+        <source>Preview</source>
+        <target>__Preview</target>
+      </trans-unit>
+      <trans-unit id="vKedcdz" resname="We are sorry but the page you are looking for was not found">
+        <source>We are sorry but the page you are looking for was not found</source>
+        <target>__We are sorry but the page you are looking for was not found</target>
+      </trans-unit>
+      <trans-unit id="_Eyi53F" resname="Newsletter">
+        <source>Newsletter</source>
+        <target>__Newsletter</target>
+      </trans-unit>
+      <trans-unit id="W3xMCB6" resname="Delivery Status">
+        <source>Delivery Status</source>
+        <target>__Delivery Status</target>
+      </trans-unit>
+      <trans-unit id="qV2qYur" resname="Enter your email address and the reset steps will be emails to you.">
+        <source>Enter your email address and the reset steps will be emails to you.</source>
+        <target>__Enter your email address and the reset steps will be emails to you.</target>
+      </trans-unit>
+      <trans-unit id="JtTpxZJ" resname="Enter email">
+        <source>Enter email</source>
+        <target>__Enter email</target>
+      </trans-unit>
+      <trans-unit id="dx05_B6" resname="Add Subscriber">
+        <source>Add Subscriber</source>
+        <target>__Add Subscriber</target>
+      </trans-unit>
+      <trans-unit id="K7UrTTq" resname="Login into Account">
+        <source>Login into Account</source>
+        <target>__Login into Account</target>
+      </trans-unit>
+      <trans-unit id="O2suinP" resname="I forgot password">
+        <source>I forgot password</source>
+        <target>__I forgot password</target>
+      </trans-unit>
+      <trans-unit id="v9QCsvb" resname="Sign in">
+        <source>Sign in</source>
+        <target>__Sign in</target>
+      </trans-unit>
+      <trans-unit id="idqxS3w" resname="Install Helium">
+        <source>Install Helium</source>
+        <target>__Install Helium</target>
+      </trans-unit>
+      <trans-unit id="6YZatMr" resname="Application Name">
+        <source>Application Name</source>
+        <target>__Application Name</target>
+      </trans-unit>
+      <trans-unit id="lohDN9h" resname="Application URL">
+        <source>Application URL</source>
+        <target>__Application URL</target>
+      </trans-unit>
+      <trans-unit id="9j5m16y" resname="Application Email">
+        <source>Application Email</source>
+        <target>__Application Email</target>
+      </trans-unit>
+      <trans-unit id="emxNoG7" resname="Admin Email">
+        <source>Admin Email</source>
+        <target>__Admin Email</target>
+      </trans-unit>
+      <trans-unit id="LiiquTu" resname="Admin Password">
+        <source>Admin Password</source>
+        <target>__Admin Password</target>
+      </trans-unit>
+      <trans-unit id="pqGJ3pY" resname="Add Newsletter">
+        <source>Add Newsletter</source>
+        <target>__Add Newsletter</target>
+      </trans-unit>
+      <trans-unit id="mRv6AVU" resname="My Profile">
+        <source>My Profile</source>
+        <target>__My Profile</target>
+      </trans-unit>
+      <trans-unit id="ls5uYZO" resname="First Name">
+        <source>First Name</source>
+        <target>__First Name</target>
+      </trans-unit>
+      <trans-unit id="9VVjs4a" resname="Last Name">
+        <source>Last Name</source>
+        <target>__Last Name</target>
+      </trans-unit>
+      <trans-unit id="3iyINSJ" resname="Job Title">
+        <source>Job Title</source>
+        <target>__Job Title</target>
+      </trans-unit>
+      <trans-unit id="rdexvGz" resname="Active Subscribers">
+        <source>Active Subscribers</source>
+        <target>__Active Subscribers</target>
+      </trans-unit>
+      <trans-unit id="P5Jsgfh" resname="Non Active Subscribers">
+        <source>Non Active Subscribers</source>
+        <target>__Non Active Subscribers</target>
+      </trans-unit>
+      <trans-unit id="J7l4Qkg" resname="Unverified Subscribers">
+        <source>Unverified Subscribers</source>
+        <target>__Unverified Subscribers</target>
+      </trans-unit>
+      <trans-unit id="HMmE2g9" resname="Total Subscribers">
+        <source>Total Subscribers</source>
+        <target>__Total Subscribers</target>
+      </trans-unit>
+      <trans-unit id="Sui20Ot" resname="Latest Subscribers">
+        <source>Latest Subscribers</source>
+        <target>__Latest Subscribers</target>
+      </trans-unit>
+      <trans-unit id="mcQKtAW" resname="Date">
+        <source>Date</source>
+        <target>__Date</target>
+      </trans-unit>
+      <trans-unit id="M0fDawn" resname="No Records Found">
+        <source>No Records Found</source>
+        <target>__No Records Found</target>
+      </trans-unit>
+      <trans-unit id="uPd908e" resname="Draft Newsletters">
+        <source>Draft Newsletters</source>
+        <target>__Draft Newsletters</target>
+      </trans-unit>
+      <trans-unit id="qKumKBU" resname="Scheduled Newsletters">
+        <source>Scheduled Newsletters</source>
+        <target>__Scheduled Newsletters</target>
+      </trans-unit>
+      <trans-unit id="zOuLrGH" resname="On Hold Newsletters">
+        <source>On Hold Newsletters</source>
+        <target>__On Hold Newsletters</target>
+      </trans-unit>
+      <trans-unit id="fK5eqbi" resname="Pending Newsletters">
+        <source>Pending Newsletters</source>
+        <target>__Pending Newsletters</target>
+      </trans-unit>
+      <trans-unit id="0y7Yu.L" resname="In Progress Newsletters">
+        <source>In Progress Newsletters</source>
+        <target>__In Progress Newsletters</target>
+      </trans-unit>
+      <trans-unit id="QhMFJPx" resname="Sent Out Newsletters">
+        <source>Sent Out Newsletters</source>
+        <target>__Sent Out Newsletters</target>
+      </trans-unit>
+      <trans-unit id="FgSehVl" resname="Newsletters Sent Out">
+        <source>Newsletters Sent Out</source>
+        <target>__Newsletters Sent Out</target>
+      </trans-unit>
+      <trans-unit id="Vm8Hfau" resname="Latest Newsletters">
+        <source>Latest Newsletters</source>
+        <target>__Latest Newsletters</target>
+      </trans-unit>
+      <trans-unit id="dKiDoDe" resname="Settings">
+        <source>Settings</source>
+        <target>__Settings</target>
+      </trans-unit>
+      <trans-unit id="cK1eugr" resname="Newsletter Title">
+        <source>Newsletter Title</source>
+        <target>__Newsletter Title</target>
+      </trans-unit>
+      <trans-unit id="aAjXo40" resname="Newsletter Description">
+        <source>Newsletter Description</source>
+        <target>__Newsletter Description</target>
+      </trans-unit>
+      <trans-unit id="BC3qTWG" resname="Newsletter Footer">
+        <source>Newsletter Footer</source>
+        <target>__Newsletter Footer</target>
+      </trans-unit>
+      <trans-unit id="eFaASOJ" resname="SEO Description">
+        <source>SEO Description</source>
+        <target>__SEO Description</target>
+      </trans-unit>
+      <trans-unit id="hkuLAR7" resname="SEO Keywords">
+        <source>SEO Keywords</source>
+        <target>__SEO Keywords</target>
+      </trans-unit>
+      <trans-unit id="LT38tLV" resname="Home Layout">
+        <source>Home Layout</source>
+        <target>__Home Layout</target>
+      </trans-unit>
+      <trans-unit id="HJbHFMv" resname="Google Analytics Code">
+        <source>Google Analytics Code</source>
+        <target>__Google Analytics Code</target>
+      </trans-unit>
+      <trans-unit id="JMfoWLi" resname="Mailer Provider">
+        <source>Mailer Provider</source>
+        <target>__Mailer Provider</target>
+      </trans-unit>
+      <trans-unit id="I3tyVcA" resname="Twitter Card Title">
+        <source>Twitter Card Title</source>
+        <target>__Twitter Card Title</target>
+      </trans-unit>
+      <trans-unit id="sAj3jwE" resname="Twitter Card Description">
+        <source>Twitter Card Description</source>
+        <target>__Twitter Card Description</target>
+      </trans-unit>
+      <trans-unit id="nzf425q" resname="Twitter Card Image URL">
+        <source>Twitter Card Image URL</source>
+        <target>__Twitter Card Image URL</target>
+      </trans-unit>
+      <trans-unit id="r3hc7N6" resname="Twitter Card Site">
+        <source>Twitter Card Site</source>
+        <target>__Twitter Card Site</target>
+      </trans-unit>
+      <trans-unit id="S24X_N4" resname="Twitter Card Creator">
+        <source>Twitter Card Creator</source>
+        <target>__Twitter Card Creator</target>
+      </trans-unit>
+      <trans-unit id="ZEE0oo1" resname="Email verified successfully!">
+        <source>Email verified successfully!</source>
+        <target>__Email verified successfully!</target>
+      </trans-unit>
+      <trans-unit id="lU_8eYV" resname="We won’t send you spam. Unsubscribe at any time.">
+        <source>We won’t send you spam. Unsubscribe at any time.</source>
+        <target>__We won’t send you spam. Unsubscribe at any time.</target>
+      </trans-unit>
+      <trans-unit id="1pajW90" resname="Profile">
+        <source>Profile</source>
+        <target>__Profile</target>
+      </trans-unit>
+      <trans-unit id="0FJ_Sz1" resname="Logout">
+        <source>Logout</source>
+        <target>__Logout</target>
+      </trans-unit>
+      <trans-unit id="vpGUC3n" resname="Support">
+        <source>Support</source>
+        <target>__Support</target>
+      </trans-unit>
+      <trans-unit id="jfx3q0C" resname="Copyright">
+        <source>Copyright</source>
+        <target>__Copyright</target>
+      </trans-unit>
+      <trans-unit id="BR9Qa5D" resname="All Rights Reserved.">
+        <source>All Rights Reserved.</source>
+        <target>__All Rights Reserved.</target>
+      </trans-unit>
+      <trans-unit id="OxcNLQr" resname="Hey there,">
+        <source>Hey there,</source>
+        <target>__Hey there,</target>
+      </trans-unit>
+      <trans-unit id="2h7aUAk" resname="Please click the following link to reset your password:">
+        <source>Please click the following link to reset your password:</source>
+        <target>__Please click the following link to reset your password:</target>
+      </trans-unit>
+      <trans-unit id="1m.hewt" resname="If you didn't request to reset password then you can safely ignore this email!">
+        <source>If you didn't request to reset password then you can safely ignore this email!</source>
+        <target>__If you didn't request to reset password then you can safely ignore this email!</target>
+      </trans-unit>
+      <trans-unit id="Ed_6j5g" resname="Thanks,">
+        <source>Thanks,</source>
+        <target>__Thanks,</target>
+      </trans-unit>
+      <trans-unit id="WYUDnxB" resname="Team">
+        <source>Team</source>
+        <target>__Team</target>
+      </trans-unit>
+      <trans-unit id="5ijdJKN" resname="Please click the following link to verify your email:">
+        <source>Please click the following link to verify your email:</source>
+        <target>__Please click the following link to verify your email:</target>
+      </trans-unit>
+      <trans-unit id="oVWdXq." resname="If you didn't subscribe then you can safely ignore this email!">
+        <source>If you didn't subscribe then you can safely ignore this email!</source>
+        <target>__If you didn't subscribe then you can safely ignore this email!</target>
+      </trans-unit>
+      <trans-unit id="mgDztin" resname="Sent with">
+        <source>Sent with</source>
+        <target>__Sent with</target>
+      </trans-unit>
+      <trans-unit id="dYV6RYm" resname="from">
+        <source>from</source>
+        <target>__from</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

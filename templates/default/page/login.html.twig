@@ -1,0 +1,41 @@
+{% extends 'layout/guest.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <div class="page page-center">
+      <div class="container container-tight py-4">
+        <div class="text-center mb-4">
+          <a href="{{ path('app_ui_home') }}" class="navbar-brand navbar-brand-autodark">
+            <img src="{{ absolute_url(asset('static/logo.png')) }}" height="150">
+          </a>
+        </div>
+        <div class="card card-md" id="app_login">
+          <div class="card-body">
+            <h2 class="h2 text-center mb-4">{% trans %}Login into Account{% endtrans %}</h2>
+            <form v-on:submit.prevent="loginAction" action="{{ path('app_endpoint_v1_login') }}" data-redirect-url="{{ path('app_ui_dashboard') }}" method="post">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token('login-action') }}"/>
+              <div class="mb-3">
+                <label class="form-label">{% trans %}Email Address{% endtrans %}</label>
+                <input type="email" class="form-control" name="email" placeholder="hello@helium.com" required {% if is_demo %}value="admin@clivern.com"{% endif %}>
+              </div>
+              <div class="mb-2">
+                <label class="form-label">
+                  {% trans %}Password{% endtrans %}
+                  <span class="form-label-description">
+                    <a href="{{ path('app_ui_forgot_password') }}">{% trans %}I forgot password{% endtrans %}</a>
+                  </span>
+                </label>
+                <div class="input-group input-group-flat">
+                  <input type="password" class="form-control" name="password" placeholder="{% trans %}Your password{% endtrans %}" {% if is_demo %}value="123456789"{% endif %} required>
+                </div>
+              </div>
+              <div class="form-footer">
+                <button type="submit" class="btn btn-primary w-100">{% trans %}Sign in{% endtrans %}</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

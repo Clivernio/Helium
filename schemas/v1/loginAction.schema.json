@@ -1,0 +1,23 @@
+{
+  "$id": "loginAction",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Login Action",
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 50,
+      "format": "email"
+    },
+    "password": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 50
+    }
+  },
+  "required": [
+    "email",
+    "password"
+  ]
+}

@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>{{ title }}</title>
+        {% block header %}
+        {% endblock %}
+    </head>
+    <body class="{% block body_class %}{% endblock %}">
+        {% block content %}
+        {% endblock %}
+        {% block footer %}
+        {% endblock %}
+    </body>
+</html>

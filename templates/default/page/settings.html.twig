@@ -1,0 +1,103 @@
+{% extends 'layout/admin.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+  <div class="page-body">
+    <div class="container-xl" id="app_settings">
+    	<form class="card" action="{{ path('app_endpoint_v1_settings') }}" v-on:submit.prevent="settingsAction"  method="post">
+        <div class="card-header">
+          <h3 class="card-title">{% trans %}Settings{% endtrans %}</h3>
+        </div>
+        <div class="card-body">
+      	  <input type="hidden" name="csrf_token" value="{{ csrf_token('settings-action') }}"/>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}Application Name{% endtrans %}</label>
+            <input type="text" class="form-control" name="appName" value="{{ app_name }}" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}Application URL{% endtrans %}</label>
+            <input type="url" class="form-control" name="appURL" value="{{ app_url }}" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}Application Email{% endtrans %}</label>
+            <input type="email" class="form-control" name="appEmail" value="{{ app_email }}" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}Newsletter Title{% endtrans %}</label>
+            <input type="text" class="form-control" name="appNewsletterTitle" value="{{ app_newsletter_title }}" placeholder="Subscribe Today">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}Newsletter Description{% endtrans %}</label>
+            <input type="text" class="form-control" name="appNewsletterDescription" value="{{ app_newsletter_description }}" placeholder="Never miss a recipe">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}Newsletter Footer{% endtrans %}</label>
+            <input type="text" class="form-control" name="appNewsletterFooter" value="{{ app_newsletter_footer }}" placeholder="We won’t send you spam. Unsubscribe at any time.">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}SEO Description{% endtrans %}</label>
+            <input type="text" class="form-control" name="appMetaDescription" value="{{ app_description }}" placeholder="Fast, Secure and Reliable Newsletter System, Set up in Minutes.">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}SEO Keywords{% endtrans %}</label>
+            <input type="text" class="form-control" name="appMetaKeywords" value="{{ app_keywords }}" placeholder="helium, clivern, codecanyon, newsletter">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}Home Layout{% endtrans %}</label>
+            <select class="form-select" name="appLayout" required>
+              {% for layout in home_layouts %}
+                <option value="{{ layout.id }}" {% if app_home_layout == layout.id %} selected {% endif %}>{{ layout.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}Google Analytics Code{% endtrans %}</label>
+            <input type="text" class="form-control" name="appGoogleTrackingCode" value="{{ analytics_code }}">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}Mailer Provider{% endtrans %}</label>
+            <select class="form-select" name="appMailerProdvider" required>
+              <option value="disabled" {% if mailer_provider == 'disabled' %} selected="selected" {% endif %}>Disabled</option>
+              <option value="sendmail" {% if mailer_provider == 'sendmail' %} selected="selected" {% endif %}>Sendmail</option>
+              <option value="aws_ses" {% if mailer_provider == 'aws_ses' %} selected="selected" {% endif %}>Amazon SES</option>
+              <option value="mailchimp" {% if mailer_provider == 'mailchimp' %} selected="selected" {% endif %}>MailChimp</option>
+              <option value="mailgun" {% if mailer_provider == 'mailgun' %} selected="selected" {% endif %}>Mailgun</option>
+              <option value="mailjet" {% if mailer_provider == 'mailjet' %} selected="selected" {% endif %}>Mailjet</option>
+              <option value="postmark" {% if mailer_provider == 'postmark' %} selected="selected" {% endif %}>Postmark</option>
+              <option value="sendgrid" {% if mailer_provider == 'sendgrid' %} selected="selected" {% endif %}>SendGrid</option>
+              <option value="sendinblue" {% if mailer_provider == 'sendinblue' %} selected="selected" {% endif %}>Sendinblue</option>
+              <option value="ohmysmtp" {% if mailer_provider == 'ohmysmtp' %} selected="selected" {% endif %}>OhMySMTP</option>
+              <option value="mailtrap" {% if mailer_provider == 'mailtrap' %} selected="selected" {% endif %}>Mailtrap</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}Twitter Card Title{% endtrans %}</label>
+            <input type="text" class="form-control" name="appMetaTwitterTitle" value="{{ app_twitter_title }}" placeholder="Helium">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}Twitter Card Description{% endtrans %}</label>
+            <input type="text" class="form-control" name="appMetaTwitterDescription" value="{{ app_twitter_description }}" placeholder="Fast, Secure and Reliable Newsletter System, Set up in Minutes.">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}Twitter Card Image URL{% endtrans %}</label>
+            <input type="text" class="form-control" name="appMetaTwitterImage" value="{{ app_twitter_image }}" placeholder="https://helium.com/header.jpeg">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}Twitter Card Site{% endtrans %}</label>
+            <input type="text" class="form-control" name="appMetaTwitterSite" value="{{ app_twitter_site }}" placeholder="@clivernco">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}Twitter Card Creator{% endtrans %}</label>
+            <input type="text" class="form-control" name="appMetaTwitterCreator" value="{{ app_twitter_creator }}" placeholder="@clivernco">
+          </div>
+        </div>
+        <div class="card-footer text-end">
+          <button type="submit" class="btn btn-primary">
+            {% trans %}Submit{% endtrans %}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

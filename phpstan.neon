@@ -1,5 +1,0 @@
-parameters:
-    customRulesetUsed: false
-
-    bootstrapFiles:
-        - vendor/autoload.php

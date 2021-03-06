@@ -1,0 +1,898 @@
+{% extends 'layout/admin.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <!-- Page header -->
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <h2 class="page-title">
+              {% trans %}Dashboard{% endtrans %}
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page body -->
+    <div class="page-body">
+      <div class="container-xl">
+        <div class="row row-deck row-cards">
+
+          	<div class="col-12">
+              <div class="row row-cards">
+                <div class="col-sm-6 col-lg-3">
+                  <div class="card card-sm">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-auto">
+                          <span class="bg-warning text-white avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-activity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                               <path d="M3 12h4l3 8l4 -16l3 8h4"></path>
+                            </svg>
+                          </span>
+                        </div>
+                        <div class="col">
+                          <div class="font-weight-medium">
+                            {{ statistics.total_subscribers }} {% trans %}Subscribers{% endtrans %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                  <div class="card card-sm">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-auto">
+                          <span class="bg-green text-white avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-align-box-bottom-center" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                               <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                               <path d="M9 15v2"></path>
+                               <path d="M12 11v6"></path>
+                               <path d="M15 13v4"></path>
+                            </svg>
+                          </span>
+                        </div>
+                        <div class="col">
+                          <div class="font-weight-medium">
+                            {{ statistics.total_active_subscribers }} {% trans %}Active Subscribers{% endtrans %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                  <div class="card card-sm">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-auto">
+                          <span class="bg-red text-white avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-activity-heartbeat" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                               <path d="M3 12h4.5l1.5 -6l4 12l2 -9l1.5 3h4.5"></path>
+                            </svg>
+                          </span>
+                        </div>
+                        <div class="col">
+                          <div class="font-weight-medium">
+                            {{ statistics.total_nonactive_subscribers }} {% trans %}Non Active Subscribers{% endtrans %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                  <div class="card card-sm">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-auto">
+                          <span class="bg-yellow text-white avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-affiliate" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                               <path d="M5.931 6.936l1.275 4.249m5.607 5.609l4.251 1.275"></path>
+                               <path d="M11.683 12.317l5.759 -5.759"></path>
+                               <circle cx="5.5" cy="5.5" r="1.5"></circle>
+                               <circle cx="18.5" cy="5.5" r="1.5"></circle>
+                               <circle cx="18.5" cy="18.5" r="1.5"></circle>
+                               <circle cx="8.5" cy="15.5" r="4.5"></circle>
+                            </svg>
+                          </span>
+                        </div>
+                        <div class="col">
+                          <div class="font-weight-medium">
+                            {{ statistics.total_unverified_subscribers }} {% trans %}Unverified Subscribers{% endtrans %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          	</div>
+
+          	<div class="col-lg-6">
+              <div class="card">
+                <div class="card-header border-0">
+                  <div class="card-title">{% trans %}Total Subscribers{% endtrans %}</div>
+                </div>
+                <div class="position-relative">
+                  <div class="position-absolute top-0 left-0 px-3 mt-1 w-75">
+                    <div class="row g-2">
+                      <div class="col-auto">
+                        <div class="chart-sparkline chart-sparkline-square" id="sparkline-activity"></div>
+                      </div>
+                      <div class="col">
+                        <!--
+                        <div class="text-muted">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline text-green" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="3 17 9 11 13 15 21 7" /><polyline points="14 7 21 7 21 14" /></svg>
+                          +5% more than yesterday</div>
+                          -->
+                      </div>
+                    </div>
+                  </div>
+                  <div id="total_subscribers"></div>
+                </div>
+                <div class="card-table table-responsive">
+                  <table class="table table-vcenter">
+                    <thead>
+                      <tr>
+                        <th>{% trans %}Latest Subscribers{% endtrans %}</th>
+                        <th>{% trans %}Date{% endtrans %}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% if not statistics.latest_subscribers %}
+                        <tr>
+                          <td class="text-nowrap text-muted text-center" colspan=2>
+                            {% trans %}No Records Found{% endtrans %}
+                          </td>
+                        </tr>
+                      {% endif %}
+                      {% for subscriber in statistics.latest_subscribers %}
+                        <tr>
+                          <td class="td-truncate">
+                            <div class="text-truncate">
+                              {{ subscriber.email }}
+                            </div>
+                          </td>
+                          <td class="text-nowrap text-muted">{{ subscriber.createdAt }}</td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+          	</div>
+
+            <div class="col-lg-6">
+              <div class="card">
+                <div class="card-header border-0">
+                  <div class="card-title">{% trans %}Active Subscribers{% endtrans %}</div>
+                </div>
+                <div class="position-relative">
+                  <div class="position-absolute top-0 left-0 px-3 mt-1 w-75">
+                    <div class="row g-2">
+                      <div class="col-auto">
+                        <div class="chart-sparkline chart-sparkline-square" id="sparkline-activity"></div>
+                      </div>
+                      <div class="col">
+                        <!--
+                        <div class="text-muted">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline text-green" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="3 17 9 11 13 15 21 7" /><polyline points="14 7 21 7 21 14" /></svg>
+                          +5% more than yesterday</div>
+                          -->
+                      </div>
+                    </div>
+                  </div>
+                  <div id="active_subscribers"></div>
+                </div>
+                <div class="card-table table-responsive">
+                  <table class="table table-vcenter">
+                    <thead>
+                      <tr>
+                        <th>{% trans %}Latest Subscribers{% endtrans %}</th>
+                        <th>{% trans %}Date{% endtrans %}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% if not statistics.latest_active_subscribers %}
+                        <tr>
+                          <td class="text-nowrap text-muted text-center" colspan=2>
+                            {% trans %}No Records Found{% endtrans %}
+                          </td>
+                        </tr>
+                      {% endif %}
+                      {% for subscriber in statistics.latest_active_subscribers %}
+                        <tr>
+                          <td class="td-truncate">
+                            <div class="text-truncate">
+                              {{ subscriber.email }}
+                            </div>
+                          </td>
+                          <td class="text-nowrap text-muted">{{ subscriber.createdAt }}</td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="row row-cards">
+                <div class="col-sm-6 col-lg-3">
+                  <div class="card card-sm">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-auto">
+                          <span class="bg-pink text-white avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-activity-heartbeat" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                               <path d="M3 12h4.5l1.5 -6l4 12l2 -9l1.5 3h4.5"></path>
+                            </svg>
+                          </span>
+                        </div>
+                        <div class="col">
+                          <div class="font-weight-medium">
+                            {{ statistics.total_draft_newsletters }} {% trans %}Draft Newsletters{% endtrans %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                  <div class="card card-sm">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-auto">
+                          <span class="bg-cyan text-white avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-activity-heartbeat" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                               <path d="M3 12h4.5l1.5 -6l4 12l2 -9l1.5 3h4.5"></path>
+                            </svg>
+                          </span>
+                        </div>
+                        <div class="col">
+                          <div class="font-weight-medium">
+                            {{ statistics.total_scheduled_newsletters }} {% trans %}Scheduled Newsletters{% endtrans %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                  <div class="card card-sm">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-auto">
+                          <span class="bg-red text-white avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-activity-heartbeat" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                               <path d="M3 12h4.5l1.5 -6l4 12l2 -9l1.5 3h4.5"></path>
+                            </svg>
+                          </span>
+                        </div>
+                        <div class="col">
+                          <div class="font-weight-medium">
+                            {{ statistics.total_onhold_newsletters }} {% trans %}On Hold Newsletters{% endtrans %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                  <div class="card card-sm">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-auto">
+                          <span class="bg-yellow text-white avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-activity-heartbeat" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                               <path d="M3 12h4.5l1.5 -6l4 12l2 -9l1.5 3h4.5"></path>
+                            </svg>
+                          </span>
+                        </div>
+                        <div class="col">
+                          <div class="font-weight-medium">
+                            {{ statistics.total_pending_newsletters }} {% trans %}Pending Newsletters{% endtrans %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="row row-cards">
+                <div class="col-sm-6 col-lg-6">
+                  <div class="card card-sm">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-auto">
+                          <span class="bg-cyan text-white avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-activity-heartbeat" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                               <path d="M3 12h4.5l1.5 -6l4 12l2 -9l1.5 3h4.5"></path>
+                            </svg>
+                          </span>
+                        </div>
+                        <div class="col">
+                          <div class="font-weight-medium">
+                            {{ statistics.total_inprogress_newsletters }} {% trans %}In Progress Newsletters{% endtrans %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                  <div class="card card-sm">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-auto">
+                          <span class="bg-pink text-white avatar">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-activity-heartbeat" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                               <path d="M3 12h4.5l1.5 -6l4 12l2 -9l1.5 3h4.5"></path>
+                            </svg>
+                          </span>
+                        </div>
+                        <div class="col">
+                          <div class="font-weight-medium">
+                            {{ statistics.total_sentout_newsletters }} {% trans %}Sent Out Newsletters{% endtrans %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="card">
+                <div class="card-header border-0">
+                  <div class="card-title">{% trans %}Non Active Subscribers{% endtrans %}</div>
+                </div>
+                <div class="position-relative">
+                  <div class="position-absolute top-0 left-0 px-3 mt-1 w-75">
+                    <div class="row g-2">
+                      <div class="col-auto">
+                        <div class="chart-sparkline chart-sparkline-square" id="sparkline-activity"></div>
+                      </div>
+                      <div class="col">
+                        <!--
+                        <div class="text-muted">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline text-green" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="3 17 9 11 13 15 21 7" /><polyline points="14 7 21 7 21 14" /></svg>
+                          +5% more than yesterday</div>
+                          -->
+                      </div>
+                    </div>
+                  </div>
+                  <div id="non_active_subscribers"></div>
+                </div>
+                <div class="card-table table-responsive">
+                  <table class="table table-vcenter">
+                    <thead>
+                      <tr>
+                        <th>{% trans %}Latest Subscribers{% endtrans %}</th>
+                        <th>{% trans %}Date{% endtrans %}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% if not statistics.latest_non_active_subscribers %}
+                        <tr>
+                          <td class="text-nowrap text-muted text-center" colspan=2>
+                            {% trans %}No Records Found{% endtrans %}
+                          </td>
+                        </tr>
+                      {% endif %}
+                      {% for subscriber in statistics.latest_non_active_subscribers %}
+                        <tr>
+                          <td class="td-truncate">
+                            <div class="text-truncate">
+                              {{ subscriber.email }}
+                            </div>
+                          </td>
+                          <td class="text-nowrap text-muted">{{ subscriber.createdAt }}</td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="card">
+                <div class="card-header border-0">
+                  <div class="card-title">{% trans %}Unverified Subscribers{% endtrans %}</div>
+                </div>
+                <div class="position-relative">
+                  <div class="position-absolute top-0 left-0 px-3 mt-1 w-75">
+                    <div class="row g-2">
+                      <div class="col-auto">
+                        <div class="chart-sparkline chart-sparkline-square" id="sparkline-activity"></div>
+                      </div>
+                      <div class="col">
+                        <!--
+                        <div class="text-muted">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline text-green" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="3 17 9 11 13 15 21 7" /><polyline points="14 7 21 7 21 14" /></svg>
+                          +5% more than yesterday</div>
+                          -->
+                      </div>
+                    </div>
+                  </div>
+                  <div id="unverified_subscribers"></div>
+                </div>
+                <div class="card-table table-responsive">
+                  <table class="table table-vcenter">
+                    <thead>
+                      <tr>
+                        <th>{% trans %}Latest Subscribers{% endtrans %}</th>
+                        <th>{% trans %}Date{% endtrans %}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% if not statistics.latest_unverified_subscribers %}
+                        <tr>
+                          <td class="text-nowrap text-muted text-center" colspan=2>
+                            {% trans %}No Records Found{% endtrans %}
+                          </td>
+                        </tr>
+                      {% endif %}
+                      {% for subscriber in statistics.latest_unverified_subscribers %}
+                        <tr>
+                          <td class="td-truncate">
+                            <div class="text-truncate">
+                              {{ subscriber.email }}
+                            </div>
+                          </td>
+                          <td class="text-nowrap text-muted">{{ subscriber.createdAt }}</td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="card">
+                <div class="card-header border-0">
+                  <div class="card-title">{% trans %}Newsletters Sent Out{% endtrans %}</div>
+                </div>
+                <div class="position-relative">
+                  <div class="position-absolute top-0 left-0 px-3 mt-1 w-75">
+                    <div class="row g-2">
+                      <div class="col-auto">
+                        <div class="chart-sparkline chart-sparkline-square" id="sparkline-activity"></div>
+                      </div>
+                      <div class="col">
+                        <!--
+                        <div class="text-muted">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-inline text-green" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="3 17 9 11 13 15 21 7" /><polyline points="14 7 21 7 21 14" /></svg>
+                          +5% more than yesterday</div>
+                          -->
+                      </div>
+                    </div>
+                  </div>
+                  <div id="newsletters_sent_out"></div>
+                </div>
+                <div class="card-table table-responsive">
+                  <table class="table table-vcenter">
+                    <thead>
+                      <tr>
+                        <th>{% trans %}Latest Newsletters{% endtrans %}</th>
+                        <th>{% trans %}Date{% endtrans %}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% if not statistics.latest_newsletters_sent_out %}
+                      <tr>
+                        <td class="text-nowrap text-muted text-center" colspan=2>
+                          {% trans %}No Records Found{% endtrans %}
+                        </td>
+                      </tr>
+                    {% endif %}
+                    {% for newsletter in statistics.latest_newsletters_sent_out %}
+                      <tr>
+                        <td class="td-truncate">
+                          <div class="text-truncate">
+                            {{ newsletter.name }}
+                          </div>
+                        </td>
+                        <td class="text-nowrap text-muted">{{ newsletter.createdAt }}</td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+
+{% endblock %}
+
+{% block after_footer %}
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+      	window.ApexCharts && (new ApexCharts(document.getElementById('total_subscribers'), {
+      		chart: {
+      			type: "area",
+      			fontFamily: 'inherit',
+      			height: 192,
+      			sparkline: {
+      				enabled: true
+      			},
+      			animations: {
+      				enabled: false
+      			},
+      		},
+      		dataLabels: {
+      			enabled: false,
+      		},
+      		fill: {
+      			opacity: .16,
+      			type: 'solid'
+      		},
+      		stroke: {
+      			width: 2,
+      			lineCap: "round",
+      			curve: "smooth",
+      		},
+      		series: [{
+      			name: "{% trans %}Subscribers{% endtrans %}",
+      			data: [
+              {% for subscriber in statistics.subscribers_over_time %}
+                {{ subscriber.count }},
+              {% endfor %}
+            ]
+      		}],
+      		tooltip: {
+      			theme: 'dark'
+      		},
+      		grid: {
+      			strokeDashArray: 4,
+      		},
+      		xaxis: {
+      			labels: {
+      				padding: 0,
+      			},
+      			tooltip: {
+      				enabled: false
+      			},
+      			axisBorder: {
+      				show: false,
+      			},
+      			type: 'datetime',
+      		},
+      		yaxis: {
+      			labels: {
+      				padding: 4
+      			},
+      		},
+      		labels: [
+            {% for subscriber in statistics.subscribers_over_time %}
+              '{{ subscriber.date }}',
+            {% endfor %}
+      		],
+      		colors: [tabler.getColor("primary")],
+      		legend: {
+      			show: false,
+      		},
+      		point: {
+      			show: false
+      		},
+      	})).render();
+      });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        window.ApexCharts && (new ApexCharts(document.getElementById('active_subscribers'), {
+          chart: {
+            type: "area",
+            fontFamily: 'inherit',
+            height: 192,
+            sparkline: {
+              enabled: true
+            },
+            animations: {
+              enabled: false
+            },
+          },
+          dataLabels: {
+            enabled: false,
+          },
+          fill: {
+            opacity: .16,
+            type: 'solid'
+          },
+          stroke: {
+            width: 2,
+            lineCap: "round",
+            curve: "smooth",
+          },
+          series: [{
+            name: "{% trans %}Subscribers{% endtrans %}",
+            data: [
+              {% for subscriber in statistics.active_subscribers_over_time %}
+                {{ subscriber.count }},
+              {% endfor %}
+            ]
+          }],
+          tooltip: {
+            theme: 'dark'
+          },
+          grid: {
+            strokeDashArray: 4,
+          },
+          xaxis: {
+            labels: {
+              padding: 0,
+            },
+            tooltip: {
+              enabled: false
+            },
+            axisBorder: {
+              show: false,
+            },
+            type: 'datetime',
+          },
+          yaxis: {
+            labels: {
+              padding: 4
+            },
+          },
+          labels: [
+            {% for subscriber in statistics.active_subscribers_over_time %}
+              '{{ subscriber.date }}',
+            {% endfor %}
+          ],
+          colors: [tabler.getColor("primary")],
+          legend: {
+            show: false,
+          },
+          point: {
+            show: false
+          },
+        })).render();
+      });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        window.ApexCharts && (new ApexCharts(document.getElementById('non_active_subscribers'), {
+          chart: {
+            type: "area",
+            fontFamily: 'inherit',
+            height: 192,
+            sparkline: {
+              enabled: true
+            },
+            animations: {
+              enabled: false
+            },
+          },
+          dataLabels: {
+            enabled: false,
+          },
+          fill: {
+            opacity: .16,
+            type: 'solid'
+          },
+          stroke: {
+            width: 2,
+            lineCap: "round",
+            curve: "smooth",
+          },
+          series: [{
+            name: "{% trans %}Subscribers{% endtrans %}",
+            data: [
+              {% for subscriber in statistics.non_active_subscribers_over_time %}
+                {{ subscriber.count }},
+              {% endfor %}
+            ]
+          }],
+          tooltip: {
+            theme: 'dark'
+          },
+          grid: {
+            strokeDashArray: 4,
+          },
+          xaxis: {
+            labels: {
+              padding: 0,
+            },
+            tooltip: {
+              enabled: false
+            },
+            axisBorder: {
+              show: false,
+            },
+            type: 'datetime',
+          },
+          yaxis: {
+            labels: {
+              padding: 4
+            },
+          },
+          labels: [
+            {% for subscriber in statistics.non_active_subscribers_over_time %}
+              '{{ subscriber.date }}',
+            {% endfor %}
+          ],
+          colors: [tabler.getColor("primary")],
+          legend: {
+            show: false,
+          },
+          point: {
+            show: false
+          },
+        })).render();
+      });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        window.ApexCharts && (new ApexCharts(document.getElementById('unverified_subscribers'), {
+          chart: {
+            type: "area",
+            fontFamily: 'inherit',
+            height: 192,
+            sparkline: {
+              enabled: true
+            },
+            animations: {
+              enabled: false
+            },
+          },
+          dataLabels: {
+            enabled: false,
+          },
+          fill: {
+            opacity: .16,
+            type: 'solid'
+          },
+          stroke: {
+            width: 2,
+            lineCap: "round",
+            curve: "smooth",
+          },
+          series: [{
+            name: "{% trans %}Subscribers{% endtrans %}",
+            data: [
+              {% for subscriber in statistics.pending_subscribers_over_time %}
+                {{ subscriber.count }},
+              {% endfor %}
+            ]
+          }],
+          tooltip: {
+            theme: 'dark'
+          },
+          grid: {
+            strokeDashArray: 4,
+          },
+          xaxis: {
+            labels: {
+              padding: 0,
+            },
+            tooltip: {
+              enabled: false
+            },
+            axisBorder: {
+              show: false,
+            },
+            type: 'datetime',
+          },
+          yaxis: {
+            labels: {
+              padding: 4
+            },
+          },
+          labels: [
+            {% for subscriber in statistics.pending_subscribers_over_time %}
+              '{{ subscriber.date }}',
+            {% endfor %}
+          ],
+          colors: [tabler.getColor("primary")],
+          legend: {
+            show: false,
+          },
+          point: {
+            show: false
+          },
+        })).render();
+      });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        window.ApexCharts && (new ApexCharts(document.getElementById('newsletters_sent_out'), {
+          chart: {
+            type: "area",
+            fontFamily: 'inherit',
+            height: 192,
+            sparkline: {
+              enabled: true
+            },
+            animations: {
+              enabled: false
+            },
+          },
+          dataLabels: {
+            enabled: false,
+          },
+          fill: {
+            opacity: .16,
+            type: 'solid'
+          },
+          stroke: {
+            width: 2,
+            lineCap: "round",
+            curve: "smooth",
+          },
+          series: [{
+            name: "{% trans %}Newsletters{% endtrans %}",
+            data: [
+              {% for subscriber in statistics.newsletters_sentout_over_time %}
+                {{ subscriber.count }},
+              {% endfor %}
+            ]
+          }],
+          tooltip: {
+            theme: 'dark'
+          },
+          grid: {
+            strokeDashArray: 4,
+          },
+          xaxis: {
+            labels: {
+              padding: 0,
+            },
+            tooltip: {
+              enabled: false
+            },
+            axisBorder: {
+              show: false,
+            },
+            type: 'datetime',
+          },
+          yaxis: {
+            labels: {
+              padding: 4
+            },
+          },
+          labels: [
+            {% for subscriber in statistics.newsletters_sentout_over_time %}
+              '{{ subscriber.date }}',
+            {% endfor %}
+          ],
+          colors: [tabler.getColor("primary")],
+          legend: {
+            show: false,
+          },
+          point: {
+            show: false
+          },
+        })).render();
+      });
+    </script>
+{% endblock %}

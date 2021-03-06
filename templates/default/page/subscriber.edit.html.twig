@@ -1,0 +1,46 @@
+{% extends 'layout/admin.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <!-- Page header -->
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <h2 class="page-title">
+              {% trans %}Edit Subscriber{% endtrans %}
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page body -->
+    <div class="page-body">
+      <div class="container-xl" id="app_subscriber_edit">
+	      <form class="card" action="{{ path('app_endpoint_v1_subscriber_edit', {'id': subscriber.id}) }}" v-on:submit.prevent="subscriberEditAction" method="post" data-redirect-url="{{ path('app_ui_subscriber_index') }}">
+	        <div class="card-body">
+	      	  <input type="hidden" name="csrf_token" value="{{ csrf_token('subscriber-edit-action') }}"/>
+	          <div class="mb-3">
+	            <label class="form-label required">{% trans %}Email Address{% endtrans %}</label>
+	            <input type="email" class="form-control" name="email" placeholder="hello@domain.com" value="{{ subscriber.email }}" required>
+	          </div>
+	          <div class="mb-3">
+	            <div class="form-label required">{% trans %}Status{% endtrans %}</div>
+	            <select class="form-select" name="status" required>
+	                <option value="SUBSCRIBED" {% if subscriber.status == "SUBSCRIBED" %}selected="selected" {% endif %}>{% trans %}Enabled{% endtrans %}</option>
+	                <option value="UNSUBSCRIBED" {% if subscriber.status == "UNSUBSCRIBED" %}selected="selected" {% endif %}>{% trans %}Disabled{% endtrans %}</option>
+	                <option value="REMOVED" {% if subscriber.status == "REMOVED" %}selected="selected" {% endif %}>{% trans %}Delete{% endtrans %}</option>
+	            </select>
+	          </div>
+	        </div>
+	        <div class="card-footer text-end">
+	          <button type="submit" class="btn btn-primary">
+	            {% trans %}Submit{% endtrans %}
+	          </button>
+	        </div>
+	      </form>
+      </div>
+    </div>
+{% endblock %}

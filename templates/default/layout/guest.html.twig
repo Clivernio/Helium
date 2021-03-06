@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>{{ block('title') }}</title>
+    {% include 'partial/header.html.twig' %}
+  </head>
+  <body  class=" border-top-wide border-primary d-flex flex-column">
+    <script src="{{ absolute_url(asset('static/js/demo-theme.min.js?1668287865')) }}"></script>
+    {% block content %}
+    {% endblock %}
+    {% include 'partial/footer.html.twig' %}
+  </body>
+</html>

@@ -1,0 +1,41 @@
+App\Entity\Subscriber:
+    type: entity
+    table: he_subscriber
+    repositoryClass: App\Repository\SubscriberRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        email:
+            type: string
+            length: 255
+            nullable: false
+            unique: true
+        token:
+            type: string
+            length: 200
+            nullable: false
+            unique: true
+        status:
+            type: string
+            length: 30
+            nullable: false
+        createdAt:
+            type: datetime
+            nullable: false
+        updatedAt:
+            type: datetime
+            nullable: false
+
+    oneToMany:
+        metas:
+            targetEntity: SubscriberMeta
+            mappedBy: subscriber
+            cascade: [ ALL ]
+
+        deliveries:
+            targetEntity: Delivery
+            mappedBy: subscriber
+            cascade: [ ALL ]

@@ -1,0 +1,188 @@
+{% extends 'layout/newsletter.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block header %}
+    <!-- header -->
+    <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta name="generator" content="clivern/helium v1.0.0" />
+
+    {% if meta.description != "" %}
+        <meta name="description" content="{{ meta.description }}">
+    {% endif %}
+
+    {% if meta.keywords != "" %}
+        <meta name="keywords" content="{{ meta.keywords }}">
+    {% endif %}
+
+    {% if meta.canonical != "" %}
+        <link rel="canonical" href="{{ meta.canonical }}" />
+    {% endif %}
+
+    {% if meta.twitter_title != "" %}
+        <meta name="twitter:title" content="{{ meta.twitter_title }}">
+    {% endif %}
+
+    {% if meta.twitter_description != "" %}
+        <meta name="twitter:description" content="{{ meta.twitter_description }}">
+    {% endif %}
+
+    {% if meta.twitter_image != "" %}
+        <meta name="twitter:image" content="{{ meta.twitter_image }}">
+    {% endif %}
+
+    {% if meta.twitter_site != "" %}
+        <meta name="twitter:site" content="{{ meta.twitter_site }}">
+    {% endif %}
+
+    {% if meta.twitter_creator != "" %}
+        <meta name="twitter:creator" content="{{ meta.twitter_creator }}">
+    {% endif %}
+
+    <style>
+        .wrapper {
+            min-height: 100vh;
+            color: #000;
+            font-family: 'Muli', sans-serif;
+            font-size: 1rem;
+            background-color: #F1E8E6;
+            display: -ms-grid;
+            display: grid;
+            place-items: center;
+        }
+        .container {
+            background-color: #fff;
+            padding: 1em;
+            border-radius: 1em;
+            max-width: 768px;
+            display: -ms-grid;
+            display: grid;
+            place-items: center;
+            -webkit-box-shadow: 0px 17px 34px -20px #f55951;
+            box-shadow: 0px 17px 34px -20px #f55951;
+        }
+        .title {
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+        .text {
+            font-size: 1rem;
+            margin-bottom: 0.8em;
+        }
+        .container {
+            max-width: 400px;
+            overflow: hidden;
+            padding: 0;
+        }
+        .img {
+            width: 100%;
+            height: auto;
+            border-radius: 1em 1em 0 0;
+            -o-object-fit: cover;
+            object-fit: cover;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+        }
+        .img__container {
+            height: 200px;
+            overflow: hidden;
+            margin-bottom: 1.5em;
+        }
+        .title {
+            margin-bottom: 0.9em;
+        }
+        .subtitle {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5em;
+            font-weight: 700;
+        }
+        .content {
+            display: -ms-grid;
+            display: grid;
+            place-items: center;
+            padding: 0 2em;
+            margin-bottom: 1.8em;
+        }
+        .mail {
+            padding: 0.5em 0 0.5em 1.5em;
+            line-height: 3;
+            width: 100%;
+            border: 1px solid #d9d9d9;
+            border-radius: 0.5em;
+            margin-bottom: 1em;
+        }
+         ::-webkit-input-placeholder {
+            color: #111127;
+        }
+         :-ms-input-placeholder {
+            color: #111127;
+        }
+         ::-ms-input-placeholder {
+            color: #111127;
+        }
+         ::placeholder {
+            color: #111127;
+        }
+        .subscribe {
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 700;
+            background-color: #f55951;
+            padding: 0.9em 0;
+            display: inline-block;
+            border: none;
+            border-radius: 0.5em;
+            width: 100%;
+            margin-bottom: 1.3em;
+            cursor: pointer;
+        }
+        .text {
+            font-size: 0.9rem;
+            width: 90%;
+            text-align: center;
+        }
+    </style>
+    <!-- /header -->
+{% endblock %}
+
+{% block content %}
+    <section class="wrapper">
+        <div class="container">
+            <div class="img__container">
+                <img src="{{ absolute_url(asset('static/img/home/falls.jpg')) }}" class="img">
+            </div>
+            <div class="content" id="app_home_page">
+                <h2 class="subtitle">{{ newsletter_title }}</h2>
+                <h1 class="title">{{ newsletter_description }}</h1>
+                <form action="{{ path('app_endpoint_v1_subscribe') }}" v-on:submit.prevent="subscribeAction" method="post">
+                    <input type="email" class="mail" placeholder="{% trans %}Your email address{% endtrans %}" name="email" required>
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token('subscribe-action') }}"/>
+                    <button type="submit" class="subscribe">{% trans %}Subscribe{% endtrans %}</button>
+                </form>
+                <p class="text">{{ newsletter_footer }}</p>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block footer %}
+    <!-- footer -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.7.10/vue.min.js" integrity="sha512-H8u5mlZT1FD7MRlnUsODppkKyk+VEiCmncej8yZW1k/wUT90OQon0F9DSf/2Qh+7L/5UHd+xTLrMszjHEZc2BA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js" integrity="sha512-0qU9M9jfqPw6FKkPafM3gy2CBAvUWnYVOfNPDYKVuRTel1PrciTj+a9P3loJB+j0QmN2Y0JYQmkBBS8W+mbezg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{ absolute_url(asset('static/js/app.js')) }}" defer></script>
+    {% if analytics_code != "" %}
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ analytics_code }}" type="text/javascrip"></script>
+        <script type="text/javascript">
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '{{ analytics_code }}');
+        </script>
+    {% endif %}
+  <!-- /footer -->
+{% endblock %}

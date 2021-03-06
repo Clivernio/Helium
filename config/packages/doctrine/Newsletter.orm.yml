@@ -1,0 +1,57 @@
+App\Entity\Newsletter:
+    type: entity
+    table: he_newsletter
+    repositoryClass: App\Repository\NewsletterRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 150
+            nullable: false
+        slug:
+            type: string
+            length: 150
+            nullable: false
+            unique: true
+        deliveryStatus:
+            type: string
+            length: 30
+            nullable: false
+        deliveryType:
+            type: string
+            length: 30
+            nullable: false
+        template:
+            type: string
+            length: 150
+            nullable: false
+        sender:
+            type: string
+            length: 150
+            nullable: false
+        content:
+            type: text
+            nullable: true
+        deliveryTime:
+            type: datetime
+            nullable: true
+        createdAt:
+            type: datetime
+            nullable: false
+        updatedAt:
+            type: datetime
+            nullable: false
+
+    oneToMany:
+        metas:
+            targetEntity: NewsletterMeta
+            mappedBy: newsletter
+            cascade: [ ALL ]
+        deliveries:
+            targetEntity: Delivery
+            mappedBy: newsletter
+            cascade: [ ALL ]

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>{{ block('title') }}</title>
+    {% include 'partial/header.html.twig' %}
+  </head>
+  <body >
+    <script src="{{ absolute_url(asset('static/js/demo-theme.min.js?1668287865')) }}"></script>
+    <div class="page">
+      {% include 'partial/navbar.html.twig' %}
+
+      <div class="page-wrapper">
+        {% block content %}
+        {% endblock %}
+        {% include 'partial/copyrights.html.twig' %}
+      </div>
+    </div>
+    {% include 'partial/footer.html.twig' %}
+    {% block after_footer %}
+    {% endblock %}
+  </body>
+</html>

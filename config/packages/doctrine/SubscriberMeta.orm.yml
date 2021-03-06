@@ -1,0 +1,29 @@
+App\Entity\SubscriberMeta:
+    type: entity
+    table: he_subscriber_meta
+    repositoryClass: App\Repository\SubscriberMetaRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 100
+            nullable: false
+        value:
+            type: text
+            unique: false
+            nullable: true
+        createdAt:
+            type: datetime
+            nullable: false
+        updatedAt:
+            type: datetime
+            nullable: false
+
+    manyToOne:
+        subscriber:
+            targetEntity: Subscriber
+            inversedBy: metas

@@ -1,0 +1,31 @@
+<link href="{{ absolute_url(asset('static/css/tabler.min.css?1668287865')) }}" rel="stylesheet"/>
+<link href="{{ absolute_url(asset('static/css/tabler-flags.min.css?1668287865')) }}" rel="stylesheet"/>
+<link href="{{ absolute_url(asset('static/css/tabler-payments.min.css?1668287865')) }}" rel="stylesheet"/>
+<link href="{{ absolute_url(asset('static/css/tabler-vendors.min.css?1668287865')) }}" rel="stylesheet"/>
+<link href="{{ absolute_url(asset('static/css/demo.min.css?1668287865')) }}" rel="stylesheet"/>
+<style>
+  @import url('https://rsms.me/inter/inter.css');
+  :root {
+  	--tblr-font-sans-serif: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+  }
+</style>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<script type="text/javascript">
+    let app_globals = {
+        subscriber_v1_list_endpoint: "{{ path('app_endpoint_v1_subscriber_list') }}",
+        subscriber_v1_add_endpoint: "{{ path('app_endpoint_v1_subscriber_add') }}",
+        newsletter_v1_list_endpoint: "{{ path('app_endpoint_v1_newsletter_list') }}"
+    };
+</script>
+
+{% if analytics_code != "" %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ analytics_code }}" type="text/javascrip"></script>
+    <script type="text/javascript">
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '{{ analytics_code }}');
+        </script>
+    </head>
+{% endif %}

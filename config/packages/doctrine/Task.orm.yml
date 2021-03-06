@@ -1,0 +1,36 @@
+App\Entity\Task:
+    type: entity
+    table: he_task
+    repositoryClass: App\Repository\TaskRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        uuid:
+            type: string
+            length: 50
+            nullable: false
+            unique: true
+        status:
+            type: string
+            length: 30
+            nullable: false
+        payload:
+            type: text
+            unique: false
+            nullable: true
+        result:
+            type: text
+            unique: false
+            nullable: true
+        runAt:
+            type: datetime
+            nullable: false
+        createdAt:
+            type: datetime
+            nullable: false
+        updatedAt:
+            type: datetime
+            nullable: false

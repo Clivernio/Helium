@@ -1,0 +1,27 @@
+{
+  "$id": "subscriberEditAction",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Subscriber Edit Action",
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 50,
+      "format": "email"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "SUBSCRIBED",
+        "UNSUBSCRIBED",
+        "TRASHED",
+        "REMOVED"
+      ]
+    }
+  },
+  "required": [
+    "email",
+    "status"
+  ]
+}

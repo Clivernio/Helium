@@ -1,3 +1,171 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+app_ui_dashboard:
+    path: /admin/dashboard
+    controller: App\Controller\DashboardController::dashboard
+
+app_ui_error:
+    path: /500
+    controller: App\Controller\ErrorController::error
+
+app_ui_forgot_password:
+    path: /forgot-password
+    controller: App\Controller\ForgotPasswordController::forgotPassword
+
+app_endpoint_v1_forgot_password:
+    path: /api/v1/forgot-password
+    methods: POST
+    controller: App\Controller\ForgotPasswordController::forgotPasswordEndpoint
+
+app_health_api_endpoint:
+    path: /_health
+    controller: App\Controller\HealthController::health
+
+app_ui_home:
+    path: /
+    controller: App\Controller\HomeController::home
+
+app_ui_verify_subscriber:
+    path: /verify/{email}/{token}
+    controller: App\Controller\HomeController::verifySubscriber
+
+app_ui_unsubscribe:
+    path: /unsubscribe/{email}/{token}
+    controller: App\Controller\HomeController::unsubscribe
+
+app_endpoint_v1_subscribe:
+    path: /api/v1/subscribe
+    methods: POST
+    controller: App\Controller\HomeController::subscribeEndpoint
+
+app_endpoint_v1_unsubscribe:
+    path: /api/v1/unsubscribe
+    methods: POST
+    controller: App\Controller\HomeController::unsubscribeEndpoint
+
+app_ready_api_endpoint:
+    path: /_ready
+    controller: App\Controller\ReadyController::ready
+
+app_ui_install:
+    path: /install
+    controller: App\Controller\InstallController::installPage
+
+app_endpoint_v1_install:
+    path: /api/v1/install
+    methods: POST
+    controller: App\Controller\InstallController::installEndpoint
+
+app_ui_login:
+    path: /login
+    controller: App\Controller\LoginController::login
+
+app_endpoint_v1_login:
+    path: /api/v1/login
+    methods: POST
+    controller: App\Controller\LoginController::loginEndpoint
+
+app_ui_logout:
+    path: /logout
+    controller: App\Controller\LogoutController::logout
+
+app_ui_newsletter_index:
+    path: /admin/newsletter
+    controller: App\Controller\NewsletterController::newsletterIndex
+
+app_ui_newsletter_add:
+    path: /admin/newsletter/add
+    controller: App\Controller\NewsletterController::newsletterAdd
+
+app_ui_newsletter_edit:
+    path: /admin/newsletter/edit/{id}
+    controller: App\Controller\NewsletterController::newsletterEdit
+
+app_ui_newsletter_view:
+    path: /admin/newsletter/view/{id}
+    controller: App\Controller\NewsletterController::newsletterView
+
+app_endpoint_v1_newsletter_list:
+    path: /admin/api/v1/newsletter
+    methods: GET|HEAD
+    controller: App\Controller\NewsletterController::newsletterListEndpoint
+
+app_endpoint_v1_newsletter_add:
+    path: /admin/api/v1/newsletter
+    methods: POST
+    controller: App\Controller\NewsletterController::newsletterAddEndpoint
+
+app_endpoint_v1_newsletter_edit:
+    path: /admin/api/v1/newsletter/{id}
+    methods: PUT
+    controller: App\Controller\NewsletterController::newsletterEditEndpoint
+
+app_endpoint_v1_newsletter_delete:
+    path: /admin/api/v1/newsletter/{id}
+    methods: DELETE
+    controller: App\Controller\NewsletterController::newsletterDeleteEndpoint
+
+app_endpoint_v1_newsletter_preview:
+    path: /admin/api/v1/newsletter/preview
+    methods: POST
+    controller: App\Controller\NewsletterController::newsletterPreviewEndpoint
+
+app_ui_not_found:
+    path: /404
+    controller: App\Controller\NotFoundController::notFound
+
+app_ui_profile:
+    path: /admin/profile
+    controller: App\Controller\ProfileController::profile
+
+app_endpoint_v1_profile:
+    path: /admin/api/v1/profile
+    methods: POST
+    controller: App\Controller\ProfileController::profileEndpoint
+
+app_ui_reset_password:
+    path: /reset-password/{token}
+    controller: App\Controller\ResetPasswordController::resetPassword
+
+app_endpoint_v1_reset_password:
+    path: /api/v1/reset-password
+    methods: POST
+    controller: App\Controller\ResetPasswordController::resetPasswordEndpoint
+
+app_ui_settings:
+    path: /admin/settings
+    controller: App\Controller\SettingsController::settings
+
+app_endpoint_v1_settings:
+    path: /admin/api/v1/settings
+    methods: POST
+    controller: App\Controller\SettingsController::settingsEndpoint
+
+app_ui_subscriber_index:
+    path: /admin/subscriber
+    controller: App\Controller\SubscriberController::subscriberIndex
+
+app_ui_subscriber_add:
+    path: /admin/subscriber/add
+    controller: App\Controller\SubscriberController::subscriberAdd
+
+app_ui_subscriber_edit:
+    path: /admin/subscriber/edit/{id}
+    controller: App\Controller\SubscriberController::subscriberEdit
+
+app_endpoint_v1_subscriber_list:
+    path: /admin/api/v1/subscriber
+    methods: GET|HEAD
+    controller: App\Controller\SubscriberController::subscriberListEndpoint
+
+app_endpoint_v1_subscriber_add:
+    path: /admin/api/v1/subscriber
+    methods: POST
+    controller: App\Controller\SubscriberController::subscriberAddEndpoint
+
+app_endpoint_v1_subscriber_edit:
+    path: /admin/api/v1/subscriber/{id}
+    methods: PUT
+    controller: App\Controller\SubscriberController::subscriberEditEndpoint
+
+app_ui_newsletter_preview:
+    path: /admin/newsletter/preview/{name}
+    controller: App\Controller\TemplateController::newsletterPreview

@@ -1,0 +1,46 @@
+{% extends 'layout/admin.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <!-- Page header -->
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <h2 class="page-title">
+              {% trans %}Add Subscriber{% endtrans %}
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page body -->
+    <div class="page-body">
+      <div class="container-xl" id="app_subscriber_add">
+	      <form class="card" action="{{ path('app_endpoint_v1_subscriber_add') }}" v-on:submit.prevent="subscriberAddAction" method="post" data-redirect-url="{{ path('app_ui_subscriber_index') }}">
+	        <div class="card-body">
+	      	  <input type="hidden" name="csrf_token" value="{{ csrf_token('subscriber-add-action') }}"/>
+	          <div class="mb-3">
+	            <label class="form-label required">{% trans %}Email Address{% endtrans %}</label>
+	            <input type="email" class="form-control" name="email" placeholder="hello@domain.com" required>
+	          </div>
+	          <div class="mb-3">
+	            <div class="form-label required">{% trans %}Status{% endtrans %}</div>
+	            <select class="form-select" name="status" required>
+	            	<option value="">{% trans %}Select a value{% endtrans %}</option>
+	                <option value="SUBSCRIBED">{% trans %}Enabled{% endtrans %}</option>
+	                <option value="UNSUBSCRIBED">{% trans %}Disabled{% endtrans %}</option>
+	            </select>
+	          </div>
+	        </div>
+	        <div class="card-footer text-end">
+	          <button type="submit" class="btn btn-primary">
+	            {% trans %}Submit{% endtrans %}
+	          </button>
+	        </div>
+	      </form>
+      </div>
+    </div>
+{% endblock %}

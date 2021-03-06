@@ -1,0 +1,29 @@
+App\Entity\UserMeta:
+    type: entity
+    table: he_user_meta
+    repositoryClass: App\Repository\UserMetaRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 100
+            nullable: false
+        value:
+            type: text
+            unique: false
+            nullable: true
+        createdAt:
+            type: datetime
+            nullable: false
+        updatedAt:
+            type: datetime
+            nullable: false
+
+    manyToOne:
+        user:
+            targetEntity: User
+            inversedBy: metas

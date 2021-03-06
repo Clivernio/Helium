@@ -1,0 +1,46 @@
+{% extends 'layout/guest.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <div class="page page-center">
+      <div class="container container-tight py-4">
+        <div class="text-center mb-4">
+          <a href="{{ path('app_ui_home') }}" class="navbar-brand navbar-brand-autodark">
+            <img src="{{ absolute_url(asset('static/logo.png')) }}" height="150">
+          </a>
+        </div>
+        <div class="card card-md" id="app_install">
+          <div class="card-body">
+            <h2 class="h2 text-center mb-4">{% trans %}Install Helium{% endtrans %}</h2>
+            <form v-on:submit.prevent="installAction" action="{{ path('app_endpoint_v1_install') }}" data-redirect-url="{{ path('app_ui_login') }}" method="post">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token('install-action') }}">
+              <div class="mb-3">
+                <label class="form-label">{% trans %}Application Name{% endtrans %}</label>
+                <input type="text" class="form-control" name="appName" placeholder="Helium" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">{% trans %}Application URL{% endtrans %}</label>
+                <input type="url" class="form-control" name="appURL" placeholder="https://helium.com" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">{% trans %}Application Email{% endtrans %}</label>
+                <input type="email" class="form-control" name="appEmail" placeholder="hello@helium.com" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">{% trans %}Admin Email{% endtrans %}</label>
+                <input type="email" class="form-control" name="adminEmail" placeholder="admin@helium.com" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">{% trans %}Admin Password{% endtrans %}</label>
+                <input type="password" class="form-control" name="adminPassword" placeholder="Your Password" required>
+              </div>
+              <div class="form-footer">
+                <button type="submit" class="btn btn-primary w-100">{% trans %}Install{% endtrans %}</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
