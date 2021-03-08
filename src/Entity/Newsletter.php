@@ -35,6 +35,9 @@ class Newsletter
     #[ORM\Column(length: 100)]
     private ?string $deliveryType = null; // NOW, SCHEDULED
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $content = null;
+
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $deliveryTime = null;
 
@@ -177,6 +180,30 @@ class Newsletter
     }
 
     /**
+     * Set a Content.
+     *
+     * @param string
+     *
+     * @return Newsletter
+     */
+    public function setContent(string $content): self
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get a Content.
+     *
+     * @return string
+     */
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    /**
      * Get CreatedAt.
      *
      * @return DateTimeImmutable
@@ -234,6 +261,7 @@ class Newsletter
             ->setDeliveryStatus($data['deliveryStatus'])
             ->setDeliveryType($data['deliveryType'])
             ->setDeliveryTime($data['deliveryTime'])
+            ->setContent($data['content'])
             ->setCreatedAt(empty($data['createdAt']) ? new \DateTimeImmutable() : $data['createdAt'])
             ->setUpdatedAt(empty($data['updatedAt']) ? new \DateTimeImmutable() : $data['updatedAt']);
     }

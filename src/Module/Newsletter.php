@@ -45,7 +45,7 @@ class Newsletter
     /**
      * Delete a Newsletter by ID.
      */
-    public function deleteById(int $id): void
+    public function deleteOneById(int $id): void
     {
         $newsletter = $this->newsletterRepository->findOneByID($id);
 
@@ -65,6 +65,7 @@ class Newsletter
     {
         $newsletter = NewsletterEntity::fromArray([
             'name'           => $data['name'],
+            'content'        => $data['content'],
             'deliveryStatus' => $data['deliveryStatus'],
             'deliveryType'   => $data['deliveryType'],
             'deliveryTime'   => $data['deliveryTime'],
@@ -88,10 +89,25 @@ class Newsletter
             throw new ResourceNotFound(sprintf("Newsletter with id %s not found", $id));
         }
 
-        $newsletter->setName($data['name']);
-        $newsletter->setDeliveryStatus($data['deliveryStatus']);
-        $newsletter->setDeliveryType($data['deliveryType']);
-        $newsletter->setDeliveryTime($data['deliveryTime']);
+        if (!empty($data['name'])) {
+            $newsletter->setName($data['name']);
+        }
+
+        if (!empty($data['content'])) {
+            $newsletter->setName($data['content']);
+        }
+
+        if (!empty($data['deliveryStatus'])) {
+            $newsletter->setDeliveryStatus($data['deliveryStatus']);
+        }
+
+        if (!empty($data['deliveryType'])) {
+            $newsletter->setDeliveryType($data['deliveryType']);
+        }
+
+        if (!empty($data['deliveryTime'])) {
+            $newsletter->setDeliveryTime($data['deliveryTime']);
+        }
 
         $this->newsletterRepository->save($newsletter, true);
 
