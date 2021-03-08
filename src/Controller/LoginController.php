@@ -41,6 +41,9 @@ class LoginController extends AbstractController
     /** @var Validator */
     private $validator;
 
+    /** @var InstallModule */
+    private $installModule;
+
     /**
      * Class Constructor.
      */

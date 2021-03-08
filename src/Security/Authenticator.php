@@ -61,7 +61,7 @@ class Authenticator
      */
     public function initSession(UserInterface $user): void
     {
-        $token              = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+        $token              = new UsernamePasswordToken($user, 'main', $user->getRoles());
         $authenticatedToken = $this->authenticationManager->authenticate($token);
         $this->tokenStorage->setToken($authenticatedToken);
     }
