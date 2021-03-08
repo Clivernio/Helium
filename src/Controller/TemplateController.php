@@ -65,10 +65,19 @@ class TemplateController extends AbstractController
     {
         $this->logger->info("Render newsletter preview page");
 
-        $basePath = rtrim($this->appKernel->getProjectDir(), "/");
+        $config = $this->configRepository->findOne($name);
 
-        $name = str_replace("/", "", $name);
-        $name = str_replace("\\", "", $name);
+        $defaults = null;
+
+        if (!empty($config)) {
+            $data     = json_decode($config->getValue());
+            $name     = $data->templateName;
+            $defaults = Yaml::parse(trim($data->templateInputs));
+        }
+
+        $basePath = rtrim($this->appKernel->getProjectDir(), "/");
+        $name     = str_replace("/", "", $name);
+        $name     = str_replace("\\", "", $name);
 
         if (!file_exists(sprintf("%s/templates/default/newsletter/%s.html.twig", $basePath, $name))) {
             throw new NotFoundHttpException(sprintf(
@@ -77,9 +86,7 @@ class TemplateController extends AbstractController
             ));
         }
 
-        $defaults = [];
-
-        if (file_exists(sprintf("%s/templates/default/newsletter/%s.yml", $basePath, $name))) {
+        if ((null === $defaults) && file_exists(sprintf("%s/templates/default/newsletter/%s.yml", $basePath, $name))) {
             $defaults = Yaml::parseFile(sprintf(
                 "%s/templates/default/newsletter/%s.yml",
                 $basePath,

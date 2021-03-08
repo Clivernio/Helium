@@ -449,6 +449,116 @@ helium_app.subscriber_edit_screen = (Vue, axios, Cookies, $) => {
 
 }
 
+// Newsletter Add Page
+helium_app.newsletter_add_screen = (Vue, axios, Cookies, $) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#app_newsletter_add',
+        data() {
+            return {
+                isInProgress: false,
+                showPreview: false,
+                showDeliveryTime: false,
+                deliveryType: "",
+                templateName: "",
+                templateInputs: ""
+            }
+        },
+        methods: {
+            newsletterAddAction(event) {
+                event.preventDefault();
+                this.isInProgress = true;
+
+                let inputs = {};
+                let _self = $(event.target);
+                let _form = _self.closest("form");
+
+                _form.find("button").attr("disabled", "disabled");
+
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                axios.post(_form.attr('action'), inputs)
+                    .then((response) => {
+                        if (response.status >= 200) {
+                            toastr.clear();
+                            toastr.info(response.data.successMessage);
+                        }
+
+                        setTimeout(() => {
+                            location.href = _form.attr('data-redirect-url');
+                        }, 3000);
+                    })
+                    .catch((error) => {
+                        this.isInProgress = false;
+                        // Show error
+                        toastr.clear();
+                        toastr.error(error.response.data.errorMessage);
+                        _form.find("button").removeAttr("disabled");
+                    });
+            },
+
+            deliveryTypeChange(event) {
+                event.preventDefault();
+
+                if (this.deliveryType == "SCHEDULED") {
+                    this.showDeliveryTime = true;
+                } else {
+                    this.showDeliveryTime = false;
+                }
+            },
+
+            templateNameChange(event) {
+                event.preventDefault();
+
+                if (this.templateName != "") {
+                    this.templateInputs = $('option[value="' + this.templateName + '"]').attr('data-default');
+                    this.syncTemplateAction();
+                } else {
+                    this.templateInputs = "";
+                    this.showPreview = false;
+                }
+            },
+
+            templateInputsChange(event) {
+                if (this.templateName != "") {
+                    this.syncTemplateAction();
+                }
+            },
+
+            syncTemplateAction() {
+                this.showPreview = false;
+
+                let inputs = {};
+                let _self = $("#app_newsletter_add");
+                let _form = _self.find("form");
+
+                _form.find("button").attr("disabled", "disabled");
+
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                axios.post(_form.attr('data-sync-preview'), inputs)
+                    .then((response) => {
+                        this.showPreview = true;
+                        _form.find("button").removeAttr("disabled");
+                    })
+                    .catch((error) => {
+                        this.showPreview = false;
+                        // Show error
+                        toastr.clear();
+                        toastr.error(error.response.data.errorMessage);
+                        _form.find("button").removeAttr("disabled");
+                    });
+            }
+        }
+    });
+
+}
+
 $(document).ready(() => {
     axios.defaults.headers.common = {
         'X-Requested-With': 'XMLHttpRequest'
@@ -528,6 +638,15 @@ $(document).ready(() => {
 
     if (document.getElementById("app_subscriber_edit")) {
         helium_app.subscriber_edit_screen(
+            Vue,
+            axios,
+            Cookies,
+            $
+        );
+    }
+
+    if (document.getElementById("app_newsletter_add")) {
+        helium_app.newsletter_add_screen(
             Vue,
             axios,
             Cookies,

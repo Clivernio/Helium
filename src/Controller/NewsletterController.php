@@ -9,11 +9,16 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Config;
+use App\Exception\InvalidRequest;
 use App\Module\Newsletter as NewsletterModule;
 use App\Repository\ConfigRepository;
+use App\Service\Validator;
 use Psr\Log\LoggerInterface;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -35,6 +40,9 @@ class NewsletterController extends AbstractController
     /** @var NewsletterModule */
     private $newsletterModule;
 
+    /** @var Validator */
+    private $validator;
+
     /**
      * Class Constructor.
      */
@@ -42,12 +50,14 @@ class NewsletterController extends AbstractController
         LoggerInterface $logger,
         ConfigRepository $configRepository,
         TranslatorInterface $translator,
-        NewsletterModule $newsletterModule
+        NewsletterModule $newsletterModule,
+        Validator $validator
     ) {
         $this->logger           = $logger;
         $this->translator       = $translator;
         $this->configRepository = $configRepository;
         $this->newsletterModule = $newsletterModule;
+        $this->validator        = $validator;
     }
 
     /**
@@ -152,7 +162,7 @@ class NewsletterController extends AbstractController
 
         $data = json_decode($content);
 
-        if (empty($data->csrf_token) || !$this->isCsrfTokenValid('newsletter-add-action', $data->csrf_token)) {
+        if (empty($data->csrf_token) || !$this->isCsrfTokenValid('newsletter-update-action', $data->csrf_token)) {
             throw new InvalidRequest('Invalid request');
         }
 
@@ -182,7 +192,7 @@ class NewsletterController extends AbstractController
 
         $data = json_decode($content);
 
-        if (empty($data->csrf_token) || !$this->isCsrfTokenValid('newsletter-edit-action', $data->csrf_token)) {
+        if (empty($data->csrf_token) || !$this->isCsrfTokenValid('newsletter-update-action', $data->csrf_token)) {
             throw new InvalidRequest('Invalid request');
         }
 
@@ -224,6 +234,57 @@ class NewsletterController extends AbstractController
         return $this->json([
             'successMessage' => $this->translator->trans(
                 'Newsletter deleted successfully.'
+            ),
+        ]);
+    }
+
+    /**
+     * Newsletter Preview API Endpoint.
+     */
+    #[Route('/api/v1/newsletter/preview', name: 'app_endpoint_v1_newsletter_preview', methods: ['POST'])]
+    public function newsletterPreviewEndpoint(Request $request): JsonResponse
+    {
+        $this->logger->info("Trigger newsletter add v1 endpoint");
+
+        $content = $request->getContent();
+
+        $this->validator->validate(
+            $content,
+            "v1/newsletterPreviewAction.schema.json"
+        );
+
+        $data = json_decode($content);
+
+        if (empty($data->csrf_token) || !$this->isCsrfTokenValid('newsletter-update-action', $data->csrf_token)) {
+            throw new InvalidRequest('Invalid request');
+        }
+
+        $config = $this->configRepository->findOne($data->tempId);
+
+        $value = json_encode([
+            'templateName'   => $data->templateName,
+            'templateInputs' => $data->templateInputs,
+            'datetime'       => new \DateTimeImmutable(),
+            'type'           => 'newsletter_cached_data',
+        ]);
+
+        // @TODO: cleanup old cached data
+
+        if (empty($config)) {
+            $config = Config::fromArray([
+                'name'     => $data->tempId,
+                'value'    => $value,
+                'autoload' => 'off',
+            ]);
+            $this->configRepository->save($config, true);
+        } else {
+            $config->setValue($value);
+            $this->configRepository->save($config, true);
+        }
+
+        return $this->json([
+            'successMessage' => $this->translator->trans(
+                'Newsletter preview update successfully.'
             ),
         ]);
     }
