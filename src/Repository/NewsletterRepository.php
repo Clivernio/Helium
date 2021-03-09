@@ -78,4 +78,14 @@ class NewsletterRepository extends ServiceEntityRepository
 
         return !empty($newsletter) ? $newsletter : null;
     }
+
+    /**
+     * Find a Newsletter By Slug.
+     */
+    public function findOneBySlug(string $slug): ?Subscriber
+    {
+        $newsletter = $this->findOneBy(['slug' => $slug]);
+
+        return !empty($newsletter) ? $newsletter : null;
+    }
 }

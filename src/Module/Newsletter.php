@@ -166,10 +166,19 @@ class Newsletter
     }
 
     /**
-     * Generate Slug.
+     * Generate a Unique Slug.
      */
     public function generateSlug(string $text): string
     {
-        return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $text)));
+        $i            = 1;
+        $originalSlug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $text)));
+        $slug         = $originalSlug;
+
+        while (!empty($this->newsletterRepository->findOneBySlug($slug))) {
+            $slug = sprintf("%s-%s", $originalSlug, $i);
+            $i++;
+        }
+
+        return $slug;
     }
 }
