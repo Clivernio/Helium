@@ -24,7 +24,7 @@
 	      	  <input type="hidden" name="csrf_token" value="{{ csrf_token('subscriber-add-action') }}"/>
 	          <div class="mb-3">
 	            <label class="form-label required">{% trans %}Email Address{% endtrans %}</label>
-	            <input class="form-control" name="email" placeholder="hello@domain.com" required>
+	            <input type="email" class="form-control" name="email" placeholder="hello@domain.com" required>
 	          </div>
 	          <div class="mb-3">
 	            <div class="form-label required">{% trans %}Status{% endtrans %}</div>

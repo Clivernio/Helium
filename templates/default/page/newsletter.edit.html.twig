@@ -22,6 +22,7 @@
 	      <form class="card" action="{{ path('app_endpoint_v1_newsletter_edit') }}" v-on:submit.prevent="newsletterEditAction" method="post" data-redirect-url="{{ path('app_ui_newsletter_index') }}">
 	        <div class="card-body">
 	      	  <input type="hidden" name="csrf_token" value="{{ csrf_token('newsletter-edit-action') }}"/>
+            <input type="hidden" name="_tmp_id" value="{{ tmp_id }}">
 	      	  <!---/////--->
 	        </div>
 	        <div class="card-footer text-end">

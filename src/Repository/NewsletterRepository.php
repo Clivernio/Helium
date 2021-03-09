@@ -20,11 +20,14 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class NewsletterRepository extends ServiceEntityRepository
 {
+    public const ON_HOLD_STATUS     = "ON_HOLD";
     public const PENDING_STATUS     = "PENDING";
     public const IN_PROGRESS_STATUS = "IN_PROGRESS";
     public const FINISHED_STATUS    = "FINISHED";
-    public const NOW_TYPE           = "NOW";
-    public const SCHEDULED_TYPE     = "SCHEDULED";
+
+    public const DRAFT_TYPE     = "DRAFT";
+    public const NOW_TYPE       = "NOW";
+    public const SCHEDULED_TYPE = "SCHEDULED";
 
     /**
      * Class Constructor.

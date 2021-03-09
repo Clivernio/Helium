@@ -3,5 +3,40 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
+    <!-- Page header -->
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col-8">
+            <h2 class="page-title">
+              {% trans %}Newsletter{% endtrans %}
+            </h2>
+          </div>
+          <div class="col-4">
+            <div class="text-end">
+              <a href="{{ path('app_ui_newsletter_add') }}" class="btn btn-light">{% trans %}Add New{% endtrans %}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <!-- Page body -->
+    <div class="page-body">
+      <div class="container-xl" id="app_newsletter_index">
+        <div class="row row-cards">
+          <div class="col-12">
+            <div class="card">
+              <div class="table-responsive">
+
+              </div>
+            </div>
+          </div>
+          <br/>
+          <div class="col-12 text-center" v-show="showLoad">
+            <button v-on:click.prevent="getNextNewsletters" class="btn btn-light">{% trans %}Load More!{% endtrans %}</button>
+          </div>
+        </div>
+      </div>
+    </div>
 {% endblock %}

@@ -22,9 +22,50 @@
 	      <form class="card" action="{{ path('app_endpoint_v1_newsletter_add') }}" v-on:submit.prevent="newsletterAddAction" method="post" data-redirect-url="{{ path('app_ui_newsletter_index') }}">
 	        <div class="card-body">
 	      	  <input type="hidden" name="csrf_token" value="{{ csrf_token('newsletter-add-action') }}"/>
-	      	  <!---/////--->
+            <input type="hidden" name="_tmp_id" value="{{ tmp_id }}">
+            <div class="mb-3">
+              <label class="form-label required">{% trans %}Name{% endtrans %}</label>
+              <input type="text" class="form-control" name="name" placeholder="Envato Weekly Newsletter 7, Jan 2023" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label required">{% trans %}From Address{% endtrans %}</label>
+              <input type="email" class="form-control" name="email" placeholder="hello@domain.com" value="{{ app_email }}" required>
+            </div>
+            <div class="mb-3">
+              <div class="form-label required">{% trans %}Delivery Type{% endtrans %}</div>
+              <select name="deliveryType" class="form-select" required>
+                <option value="">{% trans %}Select a value{% endtrans %}</option>
+                <option value="DRAFT">{% trans %}Draft{% endtrans %}</option>
+                <option value="NOW">{% trans %}Now{% endtrans %}</option>
+                <option value="SCHEDULED">{% trans %}Scheduled{% endtrans %}</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label required">{% trans %}Date (Year-month-day){% endtrans %}</label>
+              <input name="deliveryDate" class="form-control mb-2" placeholder="{% trans %}Select a date{% endtrans %}" id="newsletter_add_datepicker01" value="{{ 'now'|date('Y-m-d') }}"/>
+            </div>
+            <div class="mb-3">
+              <label class="form-label required">{% trans %}Hour (Hour:Minutes:Seconds){% endtrans %}</label>
+              <input type="text" name="deliveryTime" class="form-control" data-mask="00:00:00" data-mask-visible="true" placeholder="00:00:00" />
+            </div>
+            <div class="mb-3">
+              <div class="form-label required">{% trans %}Template{% endtrans %}</div>
+              <select name="template" class="form-select" required>
+                <option value="">{% trans %}Select a template{% endtrans %}</option>
+                {% for template in templates %}
+                  <option value="{{ template.name }}" data-defaults="{{ template.defaults }}">{{ template.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label required">{% trans %}Template Inputs{% endtrans %}</label>
+              <textarea name="inputs" rows="5" class="form-control" placeholder="{% trans %}The inputs in a YAML format{% endtrans %}"></textarea>
+            </div>
 	        </div>
 	        <div class="card-footer text-end">
+            <a href="{{ path('app_ui_newsletter_preview', {name: tmp_id}) }}" target="_blank" class="btn btn-secondary">
+              {% trans %}Preview{% endtrans %}
+            </a>
 	          <button type="submit" class="btn btn-primary">
 	            {% trans %}Submit{% endtrans %}
 	          </button>
@@ -32,4 +73,18 @@
 	      </form>
       </div>
     </div>
+{% endblock %}
+
+{% block after_footer %}
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      window.Litepicker && (new Litepicker({
+        element: document.getElementById('newsletter_add_datepicker01'),
+        buttonText: {
+          previousMonth: `<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="15 6 9 12 15 18" /></svg>`,
+          nextMonth: `<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="9 6 15 12 9 18" /></svg>`,
+        },
+      }));
+    });
+  </script>
 {% endblock %}

@@ -126,6 +126,8 @@ helium_app.install_screen = (Vue, axios, Cookies, $) => {
                     inputs[item.name] = item.value;
                 });
 
+                console.log(inputs);
+
                 axios.post(_form.attr('action'), inputs)
                     .then((response) => {
                         if (response.status >= 200) {
@@ -328,6 +330,7 @@ helium_app.subscriber_index_screen = (Vue, axios, Cookies, $) => {
             }
         },
         mounted() {
+            console.log("ddd");
             axios.get(app_globals.subscriber_v1_list_endpoint + "?offset=" + this.offset)
                 .then((response) => {
                     this.subscribers = this.subscribers.concat(response.data.subscribers);

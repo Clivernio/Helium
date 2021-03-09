@@ -86,7 +86,7 @@ class ResetPasssword
                 $from,
                 $data['email'],
                 $subject,
-                "mails/reset-password.html.twig",
+                "mail/reset-password.html.twig",
                 $email_data
             );
         } catch (\Exception $e) {

@@ -30,10 +30,16 @@ class Newsletter
     private ?string $name = null;
 
     #[ORM\Column(length: 100)]
-    private ?string $deliveryStatus = null; // PENDING, IN_PROGRESS, FINISHED
+    private ?string $deliveryStatus = null; // ON_HOLD, PENDING, IN_PROGRESS, FINISHED
 
     #[ORM\Column(length: 100)]
-    private ?string $deliveryType = null; // NOW, SCHEDULED
+    private ?string $deliveryType = null; // DRAFT, NOW, SCHEDULED
+
+    #[ORM\Column(length: 200)]
+    private ?string $template = null;
+
+    #[ORM\Column(length: 200)]
+    private ?string $from = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $content = null;
@@ -180,6 +186,54 @@ class Newsletter
     }
 
     /**
+     * Set a Template.
+     *
+     * @param string
+     *
+     * @return Newsletter
+     */
+    public function setTemplate(string $template): self
+    {
+        $this->template = $template;
+
+        return $this;
+    }
+
+    /**
+     * Get a Template.
+     *
+     * @return string
+     */
+    public function getTemplate(): ?string
+    {
+        return $this->template;
+    }
+
+    /**
+     * Set a From.
+     *
+     * @param string
+     *
+     * @return Newsletter
+     */
+    public function setFrom(string $from): self
+    {
+        $this->from = $from;
+
+        return $this;
+    }
+
+    /**
+     * Get a From.
+     *
+     * @return string
+     */
+    public function getFrom(): ?string
+    {
+        return $this->from;
+    }
+
+    /**
      * Set a Content.
      *
      * @param string
@@ -259,8 +313,10 @@ class Newsletter
         return (new Newsletter())
             ->setName($data['name'])
             ->setDeliveryStatus($data['deliveryStatus'])
+            ->setFrom($data['from'])
             ->setDeliveryType($data['deliveryType'])
             ->setDeliveryTime($data['deliveryTime'])
+            ->setTemplate($data['template'])
             ->setContent($data['content'])
             ->setCreatedAt(empty($data['createdAt']) ? new \DateTimeImmutable() : $data['createdAt'])
             ->setUpdatedAt(empty($data['updatedAt']) ? new \DateTimeImmutable() : $data['updatedAt']);

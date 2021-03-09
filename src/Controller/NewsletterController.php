@@ -12,6 +12,7 @@ namespace App\Controller;
 use App\Module\Newsletter as NewsletterModule;
 use App\Repository\ConfigRepository;
 use Psr\Log\LoggerInterface;
+use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -81,6 +82,9 @@ class NewsletterController extends AbstractController
             'title' => $this->translator->trans("Newsletters") . " | "
             . $this->configRepository->findValueByName("he_app_name", "Helium"),
             'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
+            'templates'      => $this->newsletterModule->getTemplates(),
+            'tmp_id'         => Uuid::uuid4()->toString(),
+            'app_email'      => $this->configRepository->findValueByName("he_app_email", ""),
             'user'           => [
                 'first_name' => $this->getUser()->getFirstName(),
                 'last_name'  => $this->getUser()->getLastName(),
@@ -101,6 +105,8 @@ class NewsletterController extends AbstractController
             'title' => $this->translator->trans("Newsletters") . " | "
             . $this->configRepository->findValueByName("he_app_name", "Helium"),
             'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
+            'templates'      => $this->newsletterModule->getTemplates(),
+            'tmp_id'         => Uuid::uuid4()->toString(),
             'user'           => [
                 'first_name' => $this->getUser()->getFirstName(),
                 'last_name'  => $this->getUser()->getLastName(),
