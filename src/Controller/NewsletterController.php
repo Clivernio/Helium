@@ -46,12 +46,12 @@ class NewsletterController extends AbstractController
     /**
      * Newsletter Web Page.
      */
-    #[Route('/admin/newsletter', name: 'app_ui_newsletters_index')]
-    public function newsletter(): Response
+    #[Route('/admin/newsletter', name: 'app_ui_newsletter_index')]
+    public function newsletterIndex(): Response
     {
-        $this->logger->info("Render newsletter page");
+        $this->logger->info("Render newsletter index page");
 
-        return $this->render('page/newsletters.index.html.twig', [
+        return $this->render('page/newsletter.index.html.twig', [
             'title' => $this->translator->trans("Newsletters") . " | "
             . $this->configRepository->findValueByName("he_app_name", "Helium"),
             'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
@@ -60,6 +60,159 @@ class NewsletterController extends AbstractController
                 'last_name'  => $this->getUser()->getLastName(),
                 'job'        => $this->getUser()->getJob(),
             ],
+        ]);
+    }
+
+    /**
+     * Newsletter Add Web Page.
+     */
+    #[Route('/admin/newsletter/add', name: 'app_ui_newsletter_add')]
+    public function newsletterAdd(): Response
+    {
+        $this->logger->info("Render newsletter add page");
+
+        return $this->render('page/newsletter.add.html.twig', [
+            'title' => $this->translator->trans("Newsletters") . " | "
+            . $this->configRepository->findValueByName("he_app_name", "Helium"),
+            'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
+            'user'           => [
+                'first_name' => $this->getUser()->getFirstName(),
+                'last_name'  => $this->getUser()->getLastName(),
+                'job'        => $this->getUser()->getJob(),
+            ],
+        ]);
+    }
+
+    /**
+     * Newsletter Edit Web Page.
+     */
+    #[Route('/admin/newsletter/edit/{id}', name: 'app_ui_newsletter_edit')]
+    public function newsletterEdit(): Response
+    {
+        $this->logger->info("Render newsletter edit page");
+
+        return $this->render('page/newsletter.edit.html.twig', [
+            'title' => $this->translator->trans("Newsletters") . " | "
+            . $this->configRepository->findValueByName("he_app_name", "Helium"),
+            'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
+            'user'           => [
+                'first_name' => $this->getUser()->getFirstName(),
+                'last_name'  => $this->getUser()->getLastName(),
+                'job'        => $this->getUser()->getJob(),
+            ],
+        ]);
+    }
+
+    /**
+     * Newsletter View Web Page.
+     */
+    #[Route('/admin/newsletter/view/{id}', name: 'app_ui_newsletter_view')]
+    public function newsletterView(): Response
+    {
+        $this->logger->info("Render newsletter view page");
+
+        return $this->render('page/newsletter.view.html.twig', [
+            'title' => $this->translator->trans("Newsletters") . " | "
+            . $this->configRepository->findValueByName("he_app_name", "Helium"),
+            'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
+            'user'           => [
+                'first_name' => $this->getUser()->getFirstName(),
+                'last_name'  => $this->getUser()->getLastName(),
+                'job'        => $this->getUser()->getJob(),
+            ],
+        ]);
+    }
+
+    /**
+     * Newsletter Add API Endpoint.
+     */
+    #[Route('/api/v1/newsletter', name: 'app_endpoint_v1_newsletter_add', methods: ['POST'])]
+    public function newsletterAddEndpoint(Request $request): JsonResponse
+    {
+        $this->logger->info("Trigger newsletter add v1 endpoint");
+
+        $content = $request->getContent();
+
+        $this->validator->validate(
+            $content,
+            "v1/newsletterAddAction.schema.json"
+        );
+
+        $data = json_decode($content);
+
+        if (empty($data->csrf_token) || !$this->isCsrfTokenValid('newsletter-add-action', $data->csrf_token)) {
+            throw new InvalidRequest('Invalid request');
+        }
+
+        // ...
+
+        return $this->json([
+            'successMessage' => $this->translator->trans(
+                'Newsletter created successfully.'
+            ),
+        ]);
+    }
+
+    /**
+     * Newsletter Edit API Endpoint.
+     */
+    #[Route('/api/v1/newsletter/{id}', name: 'app_endpoint_v1_newsletter_edit', methods: ['PUT'])]
+    public function newsletterEditEndpoint(Request $request, int $id): JsonResponse
+    {
+        $this->logger->info("Trigger newsletter edit v1 endpoint");
+
+        $content = $request->getContent();
+
+        $this->validator->validate(
+            $content,
+            "v1/newsletterEditAction.schema.json"
+        );
+
+        $data = json_decode($content);
+
+        if (empty($data->csrf_token) || !$this->isCsrfTokenValid('newsletter-edit-action', $data->csrf_token)) {
+            throw new InvalidRequest('Invalid request');
+        }
+
+        $this->logger->info(sprintf("Update newsletter with id %s", $id));
+
+        // ..
+
+        $this->logger->info(sprintf("Newsletter with id %s updated", $id));
+
+        return $this->json([
+            'successMessage' => $this->translator->trans(
+                'Newsletter updated successfully.'
+            ),
+        ]);
+    }
+
+    /**
+     * Newsletter Delete API Endpoint.
+     */
+    #[Route('/api/v1/newsletter/{id}', name: 'app_endpoint_v1_newsletter_delete', methods: ['DELETE'])]
+    public function newsletterDeleteEndpoint(Request $request, int $id): JsonResponse
+    {
+        $this->logger->info("Trigger newsletter delete v1 endpoint");
+
+        $content = $request->getContent();
+
+        $data = json_decode($content);
+
+        if (empty($data->csrf_token) || !$this->isCsrfTokenValid('newsletter-delete-action', $data->csrf_token)) {
+            throw new InvalidRequest('Invalid request');
+        }
+
+        $this->logger->info(sprintf("Delete newsletter with id %s", $id));
+
+        // ..
+
+        $this->logger->info(sprintf("Newsletter with id %s delete", $id));
+
+        return $this->json([
+            'successMessage' => $this->translator->trans(
+                'Newsletter deleted successfully.'
+            ),
         ]);
     }
 }

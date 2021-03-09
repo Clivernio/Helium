@@ -1,0 +1,35 @@
+{% extends 'layout/admin.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <!-- Page header -->
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <h2 class="page-title">
+              {% trans %}Edit Newsletter{% endtrans %}
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page body -->
+    <div class="page-body">
+      <div class="container-xl" id="app_newsletter_edit">
+	      <form class="card" action="{{ path('app_endpoint_v1_newsletter_edit') }}" v-on:submit.prevent="newsletterEditAction" method="post" data-redirect-url="{{ path('app_ui_newsletter_index') }}">
+	        <div class="card-body">
+	      	  <input type="hidden" name="csrf_token" value="{{ csrf_token('newsletter-edit-action') }}"/>
+	      	  <!---/////--->
+	        </div>
+	        <div class="card-footer text-end">
+	          <button type="submit" class="btn btn-primary">
+	            {% trans %}Submit{% endtrans %}
+	          </button>
+	        </div>
+	      </form>
+      </div>
+    </div>
+{% endblock %}

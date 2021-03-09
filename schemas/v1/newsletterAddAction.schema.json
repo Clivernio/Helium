@@ -1,0 +1,12 @@
+{
+  "$id": "newsletterAddAction",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Newsletter Add Action",
+  "type": "object",
+  "properties": {
+
+  },
+  "required": [
+
+  ]
+}

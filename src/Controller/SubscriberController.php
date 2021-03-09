@@ -68,7 +68,7 @@ class SubscriberController extends AbstractController
     {
         $this->logger->info("Render subscriber index page");
 
-        return $this->render('page/subscribers.index.html.twig', [
+        return $this->render('page/subscriber.index.html.twig', [
             'title' => $this->translator->trans("Subscribers") . " | "
             . $this->configRepository->findValueByName("he_app_name", "Helium"),
             'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
@@ -88,7 +88,7 @@ class SubscriberController extends AbstractController
     {
         $this->logger->info("Render subscriber add page");
 
-        return $this->render('page/subscribers.add.html.twig', [
+        return $this->render('page/subscriber.add.html.twig', [
             'title' => $this->translator->trans("Subscribers") . " | "
             . $this->configRepository->findValueByName("he_app_name", "Helium"),
             'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
@@ -114,7 +114,7 @@ class SubscriberController extends AbstractController
             throw new ResourceNotFound(sprintf("Subscriber with id %s not found", $id));
         }
 
-        return $this->render('page/subscribers.edit.html.twig', [
+        return $this->render('page/subscriber.edit.html.twig', [
             'title' => $this->translator->trans("Subscribers") . " | "
             . $this->configRepository->findValueByName("he_app_name", "Helium"),
             'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
@@ -135,7 +135,7 @@ class SubscriberController extends AbstractController
     /**
      * Subscriber List API Endpoint.
      */
-    #[Route('/api/v1/subscriber', name: 'app_endpoint_v1_subscriber_list', methods: ['GET', 'HEAD'])]
+    #[Route('/admin/api/v1/subscriber', name: 'app_endpoint_v1_subscriber_list', methods: ['GET', 'HEAD'])]
     public function subscriberListEndpoint(Request $request): JsonResponse
     {
         $this->logger->info("Trigger subscriber list v1 endpoint");
@@ -152,7 +152,6 @@ class SubscriberController extends AbstractController
             $outStatus = str_replace([
                 SubscriberRepository::UNSUBSCRIBED,
                 SubscriberRepository::SUBSCRIBED,
-
                 SubscriberRepository::TRASHED,
             ], [
                 $this->translator->trans("Disabled"),
@@ -183,7 +182,7 @@ class SubscriberController extends AbstractController
     /**
      * Subscriber Add API Endpoint.
      */
-    #[Route('/api/v1/subscriber', name: 'app_endpoint_v1_subscriber_add', methods: ['POST'])]
+    #[Route('/admin/api/v1/subscriber', name: 'app_endpoint_v1_subscriber_add', methods: ['POST'])]
     public function subscriberAddEndpoint(Request $request): JsonResponse
     {
         $this->logger->info("Trigger subscriber add v1 endpoint");
@@ -218,7 +217,7 @@ class SubscriberController extends AbstractController
     /**
      * Subscriber Edit API Endpoint.
      */
-    #[Route('/api/v1/subscriber/{id}', name: 'app_endpoint_v1_subscriber_edit', methods: ['PUT'])]
+    #[Route('/admin/api/v1/subscriber/{id}', name: 'app_endpoint_v1_subscriber_edit', methods: ['PUT'])]
     public function subscriberEditEndpoint(Request $request, int $id): JsonResponse
     {
         $this->logger->info("Trigger subscriber edit v1 endpoint");
@@ -242,7 +241,7 @@ class SubscriberController extends AbstractController
             // Delete the subscriber
             $this->subscriberModule->delete($id);
 
-            $this->logger->info(sprintf("Subscriber with id %s deleted", $id));
+            $this->logger->info(sprintf("Subscriber with id %s got deleted", $id));
 
             return $this->json([
                 'successMessage' => $this->translator->trans(

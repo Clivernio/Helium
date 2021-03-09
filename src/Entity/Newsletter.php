@@ -26,8 +26,17 @@ class Newsletter
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
-    #[ORM\Column(length: 30)]
+    #[ORM\Column(length: 100)]
     private ?string $name = null;
+
+    #[ORM\Column(length: 100)]
+    private ?string $deliveryStatus = null; // PENDING, IN_PROGRESS, FINISHED
+
+    #[ORM\Column(length: 100)]
+    private ?string $deliveryType = null; // NOW, SCHEDULED
+
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    private ?\DateTimeImmutable $deliveryTime = null;
 
     #[ORM\OneToMany(targetEntity: NewsletterMeta::class, mappedBy: 'newsletter', cascade: ['ALL'])]
     private Collection $metas;
@@ -56,7 +65,7 @@ class Newsletter
      *
      * @param string
      *
-     * @return Option
+     * @return Newsletter
      */
     public function setName(string $name): self
     {
@@ -73,6 +82,98 @@ class Newsletter
     public function getName(): ?string
     {
         return $this->name;
+    }
+
+    /**
+     * Set a Delivery Status.
+     *
+     * @param string
+     *
+     * @return Newsletter
+     */
+    public function setDeliveryStatus(string $deliveryStatus): self
+    {
+        $this->deliveryStatus = $deliveryStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get a Delivery Status.
+     *
+     * @return string
+     */
+    public function getDeliveryStatus(): ?string
+    {
+        return $this->deliveryStatus;
+    }
+
+    /**
+     * Set a Delivery Type.
+     *
+     * @param string
+     *
+     * @return Newsletter
+     */
+    public function setDeliveryType(string $deliveryType): self
+    {
+        $this->deliveryType = $deliveryType;
+
+        return $this;
+    }
+
+    /**
+     * Get a Delivery Type.
+     *
+     * @return string
+     */
+    public function getDeliveryType(): ?string
+    {
+        return $this->deliveryType;
+    }
+
+    /**
+     * Get Metas.
+     *
+     * @return Collection
+     */
+    public function getMetas(): ?Collection
+    {
+        return $this->metas;
+    }
+
+    /**
+     * Get Deliveries.
+     *
+     * @return Collection
+     */
+    public function getDeliveries(): ?Collection
+    {
+        return $this->deliveries;
+    }
+
+    /**
+     * Get Delivery Time.
+     *
+     * @return DateTimeImmutable
+     */
+    public function getDeliveryTime(): ?\DateTimeImmutable
+    {
+        return $this->deliveryTime;
+    }
+
+    /**
+     * Set Delivery Time.
+     *
+     * @param \DateTimeImmutable
+     *
+     * @return DateTimeImmutable
+     */
+    public function setDeliveryTime(\DateTimeImmutable $deliveryTime): self
+    {
+        $this->deliveryTime = $deliveryTime;
+
+        return $this;
     }
 
     /**
@@ -97,26 +198,6 @@ class Newsletter
         $this->createdAt = $createdAt;
 
         return $this;
-    }
-
-    /**
-     * Get Metas.
-     *
-     * @return Collection
-     */
-    public function getMetas(): ?Collection
-    {
-        return $this->metas;
-    }
-
-    /**
-     * Get Deliveries.
-     *
-     * @return Collection
-     */
-    public function getDeliveries(): ?Collection
-    {
-        return $this->deliveries;
     }
 
     /**
@@ -150,6 +231,9 @@ class Newsletter
     {
         return (new Newsletter())
             ->setName($data['name'])
+            ->setDeliveryStatus($data['deliveryStatus'])
+            ->setDeliveryType($data['deliveryType'])
+            ->setDeliveryTime($data['deliveryTime'])
             ->setCreatedAt(empty($data['createdAt']) ? new \DateTimeImmutable() : $data['createdAt'])
             ->setUpdatedAt(empty($data['updatedAt']) ? new \DateTimeImmutable() : $data['updatedAt']);
     }
