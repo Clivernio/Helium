@@ -111,6 +111,10 @@ class SubscriberRepository extends ServiceEntityRepository
      */
     public function findManyByStatus(string $status, array $order, int $limit, int $offset): array
     {
+        if (empty($status)) {
+            return $this->findBy([], $order, $limit, $offset);
+        }
+
         return $this->findBy(['status' => $status], $order, $limit, $offset);
     }
 }

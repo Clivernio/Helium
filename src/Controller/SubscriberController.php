@@ -134,7 +134,32 @@ class SubscriberController extends AbstractController
     {
         $this->logger->info("Trigger subscriber list v1 endpoint");
 
-        return $this->json([]);
+        $status = !empty($request->get("status")) ? $request->get("status") : "";
+        $limit  = !empty($request->get("limit")) ? (int) ($request->get("limit")) : 20;
+        $offset = !empty($request->get("offset")) ? (int) ($request->get("offset")) : 0;
+
+        $subscribers = $this->subscriberModule->list($status, $limit, $offset);
+
+        $result = [];
+
+        foreach ($subscribers as $subscriber) {
+            $result[] = [
+                'id'        => $subscriber->getId(),
+                'email'     => $subscriber->getEmail(),
+                'status'    => $subscriber->getStatus(),
+                'createdAt' => $subscriber->getCreatedAt()->format('Y-m-d H:i:s'),
+                'updatedAt' => $subscriber->getUpdatedAt()->format('Y-m-d H:i:s'),
+            ];
+        }
+
+        return $this->json([
+            'subscribers' => $result,
+            '_metadata'   => [
+                'limit'      => $limit,
+                'offset'     => $offset,
+                'totalCount' => $this->subscriberModule->countByStatus($status),
+            ],
+        ]);
     }
 
     /**
@@ -196,13 +221,22 @@ class SubscriberController extends AbstractController
         $this->logger->info(sprintf("Update subscriber with id %s", $id));
 
         if (SubscriberRepository::REMOVED === $data->status) {
-            $this->subscriberModule->edit($id, [
-                'email'  => $data->email,
-                'status' => $data->status,
-            ]);
-        } else {
+            // Delete the subscriber
             $this->subscriberModule->delete($id);
+
+            $this->logger->info(sprintf("Subscriber with id %s deleted", $id));
+
+            return $this->json([
+                'successMessage' => $this->translator->trans(
+                    'Subscriber deleted successfully.'
+                ),
+            ]);
         }
+
+        $this->subscriberModule->edit($id, [
+            'email'  => $data->email,
+            'status' => $data->status,
+        ]);
 
         $this->logger->info(sprintf("Subscriber with id %s updated", $id));
 

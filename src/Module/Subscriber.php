@@ -56,6 +56,10 @@ class Subscriber
      */
     public function add(array $data): ?SubscriberEntity
     {
+        if (!empty($this->subscriberRepository->findOneByEmail($data['email']))) {
+            throw new InvalidRequest(sprintf("Email %s is already used", $data['email']));
+        }
+
         $subscriber = SubscriberEntity::fromArray([
             "email"  => $data["email"],
             "status" => $data["status"],
@@ -104,11 +108,11 @@ class Subscriber
     /**
      * List Subscribers.
      */
-    public function list(array $filters, int $limit = 20, int $offset = 0): array
+    public function list(string $status, int $limit = 20, int $offset = 0): array
     {
         return $this->subscriberRepository->findManyByStatus(
             $status,
-            ['created_at' => 'DESC'],
+            ['createdAt' => 'DESC'],
             $limit,
             $offset
         );
