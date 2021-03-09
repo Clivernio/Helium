@@ -155,6 +155,7 @@ class SubscriberController extends AbstractController
                 'status'    => $subscriber->getStatus(),
                 'createdAt' => $subscriber->getCreatedAt()->format('Y-m-d H:i:s'),
                 'updatedAt' => $subscriber->getUpdatedAt()->format('Y-m-d H:i:s'),
+                'editLink'  => $this->generateUrl('app_ui_subscriber_edit', ['id' => $subscriber->getId()]),
             ];
         }
 

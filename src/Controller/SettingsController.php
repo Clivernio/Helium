@@ -86,7 +86,7 @@ class SettingsController extends AbstractController
     /**
      * Settings API Endpoint.
      */
-    #[Route('/api/v1/settings', name: 'app_endpoint_v1_settings', methods: ['POST'])]
+    #[Route('/admin/api/v1/settings', name: 'app_endpoint_v1_settings', methods: ['POST'])]
     public function settingsEndpoint(Request $request): JsonResponse
     {
         $content = $request->getContent();

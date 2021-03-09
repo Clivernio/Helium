@@ -301,49 +301,48 @@ helium_app.subscriber_index_screen = (Vue, axios, Cookies, $) => {
         el: '#app_subscriber_index',
         data() {
             return {
-                isInProgress: false,
+                offset: 0,
+                showLoad: false,
                 subscribers: [
-                    {
-                        "email": "hello@clivern.com",
-                        "id": 2,
-                        "status": "SUBSCRIBED",
-                        "createdAt": "2023-01-04 21:40:44",
-                        "updatedAt": "2023-01-04 21:40:44"
-                    }
+
                 ],
             }
         },
         methods: {
-            subscriberIndexAction(event) {
-                event.preventDefault();
-                this.isInProgress = true;
-
-                let inputs = {};
-                let _self = $(event.target);
-                let _form = _self.closest("form");
-
-                _form.find("button").attr("disabled", "disabled");
-
-                _form.serializeArray().map((item, index) => {
-                    inputs[item.name] = item.value;
-                });
-
-                axios.post(_form.attr('action'), inputs)
+            getNextSubscribers(event) {
+                axios.get(app_globals.subscriber_v1_list_endpoint + "?offset=" + this.offset)
                     .then((response) => {
-                        if (response.status >= 200) {
-                            toastr.clear();
-                            toastr.info(response.data.successMessage);
+                        this.subscribers = this.subscribers.concat(response.data.subscribers);
+                        this.offset += 20;
+
+                        if (this.offset >= response.data._metadata.totalCount) {
+                            this.showLoad = false;
+                        } else {
+                            this.showLoad = true;
                         }
-                         _form.find("button").removeAttr("disabled");
                     })
                     .catch((error) => {
-                        this.isInProgress = false;
-                        // Show error
                         toastr.clear();
                         toastr.error(error.response.data.errorMessage);
-                        _form.find("button").removeAttr("disabled");
                     });
             }
+        },
+        mounted() {
+            axios.get(app_globals.subscriber_v1_list_endpoint + "?offset=" + this.offset)
+                .then((response) => {
+                    this.subscribers = this.subscribers.concat(response.data.subscribers);
+                    this.offset += 20;
+
+                    if (this.offset >= response.data._metadata.totalCount) {
+                        this.showLoad = false;
+                    } else {
+                        this.showLoad = true;
+                    }
+                })
+                .catch((error) => {
+                    toastr.clear();
+                    toastr.error(error.response.data.errorMessage);
+                });
         }
     });
 
