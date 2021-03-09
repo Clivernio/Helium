@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace App\Module;
 
-use App\Entity\Option;
+use App\Entity\Config;
 use App\Entity\User;
-use App\Repository\OptionRepository;
+use App\Repository\ConfigRepository;
 use App\Repository\UserRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -24,8 +24,8 @@ class Install
     /** @var LoggerInterface */
     private $logger;
 
-    /** @var OptionRepository */
-    private $optionRepository;
+    /** @var ConfigRepository */
+    private $configRepository;
 
     /** @var UserRepository */
     private $userRepository;
@@ -38,12 +38,12 @@ class Install
      */
     public function __construct(
         LoggerInterface $logger,
-        OptionRepository $optionRepository,
+        ConfigRepository $configRepository,
         UserRepository $userRepository,
         UserPasswordHasherInterface $passwordHasher
     ) {
         $this->logger           = $logger;
-        $this->optionRepository = $optionRepository;
+        $this->configRepository = $configRepository;
         $this->userRepository   = $userRepository;
         $this->passwordHasher   = $passwordHasher;
     }
@@ -53,7 +53,7 @@ class Install
      */
     public function isInstalled(): bool
     {
-        $value = $this->optionRepository->findValueByKey('mw_app_installed', 'false');
+        $value = $this->configRepository->findValueByKey('mw_app_installed', 'false');
 
         return 'false' === $value ? false : true;
     }
@@ -64,13 +64,13 @@ class Install
     public function installApplication(array $data): void
     {
         foreach ($data as $key => $value) {
-            $option = Option::fromArray([
-                'key'      => $key,
+            $config = Config::fromArray([
+                'name'     => $key,
                 'value'    => $value,
                 'autoload' => 'on',
             ]);
 
-            $this->optionRepository->save($option);
+            $this->configRepository->save($config, true);
         }
     }
 
@@ -89,6 +89,8 @@ class Install
             $user,
             $password
         );
+        $user->setCreatedAt(new \DateTimeImmutable());
+        $user->setUpdatedAt(new \DateTimeImmutable());
         $user->setPassword($hashedPassword);
         $this->userRepository->add($user, true);
     }

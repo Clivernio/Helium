@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace App\Module;
 
-use App\Repository\OptionRepository;
+use App\Repository\ConfigRepository;
 use App\Repository\UserRepository;
 use App\Security\Authenticator;
 use Psr\Log\LoggerInterface;
@@ -23,8 +23,8 @@ class Auth
     /** @var LoggerInterface */
     private $logger;
 
-    /** @var OptionRepository */
-    private $optionRepository;
+    /** @var ConfigRepository */
+    private $configRepository;
 
     /** @var UserRepository */
     private $userRepository;
@@ -40,13 +40,13 @@ class Auth
      */
     public function __construct(
         LoggerInterface $logger,
-        OptionRepository $optionRepository,
+        ConfigRepository $configRepository,
         UserRepository $userRepository,
         UserPasswordHasherInterface $passwordHasher,
         Authenticator $authenticator
     ) {
         $this->logger           = $logger;
-        $this->optionRepository = $optionRepository;
+        $this->configRepository = $configRepository;
         $this->userRepository   = $userRepository;
         $this->passwordHasher   = $passwordHasher;
         $this->authenticator    = $authenticator;

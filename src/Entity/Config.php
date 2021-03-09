@@ -9,34 +9,35 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\OptionRepository;
+use App\Repository\ConfigRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Option Entity.
+ * Config Entity.
  */
-#[ORM\Entity(repositoryClass: OptionRepository::class)]
-class Option
+#[ORM\Table(name: 'mw_config')]
+#[ORM\Entity(repositoryClass: ConfigRepository::class)]
+class Config
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $key = null;
+    #[ORM\Column(type: Types::STRING, length: 60)]
+    private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $value = null;
 
-    #[ORM\Column(length: 30)]
+    #[ORM\Column(type: Types::STRING, length: 30)]
     private ?string $autoload = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $updated_at = null;
 
     /**
@@ -50,25 +51,25 @@ class Option
     }
 
     /**
-     * Get a Key.
+     * Get a Name.
      *
      * @return string
      */
-    public function getKey(): ?string
+    public function getName(): ?string
     {
-        return $this->key;
+        return $this->name;
     }
 
     /**
-     * Set a Key.
+     * Set a Name.
      *
      * @param string
      *
-     * @return Option
+     * @return Config
      */
-    public function setKey(string $key): self
+    public function setName(string $name): self
     {
-        $this->key = $key;
+        $this->name = $name;
 
         return $this;
     }
@@ -88,7 +89,7 @@ class Option
      *
      * @param string
      *
-     * @return Option
+     * @return Config
      */
     public function setValue(?string $value): self
     {
@@ -112,7 +113,7 @@ class Option
      *
      * @param string
      *
-     * @return Option
+     * @return Config
      */
     public function setAutoload(?string $autoload): self
     {
@@ -160,7 +161,7 @@ class Option
      *
      * @param \DateTimeImmutable
      *
-     * @return Option
+     * @return Config
      */
     public function setUpdatedAt(\DateTimeImmutable $updated_at): self
     {
@@ -172,10 +173,10 @@ class Option
     /**
      * Create an option from an array.
      */
-    public static function fromArray(array $data): Option
+    public static function fromArray(array $data): Config
     {
-        return (new Option())
-            ->setKey($data['key'])
+        return (new Config())
+            ->setName($data['name'])
             ->setValue($data['value'])
             ->setAutoload($data['autoload'])
             ->setCreatedAt(empty($data['createdAt']) ? new \DateTimeImmutable() : $data['createdAt'])

@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Repository\OptionRepository;
+use App\Repository\ConfigRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,8 +24,8 @@ class AppearanceController extends AbstractController
     /** @var LoggerInterface */
     private $logger;
 
-    /** @var OptionRepository */
-    private $optionRepository;
+    /** @var ConfigRepository */
+    private $configRepository;
 
     /** @var TranslatorInterface */
     private $translator;
@@ -35,12 +35,12 @@ class AppearanceController extends AbstractController
      */
     public function __construct(
         LoggerInterface $logger,
-        OptionRepository $optionRepository,
+        ConfigRepository $configRepository,
         TranslatorInterface $translator
     ) {
         $this->logger           = $logger;
         $this->translator       = $translator;
-        $this->optionRepository = $optionRepository;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -52,7 +52,7 @@ class AppearanceController extends AbstractController
         $this->logger->info("Render appearance page");
 
         return $this->render('page/appearance.html.twig', [
-            'title' => $this->optionRepository->findValueByKey("mw_app_name", "Midway"),
+            'title' => $this->configRepository->findValueByKey("mw_app_name", "Midway"),
         ]);
     }
 }

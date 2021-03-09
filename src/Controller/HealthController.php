@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Repository\OptionRepository;
+use App\Repository\ConfigRepository;
 use App\Service\Worker;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,8 +25,8 @@ class HealthController extends AbstractController
     /** @var LoggerInterface */
     private $logger;
 
-    /** @var OptionRepository */
-    private $optionRepository;
+    /** @var ConfigRepository */
+    private $configRepository;
 
     /** @var TranslatorInterface */
     private $translator;
@@ -39,13 +39,13 @@ class HealthController extends AbstractController
      */
     public function __construct(
         LoggerInterface $logger,
-        OptionRepository $optionRepository,
+        ConfigRepository $configRepository,
         TranslatorInterface $translator,
         Worker $worker
     ) {
         $this->logger           = $logger;
         $this->translator       = $translator;
-        $this->optionRepository = $optionRepository;
+        $this->configRepository = $configRepository;
         $this->worker           = $worker;
     }
 

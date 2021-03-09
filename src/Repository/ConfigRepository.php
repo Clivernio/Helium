@@ -9,16 +9,16 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Entity\Option;
+use App\Entity\Config;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * Option Repository.
+ * Config Repository.
  *
- * @extends ServiceEntityRepository<Option>
+ * @extends ServiceEntityRepository<Config>
  */
-class OptionRepository extends ServiceEntityRepository
+class ConfigRepository extends ServiceEntityRepository
 {
     /**
      * Class Constructor.
@@ -27,16 +27,16 @@ class OptionRepository extends ServiceEntityRepository
      */
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Option::class);
+        parent::__construct($registry, Config::class);
     }
 
     /**
      * Save Entity.
      *
-     * @param  Option
+     * @param  Config
      * @param  bool|bool
      */
-    public function save(Option $entity, bool $flush = false): void
+    public function save(Config $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -48,10 +48,10 @@ class OptionRepository extends ServiceEntityRepository
     /**
      * Remove Entity.
      *
-     * @param  Option
+     * @param  Config
      * @param  bool|bool
      */
-    public function remove(Option $entity, bool $flush = false): void
+    public function remove(Config $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -61,13 +61,13 @@ class OptionRepository extends ServiceEntityRepository
     }
 
     /**
-     * Find an Option by a Key.
+     * Find an Config by a Key.
      */
-    public function findOne(string $key): ?Option
+    public function findOne(string $name): ?Config
     {
-        $option = $this->findOneBy(['key' => $key]);
+        $config = $this->findOneBy(['name' => $name]);
 
-        return !empty($option) ? $option : null;
+        return !empty($config) ? $config : null;
     }
 
     /**
@@ -75,11 +75,11 @@ class OptionRepository extends ServiceEntityRepository
      *
      * @return string
      */
-    public function findValueByKey(string $key, string $default): ?string
+    public function findValueByKey(string $name, string $default): ?string
     {
-        $option = $this->findOne($key);
+        $config = $this->findOne($name);
 
-        return !empty($option) ? $option->getValue() : $default;
+        return !empty($config) ? $config->getValue() : $default;
     }
 
     /**

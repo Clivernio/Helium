@@ -18,6 +18,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * User Entity.
  */
+#[ORM\Table(name: 'mw_user')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -34,6 +35,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::TEXT, nullable: false)]
     private ?string $password;
+
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    private ?\DateTimeImmutable $created_at = null;
+
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    private ?\DateTimeImmutable $updated_at = null;
 
     /**
      * Get ID.
@@ -147,5 +154,53 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * Get CreatedAt.
+     *
+     * @return DateTimeImmutable
+     */
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * Set Created At.
+     *
+     * @param \DateTimeImmutable
+     *
+     * @return DateTimeImmutable
+     */
+    public function setCreatedAt(\DateTimeImmutable $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    /**
+     * Get Updated At.
+     *
+     * @return DateTimeImmutable
+     */
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updated_at;
+    }
+
+    /**
+     * Set Updated At.
+     *
+     * @param \DateTimeImmutable
+     *
+     * @return Config
+     */
+    public function setUpdatedAt(\DateTimeImmutable $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
     }
 }

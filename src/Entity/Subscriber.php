@@ -10,11 +10,13 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\SubscriberRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Subscriber Entity.
  */
+#[ORM\Table(name: 'mw_subscriber')]
 #[ORM\Entity(repositoryClass: SubscriberRepository::class)]
 class Subscriber
 {
@@ -32,13 +34,13 @@ class Subscriber
     #[ORM\OneToMany(targetEntity: SubscriberMeta::class, mappedBy: 'subscriber', cascade: ['ALL'])]
     private Collection $metas;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $updated_at = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $removed_at = null;
 
     /**

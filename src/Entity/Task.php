@@ -16,6 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Task Entity.
  */
+#[ORM\Table(name: 'mw_task')]
 #[ORM\Entity(repositoryClass: TaskRepository::class)]
 class Task
 {
@@ -36,13 +37,13 @@ class Task
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $result = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $run_at = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $updated_at = null;
 
     /**

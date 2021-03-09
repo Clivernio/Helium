@@ -10,11 +10,13 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\DeliveryRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Delivery Entity.
  */
+#[ORM\Table(name: 'mw_delivery')]
 #[ORM\Entity(repositoryClass: DeliveryRepository::class)]
 class Delivery
 {
@@ -32,10 +34,10 @@ class Delivery
     #[ORM\OneToOne(targetEntity: Newsletter::class, mappedBy: 'newsletter')]
     private $newsletter;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $updated_at = null;
 
     /**

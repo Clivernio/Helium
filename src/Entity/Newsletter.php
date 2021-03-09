@@ -10,11 +10,13 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\NewsletterRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Newsletter Entity.
  */
+#[ORM\Table(name: 'mw_newsletter')]
 #[ORM\Entity(repositoryClass: NewsletterRepository::class)]
 class Newsletter
 {
@@ -29,10 +31,10 @@ class Newsletter
     #[ORM\OneToMany(targetEntity: NewsletterMeta::class, mappedBy: 'newsletter', cascade: ['ALL'])]
     private Collection $metas;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $updated_at = null;
 
     /**

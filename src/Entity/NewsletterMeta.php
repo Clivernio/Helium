@@ -16,6 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * NewsletterMeta Entity.
  */
+#[ORM\Table(name: 'mw_newsletter_meta')]
 #[ORM\Entity(repositoryClass: NewsletterMetaRepository::class)]
 class NewsletterMeta
 {
@@ -25,7 +26,7 @@ class NewsletterMeta
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $key = null;
+    private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $value = null;
@@ -33,10 +34,10 @@ class NewsletterMeta
     #[ORM\OneToOne(targetEntity: Newsletter::class, mappedBy: 'newsletter')]
     private $newsletter;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $updated_at = null;
 
     /**
@@ -50,25 +51,25 @@ class NewsletterMeta
     }
 
     /**
-     * Get a Key.
+     * Get a Name.
      *
      * @return string
      */
-    public function getKey(): ?string
+    public function getName(): ?string
     {
-        return $this->key;
+        return $this->name;
     }
 
     /**
-     * Set a Key.
+     * Set a Name.
      *
      * @param string
      *
      * @return Option
      */
-    public function setKey(string $key): self
+    public function setName(string $name): self
     {
-        $this->key = $key;
+        $this->name = $name;
 
         return $this;
     }
@@ -175,7 +176,7 @@ class NewsletterMeta
     public static function fromArray(array $data): NewsletterMeta
     {
         return (new NewsletterMeta())
-            ->setKey($data['key'])
+            ->setName($data['name'])
             ->setValue($data['value'])
             ->setNewsletter($data['newsletter'])
             ->setCreatedAt($data['createdAt'])

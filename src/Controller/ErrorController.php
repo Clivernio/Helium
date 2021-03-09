@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Repository\OptionRepository;
+use App\Repository\ConfigRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,8 +24,8 @@ class ErrorController extends AbstractController
     /** @var LoggerInterface */
     private $logger;
 
-    /** @var OptionRepository */
-    private $optionRepository;
+    /** @var ConfigRepository */
+    private $configRepository;
 
     /** @var TranslatorInterface */
     private $translator;
@@ -35,12 +35,12 @@ class ErrorController extends AbstractController
      */
     public function __construct(
         LoggerInterface $logger,
-        OptionRepository $optionRepository,
+        ConfigRepository $configRepository,
         TranslatorInterface $translator
     ) {
         $this->logger           = $logger;
         $this->translator       = $translator;
-        $this->optionRepository = $optionRepository;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -53,7 +53,7 @@ class ErrorController extends AbstractController
 
         return $this->render('page/error.html.twig', [
             'title' => $this->translator->trans("500") . " | "
-            . $this->optionRepository->findValueByKey("mw_app_name", "Midway"),
+            . $this->configRepository->findValueByKey("mw_app_name", "Midway"),
         ]);
     }
 }

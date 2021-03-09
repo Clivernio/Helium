@@ -53,7 +53,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
             return $this->handleResourceNotFound($event, $event->getThrowable());
         }
 
-        return $this->handleUnexpectedError($event, $event->getThrowable());
+        // return $this->handleUnexpectedError($event, $event->getThrowable());
     }
 
     /**

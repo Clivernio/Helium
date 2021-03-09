@@ -16,6 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * SubscriberMeta Entity.
  */
+#[ORM\Table(name: 'mw_subscriber_meta')]
 #[ORM\Entity(repositoryClass: SubscriberMetaRepository::class)]
 class SubscriberMeta
 {
@@ -25,7 +26,7 @@ class SubscriberMeta
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $key = null;
+    private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $value = null;
@@ -33,10 +34,10 @@ class SubscriberMeta
     #[ORM\ManyToOne(targetEntity: Subscriber::class, inversedBy: 'metas')]
     private $subscriber;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $updated_at = null;
 
     /**
@@ -50,25 +51,25 @@ class SubscriberMeta
     }
 
     /**
-     * Get a Key.
+     * Get a Name.
      *
      * @return string
      */
-    public function getKey(): ?string
+    public function getName(): ?string
     {
-        return $this->key;
+        return $this->name;
     }
 
     /**
-     * Set a Key.
+     * Set a Name.
      *
      * @param string
      *
-     * @return Option
+     * @return SubscriberMeta
      */
-    public function setKey(string $key): self
+    public function setName(string $name): self
     {
-        $this->key = $key;
+        $this->name = $name;
 
         return $this;
     }
@@ -88,7 +89,7 @@ class SubscriberMeta
      *
      * @param string
      *
-     * @return Option
+     * @return SubscriberMeta
      */
     public function setValue(?string $value): self
     {
@@ -175,7 +176,7 @@ class SubscriberMeta
     public static function fromArray(array $data): SubscriberMeta
     {
         return (new SubscriberMeta())
-            ->setKey($data['key'])
+            ->setName($data['name'])
             ->setValue($data['value'])
             ->setSubscriber($data['subscriber'])
             ->setCreatedAt($data['createdAt'])

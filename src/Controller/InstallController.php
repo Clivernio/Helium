@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Module\Install as InstallModule;
-use App\Repository\OptionRepository;
+use App\Repository\ConfigRepository;
 use App\Service\Validator;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,8 +28,8 @@ class InstallController extends AbstractController
     /** @var LoggerInterface */
     private $logger;
 
-    /** @var OptionRepository */
-    private $optionRepository;
+    /** @var ConfigRepository */
+    private $configRepository;
 
     /** @var TranslatorInterface */
     private $translator;
@@ -45,14 +45,14 @@ class InstallController extends AbstractController
      */
     public function __construct(
         LoggerInterface $logger,
-        OptionRepository $optionRepository,
+        ConfigRepository $configRepository,
         TranslatorInterface $translator,
         InstallModule $installModule,
         Validator $validator
     ) {
         $this->logger           = $logger;
         $this->translator       = $translator;
-        $this->optionRepository = $optionRepository;
+        $this->configRepository = $configRepository;
         $this->installModule    = $installModule;
         $this->validator        = $validator;
     }
@@ -74,7 +74,7 @@ class InstallController extends AbstractController
 
         return $this->render('page/install.html.twig', [
             'title' => $this->translator->trans("Install") . " | "
-            . $this->optionRepository->findValueByKey("mw_app_name", "Midway"),
+            . $this->configRepository->findValueByKey("mw_app_name", "Midway"),
         ]);
     }
 
@@ -109,7 +109,7 @@ class InstallController extends AbstractController
 
         // Install application
         $this->installModule->installApplication([
-            'mw_app_installed' => 'true',
+            'mw_app_installed' => "done",
             'mw_app_name'      => $data->appName,
             'mw_app_url'       => $data->appURL,
             'mw_app_email'     => $data->appEmail,

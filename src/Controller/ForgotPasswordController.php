@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Module\Auth as AuthModule;
-use App\Repository\OptionRepository;
+use App\Repository\ConfigRepository;
 use App\Service\Validator;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,8 +26,8 @@ class ForgotPasswordController extends AbstractController
     /** @var LoggerInterface */
     private $logger;
 
-    /** @var OptionRepository */
-    private $optionRepository;
+    /** @var ConfigRepository */
+    private $configRepository;
 
     /** @var TranslatorInterface */
     private $translator;
@@ -43,14 +43,14 @@ class ForgotPasswordController extends AbstractController
      */
     public function __construct(
         LoggerInterface $logger,
-        OptionRepository $optionRepository,
+        ConfigRepository $configRepository,
         TranslatorInterface $translator,
         Validator $validator,
         AuthModule $authModule
     ) {
         $this->logger           = $logger;
         $this->translator       = $translator;
-        $this->optionRepository = $optionRepository;
+        $this->configRepository = $configRepository;
         $this->validator        = $validator;
         $this->authModule       = $authModule;
     }
@@ -65,7 +65,7 @@ class ForgotPasswordController extends AbstractController
 
         return $this->render('page/fpwd.html.twig', [
             'title' => $this->translator->trans("Forgot Password") . " | "
-            . $this->optionRepository->findValueByKey("mw_app_name", "Midway"),
+            . $this->configRepository->findValueByKey("mw_app_name", "Midway"),
         ]);
     }
 
