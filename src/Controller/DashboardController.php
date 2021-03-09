@@ -46,7 +46,7 @@ class DashboardController extends AbstractController
     /**
      * Dashboard Web Page.
      */
-    #[Route('/admin/dashboard', name: 'app_dashboard_web')]
+    #[Route('/admin/dashboard', name: 'app_ui_dashboard')]
     public function dashboard(): Response
     {
         $this->logger->info("Render dashboard page");

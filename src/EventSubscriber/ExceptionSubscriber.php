@@ -53,7 +53,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
             return $this->handleResourceNotFound($event, $event->getThrowable());
         }
 
-        // return $this->handleUnexpectedError($event, $event->getThrowable());
+        return $this->handleUnexpectedError($event, $event->getThrowable());
     }
 
     /**
@@ -71,7 +71,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
      */
     private function handleInvalidRequest(ExceptionEvent $event, InvalidRequest $e)
     {
-        $this->logger->info(sprintf(
+        $this->logger->debug(sprintf(
             'InvalidRequest Exception with errorMessage [%s] thrown: %s',
             $e->getMessage(),
             $e->getTraceAsString()
@@ -88,7 +88,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
      */
     private function handleResourceNotFound(ExceptionEvent $event, ResourceNotFound $e)
     {
-        $this->logger->info(sprintf(
+        $this->logger->debug(sprintf(
             'ResourceNotFound Exception with errorMessage [%s] thrown: %s',
             $e->getMessage(),
             $e->getTraceAsString()
