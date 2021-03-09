@@ -3,5 +3,53 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-
+    <!-- Page header -->
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <h2 class="page-title">
+              {% trans %}Subscribers{% endtrans %}
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page body -->
+    <div class="page-body">
+      <div class="container-xl">
+        <div class="row row-cards">
+          <div class="col-12">
+            <div class="card">
+              <div class="table-responsive">
+                <table class="table table-vcenter card-table table-striped">
+                  <thead>
+                    <tr>
+                      <th>{% trans %}Email{% endtrans %}</th>
+                      <th>{% trans %}Status{% endtrans %}</th>
+                      <th>{% trans %}Created At{% endtrans %}</th>
+                      <th>{% trans %}Updated At{% endtrans %}</th>
+                      <th class="w-1"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>hello@clivern.com</td>
+                      <td class="text-muted">SUBSCRIBED</td>
+                      <td class="text-muted">2023-01-04 16:11:54</td>
+                      <td class="text-muted">
+                        2023-01-04 16:11:54
+                      </td>
+                      <td>
+                        <a href="#">Edit</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 {% endblock %}

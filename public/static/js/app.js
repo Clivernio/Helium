@@ -293,6 +293,150 @@ helium_app.profile_screen = (Vue, axios, Cookies, $) => {
 
 }
 
+// Subscriber Index Page
+helium_app.subscriber_index_screen = (Vue, axios, Cookies, $) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#app_subscriber_index',
+        data() {
+            return {
+                isInProgress: false,
+            }
+        },
+        methods: {
+            subscriberIndexAction(event) {
+                event.preventDefault();
+                this.isInProgress = true;
+
+                let inputs = {};
+                let _self = $(event.target);
+                let _form = _self.closest("form");
+
+                _form.find("button").attr("disabled", "disabled");
+
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                axios.post(_form.attr('action'), inputs)
+                    .then((response) => {
+                        if (response.status >= 200) {
+                            toastr.clear();
+                            toastr.info(response.data.successMessage);
+                        }
+                         _form.find("button").removeAttr("disabled");
+                    })
+                    .catch((error) => {
+                        this.isInProgress = false;
+                        // Show error
+                        toastr.clear();
+                        toastr.error(error.response.data.errorMessage);
+                        _form.find("button").removeAttr("disabled");
+                    });
+            }
+        }
+    });
+
+}
+
+// Subscriber Add Page
+helium_app.subscriber_add_screen = (Vue, axios, Cookies, $) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#app_subscriber_add',
+        data() {
+            return {
+                isInProgress: false,
+            }
+        },
+        methods: {
+            subscriberAddAction(event) {
+                event.preventDefault();
+                this.isInProgress = true;
+
+                let inputs = {};
+                let _self = $(event.target);
+                let _form = _self.closest("form");
+
+                _form.find("button").attr("disabled", "disabled");
+
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                axios.post(_form.attr('action'), inputs)
+                    .then((response) => {
+                        if (response.status >= 200) {
+                            toastr.clear();
+                            toastr.info(response.data.successMessage);
+                        }
+
+                        setTimeout(() => {
+                            location.href = _form.attr('data-redirect-url');
+                        }, 3000);
+                    })
+                    .catch((error) => {
+                        this.isInProgress = false;
+                        // Show error
+                        toastr.clear();
+                        toastr.error(error.response.data.errorMessage);
+                        _form.find("button").removeAttr("disabled");
+                    });
+            }
+        }
+    });
+
+}
+
+// Subscriber Edit Page
+helium_app.subscriber_edit_screen = (Vue, axios, Cookies, $) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#app_subscriber_edit',
+        data() {
+            return {
+                isInProgress: false,
+            }
+        },
+        methods: {
+            subscriberEditAction(event) {
+                event.preventDefault();
+                this.isInProgress = true;
+
+                let inputs = {};
+                let _self = $(event.target);
+                let _form = _self.closest("form");
+
+                _form.find("button").attr("disabled", "disabled");
+
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                axios.post(_form.attr('action'), inputs)
+                    .then((response) => {
+                        if (response.status >= 200) {
+                            toastr.clear();
+                            toastr.info(response.data.successMessage);
+                        }
+                         _form.find("button").removeAttr("disabled");
+                    })
+                    .catch((error) => {
+                        this.isInProgress = false;
+                        // Show error
+                        toastr.clear();
+                        toastr.error(error.response.data.errorMessage);
+                        _form.find("button").removeAttr("disabled");
+                    });
+            }
+        }
+    });
+
+}
+
 $(document).ready(() => {
     axios.defaults.headers.common = {
         'X-Requested-With': 'XMLHttpRequest'
@@ -345,6 +489,33 @@ $(document).ready(() => {
 
     if (document.getElementById("app_profile")) {
         helium_app.profile_screen(
+            Vue,
+            axios,
+            Cookies,
+            $
+        );
+    }
+
+    if (document.getElementById("app_subscriber_index")) {
+        helium_app.subscriber_index_screen(
+            Vue,
+            axios,
+            Cookies,
+            $
+        );
+    }
+
+    if (document.getElementById("app_subscriber_add")) {
+        helium_app.subscriber_add_screen(
+            Vue,
+            axios,
+            Cookies,
+            $
+        );
+    }
+
+    if (document.getElementById("app_subscriber_edit")) {
+        helium_app.subscriber_edit_screen(
             Vue,
             axios,
             Cookies,

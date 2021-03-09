@@ -201,7 +201,7 @@ class SubscriberController extends AbstractController
      * Subscriber Edit API Endpoint.
      */
     #[Route('/api/v1/subscriber/{id}', name: 'app_endpoint_v1_subscriber_edit', methods: ['PUT'])]
-    public function subscriberEditEndpoint(Request $request, $id): JsonResponse
+    public function subscriberEditEndpoint(Request $request, int $id): JsonResponse
     {
         $this->logger->info("Trigger subscriber edit v1 endpoint");
 
