@@ -59,11 +59,11 @@ class ForgotPasswordController extends AbstractController
      * Forgot Password Web Page.
      */
     #[Route('/forgot-password', name: 'app_ui_forgot_password')]
-    public function fpwd(): Response
+    public function forgotPassword(): Response
     {
         $this->logger->info("Render forgot password page");
 
-        return $this->render('page/fpwd.html.twig', [
+        return $this->render('page/forgot_password.html.twig', [
             'title' => $this->translator->trans("Forgot Password") . " | "
             . $this->configRepository->findValueByKey("mw_app_name", "Midway"),
         ]);

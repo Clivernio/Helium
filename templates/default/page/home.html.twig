@@ -1,7 +1,15 @@
-{% extends 'layout/landing.html.twig' %}
+{% extends 'layout/guest.html.twig' %}
 
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-
+    <div class="page page-center">
+      <div class="container container-tight py-4">
+        <div class="text-center mb-4">
+          <a href="{{ path('app_home_web') }}" class="navbar-brand navbar-brand-autodark">
+            <img src="{{ absolute_url(asset('static/logo.png')) }}" height="150" alt="">
+          </a>
+        </div>
+      </div>
+    </div>
 {% endblock %}

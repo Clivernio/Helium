@@ -59,7 +59,7 @@ class ResetPasswordController extends AbstractController
      * Reset Password Web Page.
      */
     #[Route('/reset-password/{token}', name: 'app_ui_reset_password')]
-    public function fpwd(): Response
+    public function resetPassword(): Response
     {
         $this->logger->info("Render reset password page");
 

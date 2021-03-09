@@ -6,34 +6,31 @@
     <div class="page page-center">
       <div class="container container-tight py-4">
         <div class="text-center mb-4">
-          <a href="/" class="navbar-brand navbar-brand-autodark"><img src="{{ absolute_url(asset('static/logo.png')) }}" height="100" alt=""></a>
+          <a href="/" class="navbar-brand navbar-brand-autodark">
+            <img src="{{ absolute_url(asset('static/logo.png')) }}" height="150">
+          </a>
         </div>
         <div class="card card-md">
           <div class="card-body">
-            <h2 class="h2 text-center mb-4">Install Midway</h2>
-            <form action="{{ path('app_endpoint_v1_install') }}" method="post">
+            <h2 class="h2 text-center mb-4">Login into Account</h2>
+            <form action="{{ path('app_endpoint_v1_login') }}" method="post">
               <div class="mb-3">
-                <label class="form-label">Application Name</label>
-                <input type="text" class="form-control" placeholder="Midway" required>
+                <label class="form-label">Email Address</label>
+                <input type="email" class="form-control" name="email" placeholder="hello@midway.com" required>
               </div>
-              <div class="mb-3">
-                <label class="form-label">Application URL</label>
-                <input type="text" class="form-control" placeholder="https://midway.com" required>
-              </div>
-              <div class="mb-3">
-                <label class="form-label">Application Email</label>
-                <input type="email" class="form-control" placeholder="hello@midway.com" required>
-              </div>
-              <div class="mb-3">
-                <label class="form-label">Admin Username</label>
-                <input type="text" class="form-control" placeholder="admin" required>
-              </div>
-              <div class="mb-3">
-                <label class="form-label">Admin Email</label>
-                <input type="email" class="form-control" placeholder="admin@midway.com" required>
+              <div class="mb-2">
+                <label class="form-label">
+                  Password
+                  <span class="form-label-description">
+                    <a href="{{ path('app_ui_forgot_password') }}">I forgot password</a>
+                  </span>
+                </label>
+                <div class="input-group input-group-flat">
+                  <input type="password" class="form-control" name="password" placeholder="Your password" required>
+                </div>
               </div>
               <div class="form-footer">
-                <button type="submit" class="btn btn-primary w-100">Install</button>
+                <button type="submit" class="btn btn-primary w-100">Sign in</button>
               </div>
             </form>
           </div>
