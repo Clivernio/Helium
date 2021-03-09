@@ -430,7 +430,10 @@ helium_app.subscriber_edit_screen = (Vue, axios, Cookies, $) => {
                             toastr.clear();
                             toastr.info(response.data.successMessage);
                         }
-                         _form.find("button").removeAttr("disabled");
+
+                        setTimeout(() => {
+                            location.href = _form.attr('data-redirect-url');
+                        }, 3000);
                     })
                     .catch((error) => {
                         this.isInProgress = false;

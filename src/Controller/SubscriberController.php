@@ -149,10 +149,21 @@ class SubscriberController extends AbstractController
         $result = [];
 
         foreach ($subscribers as $subscriber) {
+            $outStatus = str_replace([
+                SubscriberRepository::UNSUBSCRIBED,
+                SubscriberRepository::SUBSCRIBED,
+
+                SubscriberRepository::TRASHED,
+            ], [
+                $this->translator->trans("Disabled"),
+                $this->translator->trans("Enabled"),
+                $this->translator->trans("Trashed"),
+            ], $subscriber->getStatus());
+
             $result[] = [
                 'id'        => $subscriber->getId(),
                 'email'     => $subscriber->getEmail(),
-                'status'    => $subscriber->getStatus(),
+                'status'    => $outStatus,
                 'createdAt' => $subscriber->getCreatedAt()->format('Y-m-d H:i:s'),
                 'updatedAt' => $subscriber->getUpdatedAt()->format('Y-m-d H:i:s'),
                 'editLink'  => $this->generateUrl('app_ui_subscriber_edit', ['id' => $subscriber->getId()]),

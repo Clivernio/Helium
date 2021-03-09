@@ -29,10 +29,9 @@
 	          <div class="mb-3">
 	            <div class="form-label required">{% trans %}Status{% endtrans %}</div>
 	            <select class="form-select" name="status" required>
-	                <option value="SUBSCRIBED" {% if subscriber.status == "SUBSCRIBED" %}selected="selected" {% endif %}>{% trans %}Subscribed{% endtrans %}</option>
-	                <option value="UNSUBSCRIBED" {% if subscriber.status == "UNSUBSCRIBED" %}selected="selected" {% endif %}>{% trans %}Unsubscribed{% endtrans %}</option>
-	                <option value="TRASHED" {% if subscriber.status == "TRASHED" %}selected="selected" {% endif %}>{% trans %}Trashed{% endtrans %}</option>
-	                <option value="REMOVED" {% if subscriber.status == "REMOVED" %}selected="selected" {% endif %}>{% trans %}Remove{% endtrans %}</option>
+	                <option value="SUBSCRIBED" {% if subscriber.status == "SUBSCRIBED" %}selected="selected" {% endif %}>{% trans %}Enabled{% endtrans %}</option>
+	                <option value="UNSUBSCRIBED" {% if subscriber.status == "UNSUBSCRIBED" %}selected="selected" {% endif %}>{% trans %}Disabled{% endtrans %}</option>
+	                <option value="REMOVED" {% if subscriber.status == "REMOVED" %}selected="selected" {% endif %}>{% trans %}Delete{% endtrans %}</option>
 	            </select>
 	          </div>
 	        </div>
