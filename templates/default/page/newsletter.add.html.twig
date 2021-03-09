@@ -76,6 +76,8 @@
 {% endblock %}
 
 {% block after_footer %}
+  <script src="{{ absolute_url(asset('static/libs/litepicker/dist/litepicker.js')) }}" defer></script>
+
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       window.Litepicker && (new Litepicker({

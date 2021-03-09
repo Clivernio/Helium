@@ -114,6 +114,7 @@ helium_app.install_screen = (Vue, axios, Cookies, $) => {
         methods: {
             installAction(event) {
                 event.preventDefault();
+
                 this.isInProgress = true;
 
                 let inputs = {};
@@ -125,8 +126,6 @@ helium_app.install_screen = (Vue, axios, Cookies, $) => {
                 _form.serializeArray().map((item, index) => {
                     inputs[item.name] = item.value;
                 });
-
-                console.log(inputs);
 
                 axios.post(_form.attr('action'), inputs)
                     .then((response) => {
@@ -330,7 +329,6 @@ helium_app.subscriber_index_screen = (Vue, axios, Cookies, $) => {
             }
         },
         mounted() {
-            console.log("ddd");
             axios.get(app_globals.subscriber_v1_list_endpoint + "?offset=" + this.offset)
                 .then((response) => {
                     this.subscribers = this.subscribers.concat(response.data.subscribers);
