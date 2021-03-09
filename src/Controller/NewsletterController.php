@@ -13,6 +13,7 @@ use App\Entity\Config;
 use App\Exception\InvalidRequest;
 use App\Module\Newsletter as NewsletterModule;
 use App\Repository\ConfigRepository;
+use App\Repository\NewsletterRepository;
 use App\Service\Validator;
 use Psr\Log\LoggerInterface;
 use Ramsey\Uuid\Uuid;
@@ -166,7 +167,31 @@ class NewsletterController extends AbstractController
             throw new InvalidRequest('Invalid request');
         }
 
-        // ...
+        if (NewsletterRepository::SCHEDULED_TYPE === $data->deliveryType) {
+            $deliveryTime = new DateTimeImmutable(sprintf(
+                "%s %s",
+                $data->deliveryDate,
+                $data->deliveryTime
+            ));
+            $deliveryStatus = NewsletterRepository::ON_HOLD_STATUS;
+        } elseif (NewsletterRepository::DRAFT_TYPE === $data->deliveryType) {
+            $deliveryTime   = new \DateTimeImmutable();
+            $deliveryStatus = NewsletterRepository::ON_HOLD_STATUS;
+        } elseif (NewsletterRepository::NOW_TYPE === $data->deliveryType) {
+            $deliveryTime   = new \DateTimeImmutable();
+            $deliveryStatus = NewsletterRepository::PENDING_STATUS;
+        }
+
+        $this->newsletterModule->add([
+            'name'           => $data->name,
+            'slug'           => $this->newsletterModule->generateSlug($data->name),
+            'template'       => $data->templateName,
+            'content'        => $data->templateInputs,
+            'deliveryStatus' => $deliveryStatus,
+            'deliveryType'   => $data->deliveryType,
+            'deliveryTime'   => $deliveryTime,
+            'sender'         => $data->email,
+        ]);
 
         return $this->json([
             'successMessage' => $this->translator->trans(

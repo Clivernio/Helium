@@ -25,7 +25,7 @@
             <input type="hidden" name="tempId" value="{{ tmp_id }}">
             <div class="mb-3">
               <label class="form-label required">{% trans %}Name{% endtrans %}</label>
-              <input type="text" class="form-control" name="name" placeholder="Envato Weekly Newsletter 7, Jan 2023" required>
+              <input type="text" class="form-control" name="name" placeholder="PHP Weekly Newsletter 1" required>
             </div>
             <div class="mb-3">
               <label class="form-label required">{% trans %}From Address{% endtrans %}</label>
@@ -42,11 +42,11 @@
             </div>
             <div class="mb-3" v-show="showDeliveryTime">
               <label class="form-label required">{% trans %}Date (Year-month-day){% endtrans %}</label>
-              <input type="date" name="deliveryDate" min="{{ 'now'|date('Y-m-d') }}" class="form-control" value="{{ 'now'|date('Y-m-d') }}"/>
+              <input type="date" name="deliveryDate" min="{{ 'now'|date('Y-m-d') }}" class="form-control" value="{{ 'now'|date('Y-m-d') }}" required/>
             </div>
             <div class="mb-3" v-show="showDeliveryTime">
               <label class="form-label required">{% trans %}Hour (H:M PM/AM){% endtrans %}</label>
-              <input type="time" name="deliveryTime" class="form-control" placeholder="00:00 PM" />
+              <input type="time" name="deliveryTime" class="form-control" placeholder="00:00 PM" value="01:00" required />
             </div>
             <div class="mb-3">
               <div class="form-label required">{% trans %}Template{% endtrans %}</div>

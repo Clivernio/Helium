@@ -515,7 +515,10 @@ helium_app.newsletter_add_screen = (Vue, axios, Cookies, $) => {
 
                 if (this.templateName != "") {
                     this.templateInputs = $('option[value="' + this.templateName + '"]').attr('data-default');
-                    this.syncTemplateAction();
+
+                    setTimeout(() => {
+                        this.syncTemplateAction();
+                    }, "400");
                 } else {
                     this.templateInputs = "";
                     this.showPreview = false;
@@ -524,7 +527,9 @@ helium_app.newsletter_add_screen = (Vue, axios, Cookies, $) => {
 
             templateInputsChange(event) {
                 if (this.templateName != "") {
-                    this.syncTemplateAction();
+                    setTimeout(() => {
+                        this.syncTemplateAction();
+                    }, "400");
                 }
             },
 

@@ -26,20 +26,23 @@ class Newsletter
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 150)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 150)]
+    private ?string $slug = null;
+
+    #[ORM\Column(length: 30)]
     private ?string $deliveryStatus = null; // ON_HOLD, PENDING, IN_PROGRESS, FINISHED
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 30)]
     private ?string $deliveryType = null; // DRAFT, NOW, SCHEDULED
 
-    #[ORM\Column(length: 200)]
+    #[ORM\Column(length: 150)]
     private ?string $template = null;
 
-    #[ORM\Column(length: 200)]
-    private ?string $from = null;
+    #[ORM\Column(length: 150)]
+    private ?string $sender = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $content = null;
@@ -91,6 +94,30 @@ class Newsletter
     public function getName(): ?string
     {
         return $this->name;
+    }
+
+    /**
+     * Set a Slug.
+     *
+     * @param string
+     *
+     * @return Newsletter
+     */
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get a Slug.
+     *
+     * @return string
+     */
+    public function getSlug(): ?string
+    {
+        return $this->slug;
     }
 
     /**
@@ -210,27 +237,27 @@ class Newsletter
     }
 
     /**
-     * Set a From.
+     * Set a Sender.
      *
      * @param string
      *
      * @return Newsletter
      */
-    public function setFrom(string $from): self
+    public function setSender(string $sender): self
     {
-        $this->from = $from;
+        $this->sender = $sender;
 
         return $this;
     }
 
     /**
-     * Get a From.
+     * Get a Sender.
      *
      * @return string
      */
-    public function getFrom(): ?string
+    public function getSender(): ?string
     {
-        return $this->from;
+        return $this->sender;
     }
 
     /**
@@ -312,8 +339,9 @@ class Newsletter
     {
         return (new Newsletter())
             ->setName($data['name'])
+            ->setSlug($data['slug'])
             ->setDeliveryStatus($data['deliveryStatus'])
-            ->setFrom($data['from'])
+            ->setSender($data['sender'])
             ->setDeliveryType($data['deliveryType'])
             ->setDeliveryTime($data['deliveryTime'])
             ->setTemplate($data['template'])

@@ -76,6 +76,8 @@ class Newsletter
             'deliveryStatus' => $data['deliveryStatus'],
             'deliveryType'   => $data['deliveryType'],
             'deliveryTime'   => $data['deliveryTime'],
+            'sender'         => $data['sender'],
+            'slug'           => $data['slug'],
         ]);
 
         $this->newsletterRepository->save($newsletter, true);
@@ -108,8 +110,12 @@ class Newsletter
             $newsletter->setName($data['content']);
         }
 
-        if (!empty($data['from'])) {
-            $newsletter->setFrom($data['from']);
+        if (!empty($data['sender'])) {
+            $newsletter->setSender($data['sender']);
+        }
+
+        if (!empty($data['slug'])) {
+            $newsletter->setSlug($data['slug']);
         }
 
         if (!empty($data['deliveryStatus'])) {
@@ -157,5 +163,13 @@ class Newsletter
         }
 
         return $result;
+    }
+
+    /**
+     * Generate Slug.
+     */
+    public function generateSlug(string $text): string
+    {
+        return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $text)));
     }
 }
