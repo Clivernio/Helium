@@ -9,7 +9,7 @@ mdbook = mdbook
 
 help: Makefile
 	@echo
-	@echo " Choose a command run in Midway:"
+	@echo " Choose a command run in Helium:"
 	@echo
 	@sed -n 's/^##//p' $< | column -t -s ':' |  sed -e 's/^/ /'
 	@echo
@@ -80,7 +80,7 @@ fix:
 	./vendor/bin/php-cs-fixer fix
 
 
-## run: Run Midway
+## run: Run Helium
 .PHONY: run
 run:
 	@echo ">> ============= Run App ============= <<"

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Clivern/Midway project.
+ * This file is part of the Clivern/Helium project.
  * (c) Clivern <hello@clivern.com>
  */
 
@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Config Entity.
  */
-#[ORM\Table(name: 'mw_config')]
+#[ORM\Table(name: 'he_config')]
 #[ORM\Entity(repositoryClass: ConfigRepository::class)]
 class Config
 {

@@ -12,19 +12,19 @@
         </div>
         <div class="card card-md">
           <div class="card-body">
-            <h2 class="h2 text-center mb-4">{% trans %}Install Midway{% endtrans %}</h2>
+            <h2 class="h2 text-center mb-4">{% trans %}Install Helium{% endtrans %}</h2>
             <form action="{{ path('app_endpoint_v1_install') }}" method="post">
               <div class="mb-3">
                 <label class="form-label">{% trans %}Application Name{% endtrans %}</label>
-                <input type="text" class="form-control" placeholder="Midway" required>
+                <input type="text" class="form-control" placeholder="Helium" required>
               </div>
               <div class="mb-3">
                 <label class="form-label">{% trans %}Application URL{% endtrans %}</label>
-                <input type="text" class="form-control" placeholder="https://midway.com" required>
+                <input type="text" class="form-control" placeholder="https://helium.com" required>
               </div>
               <div class="mb-3">
                 <label class="form-label">{% trans %}Application Email{% endtrans %}</label>
-                <input type="email" class="form-control" placeholder="hello@midway.com" required>
+                <input type="email" class="form-control" placeholder="hello@helium.com" required>
               </div>
               <div class="mb-3">
                 <label class="form-label">{% trans %}Admin Username{% endtrans %}</label>
@@ -32,7 +32,7 @@
               </div>
               <div class="mb-3">
                 <label class="form-label">{% trans %}Admin Email{% endtrans %}</label>
-                <input type="email" class="form-control" placeholder="admin@midway.com" required>
+                <input type="email" class="form-control" placeholder="admin@helium.com" required>
               </div>
               <div class="form-footer">
                 <button type="submit" class="btn btn-primary w-100">{% trans %}Install{% endtrans %}</button>

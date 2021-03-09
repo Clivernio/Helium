@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Clivern/Midway project.
+ * This file is part of the Clivern/Helium project.
  * (c) Clivern <hello@clivern.com>
  */
 
@@ -77,7 +77,7 @@ class LoginController extends AbstractController
 
         return $this->render('page/login.html.twig', [
             'title' => $this->translator->trans("Login") . " | "
-            . $this->configRepository->findValueByName("mw_app_name", "Midway"),
+            . $this->configRepository->findValueByName("he_app_name", "Helium"),
         ]);
     }
 

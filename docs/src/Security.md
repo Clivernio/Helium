@@ -1,1 +1,1 @@
-*If you discover a security vulnerability within Midway, please send an email to [hello+midway@clivern.com](mailto:hello+midway@clivern.com)*
+*If you discover a security vulnerability within Helium, please send an email to [hello+helium@clivern.com](mailto:hello+helium@clivern.com)*

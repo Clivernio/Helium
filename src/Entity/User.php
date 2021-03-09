@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Clivern/Midway project.
+ * This file is part of the Clivern/Helium project.
  * (c) Clivern <hello@clivern.com>
  */
 
@@ -18,7 +18,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * User Entity.
  */
-#[ORM\Table(name: 'mw_user')]
+#[ORM\Table(name: 'he_user')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {

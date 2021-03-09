@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Clivern/Midway project.
+ * This file is part of the Clivern/Helium project.
  * (c) Clivern <hello@clivern.com>
  */
 
@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Delivery Entity.
  */
-#[ORM\Table(name: 'mw_delivery')]
+#[ORM\Table(name: 'he_delivery')]
 #[ORM\Entity(repositoryClass: DeliveryRepository::class)]
 class Delivery
 {

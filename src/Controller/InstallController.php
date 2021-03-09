@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Clivern/Midway project.
+ * This file is part of the Clivern/Helium project.
  * (c) Clivern <hello@clivern.com>
  */
 
@@ -74,7 +74,7 @@ class InstallController extends AbstractController
 
         return $this->render('page/install.html.twig', [
             'title' => $this->translator->trans("Install") . " | "
-            . $this->configRepository->findValueByName("mw_app_name", "Midway"),
+            . $this->configRepository->findValueByName("he_app_name", "Helium"),
         ]);
     }
 
@@ -109,10 +109,10 @@ class InstallController extends AbstractController
 
         // Install application
         $this->installModule->installApplication([
-            'mw_app_installed' => "done",
-            'mw_app_name'      => $data->appName,
-            'mw_app_url'       => $data->appURL,
-            'mw_app_email'     => $data->appEmail,
+            'he_app_installed' => "done",
+            'he_app_name'      => $data->appName,
+            'he_app_url'       => $data->appURL,
+            'he_app_email'     => $data->appEmail,
         ]);
 
         // Create admin account
