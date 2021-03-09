@@ -20,6 +20,12 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class NewsletterRepository extends ServiceEntityRepository
 {
+    public const PENDING_STATUS     = "PENDING";
+    public const IN_PROGRESS_STATUS = "IN_PROGRESS";
+    public const FINISHED_STATUS    = "FINISHED";
+    public const NOW_TYPE           = "NOW";
+    public const SCHEDULED_TYPE     = "SCHEDULED";
+
     /**
      * Class Constructor.
      *
@@ -58,5 +64,15 @@ class NewsletterRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * Find a Newsletter By ID.
+     */
+    public function findOneByID(int $id): ?Subscriber
+    {
+        $newsletter = $this->findOneBy(['id' => $id]);
+
+        return !empty($newsletter) ? $newsletter : null;
     }
 }

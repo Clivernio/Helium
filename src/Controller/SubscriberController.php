@@ -135,7 +135,7 @@ class SubscriberController extends AbstractController
     /**
      * Subscriber List API Endpoint.
      */
-    #[Route('/admin/api/v1/subscriber', name: 'app_endpoint_v1_subscriber_list', methods: ['GET', 'HEAD'])]
+    #[Route('/api/v1/subscriber', name: 'app_endpoint_v1_subscriber_list', methods: ['GET', 'HEAD'])]
     public function subscriberListEndpoint(Request $request): JsonResponse
     {
         $this->logger->info("Trigger subscriber list v1 endpoint");

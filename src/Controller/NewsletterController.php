@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Module\Newsletter as NewsletterModule;
 use App\Repository\ConfigRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,17 +31,22 @@ class NewsletterController extends AbstractController
     /** @var TranslatorInterface */
     private $translator;
 
+    /** @var NewsletterModule */
+    private $newsletterModule;
+
     /**
      * Class Constructor.
      */
     public function __construct(
         LoggerInterface $logger,
         ConfigRepository $configRepository,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        NewsletterModule $newsletterModule
     ) {
         $this->logger           = $logger;
         $this->translator       = $translator;
         $this->configRepository = $configRepository;
+        $this->newsletterModule = $newsletterModule;
     }
 
     /**
@@ -205,9 +211,9 @@ class NewsletterController extends AbstractController
 
         $this->logger->info(sprintf("Delete newsletter with id %s", $id));
 
-        // ..
+        $this->newsletterModule->deleteById($id);
 
-        $this->logger->info(sprintf("Newsletter with id %s delete", $id));
+        $this->logger->info(sprintf("Newsletter with id %s deleted", $id));
 
         return $this->json([
             'successMessage' => $this->translator->trans(
