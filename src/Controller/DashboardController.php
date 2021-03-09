@@ -52,7 +52,7 @@ class DashboardController extends AbstractController
         $this->logger->info("Render dashboard page");
 
         return $this->render('page/dashboard.html.twig', [
-            'title' => $this->configRepository->findValueByKey("mw_app_name", "Midway"),
+            'title' => $this->configRepository->findValueByName("mw_app_name", "Midway"),
         ]);
     }
 }

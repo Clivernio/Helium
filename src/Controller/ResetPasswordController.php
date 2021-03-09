@@ -63,9 +63,16 @@ class ResetPasswordController extends AbstractController
     {
         $this->logger->info("Render reset password page");
 
+        // Redirect to install page
+        if (!$this->installModule->isInstalled()) {
+            $this->logger->info("Application is not installed");
+
+            return $this->redirectToRoute('app_ui_install');
+        }
+
         return $this->render('page/reset_password.html.twig', [
             'title' => $this->translator->trans("Reset Password") . " | "
-            . $this->configRepository->findValueByKey("mw_app_name", "Midway"),
+            . $this->configRepository->findValueByName("mw_app_name", "Midway"),
         ]);
     }
 

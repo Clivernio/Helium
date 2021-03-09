@@ -75,7 +75,7 @@ class ConfigRepository extends ServiceEntityRepository
      *
      * @return string
      */
-    public function findValueByKey(string $name, string $default): ?string
+    public function findValueByName(string $name, string $default): ?string
     {
         $config = $this->findOne($name);
 

@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Module\Auth as AuthModule;
+use App\Module\Install as InstallModule;
 use App\Repository\ConfigRepository;
 use App\Service\Validator;
 use Psr\Log\LoggerInterface;
@@ -46,13 +47,15 @@ class ForgotPasswordController extends AbstractController
         ConfigRepository $configRepository,
         TranslatorInterface $translator,
         Validator $validator,
-        AuthModule $authModule
+        AuthModule $authModule,
+        InstallModule $installModule
     ) {
         $this->logger           = $logger;
         $this->translator       = $translator;
         $this->configRepository = $configRepository;
         $this->validator        = $validator;
         $this->authModule       = $authModule;
+        $this->installModule    = $installModule;
     }
 
     /**
@@ -63,9 +66,16 @@ class ForgotPasswordController extends AbstractController
     {
         $this->logger->info("Render forgot password page");
 
+        // Redirect to install page
+        if (!$this->installModule->isInstalled()) {
+            $this->logger->info("Application is not installed");
+
+            return $this->redirectToRoute('app_ui_install');
+        }
+
         return $this->render('page/forgot_password.html.twig', [
             'title' => $this->translator->trans("Forgot Password") . " | "
-            . $this->configRepository->findValueByKey("mw_app_name", "Midway"),
+            . $this->configRepository->findValueByName("mw_app_name", "Midway"),
         ]);
     }
 

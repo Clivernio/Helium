@@ -52,7 +52,7 @@ class SubscriberController extends AbstractController
         $this->logger->info("Render subscriber page");
 
         return $this->render('page/subscriber.html.twig', [
-            'title' => $this->configRepository->findValueByKey("mw_app_name", "Midway"),
+            'title' => $this->configRepository->findValueByName("mw_app_name", "Midway"),
         ]);
     }
 }

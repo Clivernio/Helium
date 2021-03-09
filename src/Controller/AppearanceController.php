@@ -52,7 +52,7 @@ class AppearanceController extends AbstractController
         $this->logger->info("Render appearance page");
 
         return $this->render('page/appearance.html.twig', [
-            'title' => $this->configRepository->findValueByKey("mw_app_name", "Midway"),
+            'title' => $this->configRepository->findValueByName("mw_app_name", "Midway"),
         ]);
     }
 }

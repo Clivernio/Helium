@@ -53,7 +53,7 @@ class Install
      */
     public function isInstalled(): bool
     {
-        $value = $this->configRepository->findValueByKey('mw_app_installed', 'false');
+        $value = $this->configRepository->findValueByName('mw_app_installed', 'false');
 
         return 'false' === $value ? false : true;
     }

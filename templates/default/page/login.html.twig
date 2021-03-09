@@ -12,25 +12,25 @@
         </div>
         <div class="card card-md">
           <div class="card-body">
-            <h2 class="h2 text-center mb-4">Login into Account</h2>
+            <h2 class="h2 text-center mb-4">{% trans %}Login into Account{% endtrans %}</h2>
             <form action="{{ path('app_endpoint_v1_login') }}" method="post">
               <div class="mb-3">
-                <label class="form-label">Email Address</label>
+                <label class="form-label">{% trans %}Email Address{% endtrans %}</label>
                 <input type="email" class="form-control" name="email" placeholder="hello@midway.com" required>
               </div>
               <div class="mb-2">
                 <label class="form-label">
-                  Password
+                  {% trans %}Password{% endtrans %}
                   <span class="form-label-description">
-                    <a href="{{ path('app_ui_forgot_password') }}">I forgot password</a>
+                    <a href="{{ path('app_ui_forgot_password') }}">{% trans %}I forgot password{% endtrans %}</a>
                   </span>
                 </label>
                 <div class="input-group input-group-flat">
-                  <input type="password" class="form-control" name="password" placeholder="Your password" required>
+                  <input type="password" class="form-control" name="password" placeholder="{% trans %}Your password{% endtrans %}" required>
                 </div>
               </div>
               <div class="form-footer">
-                <button type="submit" class="btn btn-primary w-100">Sign in</button>
+                <button type="submit" class="btn btn-primary w-100">{% trans %}Sign in{% endtrans %}</button>
               </div>
             </form>
           </div>

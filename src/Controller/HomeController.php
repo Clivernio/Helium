@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Module\Install as InstallModule;
 use App\Repository\ConfigRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,11 +37,13 @@ class HomeController extends AbstractController
     public function __construct(
         LoggerInterface $logger,
         ConfigRepository $configRepository,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        InstallModule $installModule
     ) {
         $this->logger           = $logger;
         $this->translator       = $translator;
         $this->configRepository = $configRepository;
+        $this->installModule    = $installModule;
     }
 
     /**
@@ -51,8 +54,15 @@ class HomeController extends AbstractController
     {
         $this->logger->info("Render home page");
 
+        // Redirect to install page
+        if (!$this->installModule->isInstalled()) {
+            $this->logger->info("Application is not installed");
+
+            return $this->redirectToRoute('app_ui_install');
+        }
+
         return $this->render('page/home.html.twig', [
-            'title' => $this->configRepository->findValueByKey("mw_app_name", "Midway"),
+            'title' => $this->configRepository->findValueByName("mw_app_name", "Midway"),
         ]);
     }
 }

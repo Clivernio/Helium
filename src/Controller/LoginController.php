@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Module\Auth as AuthModule;
+use App\Module\Install as InstallModule;
 use App\Repository\ConfigRepository;
 use App\Service\Validator;
 use Psr\Log\LoggerInterface;
@@ -48,13 +49,15 @@ class LoginController extends AbstractController
         ConfigRepository $configRepository,
         TranslatorInterface $translator,
         AuthModule $authModule,
-        Validator $validator
+        Validator $validator,
+        InstallModule $installModule
     ) {
         $this->logger           = $logger;
         $this->translator       = $translator;
         $this->configRepository = $configRepository;
         $this->authModule       = $authModule;
         $this->validator        = $validator;
+        $this->installModule    = $installModule;
     }
 
     /**
@@ -65,9 +68,16 @@ class LoginController extends AbstractController
     {
         $this->logger->info("Render login page");
 
+        // Redirect to install page
+        if (!$this->installModule->isInstalled()) {
+            $this->logger->info("Application is not installed");
+
+            return $this->redirectToRoute('app_ui_install');
+        }
+
         return $this->render('page/login.html.twig', [
             'title' => $this->translator->trans("Login") . " | "
-            . $this->configRepository->findValueByKey("mw_app_name", "Midway"),
+            . $this->configRepository->findValueByName("mw_app_name", "Midway"),
         ]);
     }
 
