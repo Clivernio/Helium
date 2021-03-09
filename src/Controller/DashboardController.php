@@ -55,6 +55,11 @@ class DashboardController extends AbstractController
             'title' => $this->translator->trans("Dashboard") . " | "
             . $this->configRepository->findValueByName("he_app_name", "Helium"),
             'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
+            'user'           => [
+                'first_name' => $this->getUser()->getFirstName(),
+                'last_name'  => $this->getUser()->getLastName(),
+                'job'        => $this->getUser()->getJob(),
+            ],
         ]);
     }
 }
