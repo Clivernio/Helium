@@ -82,10 +82,10 @@ class Subscriber
             throw new ResourceNotFound(sprintf("Subscriber with id %s not found", $id));
         }
 
-        if (!empty($data['email']) && ($data['email'] !== $subscriber->email)) {
+        if (!empty($data['email']) && ($data['email'] !== $subscriber->getEmail())) {
             if (empty($this->subscriberRepository->findOneByEmail($data['email']))) {
                 // Override Email
-                $subscriber->email = $data['email'];
+                $subscriber->setEmail($data['email']);
             } else {
                 // Throw invalid request error
                 throw new InvalidRequest(sprintf("Email %s is already used", $data['email']));
@@ -93,11 +93,11 @@ class Subscriber
         }
 
         if (!empty($data['status'])) {
-            $subscriber->status = $data['status'];
+            $subscriber->setStatus($data['status']);
         }
 
         if (!empty($data['token'])) {
-            $subscriber->token = $data['token'];
+            $subscriber->setToken($data['token']);
         }
 
         $this->subscriberRepository->save($subscriber, true);

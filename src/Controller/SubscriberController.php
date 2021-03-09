@@ -14,6 +14,7 @@ use App\Exception\ResourceNotFound;
 use App\Module\Subscriber as SubscriberModule;
 use App\Repository\ConfigRepository;
 use App\Repository\SubscriberRepository;
+use App\Service\Validator;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -39,6 +40,9 @@ class SubscriberController extends AbstractController
     /** @var SubscriberModule */
     private $subscriberModule;
 
+    /** @var Validator */
+    private $validator;
+
     /**
      * Class Constructor.
      */
@@ -46,12 +50,14 @@ class SubscriberController extends AbstractController
         LoggerInterface $logger,
         ConfigRepository $configRepository,
         TranslatorInterface $translator,
-        SubscriberModule $subscriberModule
+        SubscriberModule $subscriberModule,
+        Validator $validator
     ) {
         $this->logger           = $logger;
         $this->translator       = $translator;
         $this->configRepository = $configRepository;
         $this->subscriberModule = $subscriberModule;
+        $this->validator        = $validator;
     }
 
     /**
@@ -75,9 +81,29 @@ class SubscriberController extends AbstractController
     }
 
     /**
+     * Subscriber Add Web Page.
+     */
+    #[Route('/admin/subscriber/add', name: 'app_ui_subscriber_add')]
+    public function subscriberAdd(): Response
+    {
+        $this->logger->info("Render subscriber add page");
+
+        return $this->render('page/subscribers.add.html.twig', [
+            'title' => $this->translator->trans("Subscribers") . " | "
+            . $this->configRepository->findValueByName("he_app_name", "Helium"),
+            'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
+            'user'           => [
+                'first_name' => $this->getUser()->getFirstName(),
+                'last_name'  => $this->getUser()->getLastName(),
+                'job'        => $this->getUser()->getJob(),
+            ],
+        ]);
+    }
+
+    /**
      * Subscriber Edit Web Page.
      */
-    #[Route('/admin/subscriber/{id}', name: 'app_ui_subscriber_edit')]
+    #[Route('/admin/subscriber/edit/{id}', name: 'app_ui_subscriber_edit')]
     public function subscriberEdit(int $id): Response
     {
         $this->logger->info("Render subscriber edit page");
@@ -102,26 +128,6 @@ class SubscriberController extends AbstractController
                 'email'  => $subscriber->getEmail(),
                 'status' => $subscriber->getStatus(),
                 'token'  => $subscriber->getToken(),
-            ],
-        ]);
-    }
-
-    /**
-     * Subscriber Add Web Page.
-     */
-    #[Route('/admin/subscriber/add', name: 'app_ui_subscriber_add')]
-    public function subscriberAdd(): Response
-    {
-        $this->logger->info("Render subscriber add page");
-
-        return $this->render('page/subscribers.add.html.twig', [
-            'title' => $this->translator->trans("Subscribers") . " | "
-            . $this->configRepository->findValueByName("he_app_name", "Helium"),
-            'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
-            'user'           => [
-                'first_name' => $this->getUser()->getFirstName(),
-                'last_name'  => $this->getUser()->getLastName(),
-                'job'        => $this->getUser()->getJob(),
             ],
         ]);
     }

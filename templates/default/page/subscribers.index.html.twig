@@ -7,17 +7,23 @@
     <div class="page-header d-print-none">
       <div class="container-xl">
         <div class="row g-2 align-items-center">
-          <div class="col">
+          <div class="col-8">
             <h2 class="page-title">
               {% trans %}Subscribers{% endtrans %}
             </h2>
           </div>
+          <div class="col-4">
+            <div class="text-end">
+              <a href="{{ path('app_ui_subscriber_add') }}" class="btn btn-light">{% trans %}Add New{% endtrans %}</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
     <!-- Page body -->
     <div class="page-body">
-      <div class="container-xl">
+      <div class="container-xl" id="app_subscriber_index">
         <div class="row row-cards">
           <div class="col-12">
             <div class="card">
@@ -33,15 +39,13 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>hello@clivern.com</td>
-                      <td class="text-muted">SUBSCRIBED</td>
-                      <td class="text-muted">2023-01-04 16:11:54</td>
-                      <td class="text-muted">
-                        2023-01-04 16:11:54
-                      </td>
+                    <tr v-for="subscriber in subscribers">
+                      <td>${subscriber.email}</td>
+                      <td class="text-muted">${subscriber.status}</td>
+                      <td class="text-muted">${subscriber.createdAt}</td>
+                      <td class="text-muted">${subscriber.updatedAt}</td>
                       <td>
-                        <a href="#">Edit</a>
+                        <a href="#">${subscriber.id}</a>
                       </td>
                     </tr>
                   </tbody>

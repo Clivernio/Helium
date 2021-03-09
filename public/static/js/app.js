@@ -302,6 +302,15 @@ helium_app.subscriber_index_screen = (Vue, axios, Cookies, $) => {
         data() {
             return {
                 isInProgress: false,
+                subscribers: [
+                    {
+                        "email": "hello@clivern.com",
+                        "id": 2,
+                        "status": "SUBSCRIBED",
+                        "createdAt": "2023-01-04 21:40:44",
+                        "updatedAt": "2023-01-04 21:40:44"
+                    }
+                ],
             }
         },
         methods: {
@@ -416,7 +425,7 @@ helium_app.subscriber_edit_screen = (Vue, axios, Cookies, $) => {
                     inputs[item.name] = item.value;
                 });
 
-                axios.post(_form.attr('action'), inputs)
+                axios.put(_form.attr('action'), inputs)
                     .then((response) => {
                         if (response.status >= 200) {
                             toastr.clear();
