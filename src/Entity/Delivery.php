@@ -28,17 +28,17 @@ class Delivery
     #[ORM\Column(length: 30)]
     private ?string $status = null;
 
-    #[ORM\OneToOne(targetEntity: Subscriber::class, mappedBy: 'subscriber')]
+    #[ORM\ManyToOne(targetEntity: Subscriber::class, inversedBy: 'deliveries')]
     private $subscriber;
 
-    #[ORM\OneToOne(targetEntity: Newsletter::class, mappedBy: 'newsletter')]
+    #[ORM\ManyToOne(targetEntity: Newsletter::class, inversedBy: 'deliveries')]
     private $newsletter;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $created_at = null;
+    private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $updated_at = null;
+    private ?\DateTimeImmutable $updatedAt = null;
 
     /**
      * Get ID.
@@ -129,7 +129,7 @@ class Delivery
      */
     public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
     /**
@@ -139,9 +139,9 @@ class Delivery
      *
      * @return DateTimeImmutable
      */
-    public function setCreatedAt(\DateTimeImmutable $created_at): self
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -153,7 +153,7 @@ class Delivery
      */
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
     /**
@@ -163,9 +163,9 @@ class Delivery
      *
      * @return Delivery
      */
-    public function setUpdatedAt(\DateTimeImmutable $updated_at): self
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
     {
-        $this->updated_at = $updated_at;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

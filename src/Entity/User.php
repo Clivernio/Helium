@@ -31,6 +31,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email;
 
+    #[ORM\Column(length: 180)]
+    private ?string $firstName;
+
+    #[ORM\Column(length: 180)]
+    private ?string $lastName;
+
+    #[ORM\Column(length: 200)]
+    private ?string $job;
+
     #[ORM\Column(type: Types::JSON, nullable: false)]
     private array $roles = [];
 
@@ -41,10 +50,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $created_at = null;
+    private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $updated_at = null;
+    private ?\DateTimeImmutable $updatedAt = null;
 
     /**
      * Get ID.
@@ -74,6 +83,72 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get Job.
+     *
+     * @return string
+     */
+    public function getJob(): ?string
+    {
+        return $this->job;
+    }
+
+    /**
+     * Set Job.
+     *
+     * @return User
+     */
+    public function setJob(string $job): self
+    {
+        $this->job = $job;
+
+        return $this;
+    }
+
+    /**
+     * Get First Name.
+     *
+     * @return string
+     */
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * Set First Name.
+     *
+     * @return User
+     */
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * Get Last name.
+     *
+     * @return string
+     */
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * Set Last Name.
+     *
+     * @return User
+     */
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
 
         return $this;
     }
@@ -167,7 +242,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
     /**
@@ -177,9 +252,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @return DateTimeImmutable
      */
-    public function setCreatedAt(\DateTimeImmutable $created_at): self
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -191,7 +266,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
     /**
@@ -201,9 +276,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @return Config
      */
-    public function setUpdatedAt(\DateTimeImmutable $updated_at): self
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
     {
-        $this->updated_at = $updated_at;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

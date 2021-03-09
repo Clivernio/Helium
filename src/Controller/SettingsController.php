@@ -52,7 +52,7 @@ class SettingsController extends AbstractController
     /**
      * Settings Web Page.
      */
-    #[Route('/admin/settings/general', name: 'app_ui_general_settings')]
+    #[Route('/admin/settings', name: 'app_ui_settings')]
     public function settings(): Response
     {
         $this->logger->info("Render settings page");
@@ -60,22 +60,6 @@ class SettingsController extends AbstractController
         return $this->render('page/settings.html.twig', [
             'title' => $this->translator->trans("General Settings") . " | "
             . $this->configRepository->findValueByName("he_app_name", "Helium"),
-            'tab' => 'general',
-        ]);
-    }
-
-    /**
-     * Appearance Web Page.
-     */
-    #[Route('/admin/settings/appearance', name: 'app_ui_appearance_settings')]
-    public function appearance(): Response
-    {
-        $this->logger->info("Render appearance page");
-
-        return $this->render('page/settings.html.twig', [
-            'title' => $this->translator->trans("Appearance Settings") . " | "
-            . $this->configRepository->findValueByName("he_app_name", "Helium"),
-            'tab' => 'appearance',
         ]);
     }
 

@@ -51,7 +51,7 @@ class NewsletterController extends AbstractController
     {
         $this->logger->info("Render newsletter page");
 
-        return $this->render('page/newsletters_index.html.twig', [
+        return $this->render('page/newsletters.index.html.twig', [
             'title' => $this->translator->trans("Newsletters") . " | "
             . $this->configRepository->findValueByName("he_app_name", "Helium"),
         ]);

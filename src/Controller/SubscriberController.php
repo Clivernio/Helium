@@ -51,7 +51,7 @@ class SubscriberController extends AbstractController
     {
         $this->logger->info("Render subscriber page");
 
-        return $this->render('page/subscribers_index.html.twig', [
+        return $this->render('page/subscribers.index.html.twig', [
             'title' => $this->translator->trans("Subscribers") . " | "
             . $this->configRepository->findValueByName("he_app_name", "Helium"),
         ]);

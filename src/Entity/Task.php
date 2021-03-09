@@ -38,13 +38,13 @@ class Task
     private ?string $result = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $run_at = null;
+    private ?\DateTimeImmutable $runAt = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $created_at = null;
+    private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $updated_at = null;
+    private ?\DateTimeImmutable $updatedAt = null;
 
     /**
      * Get ID.
@@ -159,7 +159,7 @@ class Task
      */
     public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
     /**
@@ -169,9 +169,9 @@ class Task
      *
      * @return DateTimeImmutable
      */
-    public function setCreatedAt(\DateTimeImmutable $created_at): self
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -183,7 +183,7 @@ class Task
      */
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
     /**
@@ -193,9 +193,9 @@ class Task
      *
      * @return Task
      */
-    public function setUpdatedAt(\DateTimeImmutable $updated_at): self
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
     {
-        $this->updated_at = $updated_at;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
@@ -207,7 +207,7 @@ class Task
      */
     public function getRunAt(): ?\DateTimeImmutable
     {
-        return $this->run_at;
+        return $this->runAt;
     }
 
     /**
@@ -217,9 +217,9 @@ class Task
      *
      * @return Task
      */
-    public function setRunAt(\DateTimeImmutable $run_at): self
+    public function setRunAt(\DateTimeImmutable $runAt): self
     {
-        $this->run_at = $run_at;
+        $this->runAt = $runAt;
 
         return $this;
     }

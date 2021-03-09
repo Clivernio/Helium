@@ -89,6 +89,9 @@ class Install
             $user,
             $password
         );
+        $user->setFirstName("Joe");
+        $user->setLastName("Doe");
+        $user->setJob("Software Engineer");
         $user->setCreatedAt(new \DateTimeImmutable());
         $user->setUpdatedAt(new \DateTimeImmutable());
         $user->setPassword($hashedPassword);

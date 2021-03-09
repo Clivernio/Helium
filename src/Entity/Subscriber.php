@@ -26,7 +26,7 @@ class Subscriber
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $email = null;
 
     #[ORM\Column(length: 30)]
@@ -35,14 +35,17 @@ class Subscriber
     #[ORM\OneToMany(targetEntity: SubscriberMeta::class, mappedBy: 'subscriber', cascade: ['ALL'])]
     private Collection $metas;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $created_at = null;
+    #[ORM\OneToMany(targetEntity: Delivery::class, mappedBy: 'subscriber', cascade: ['ALL'])]
+    private Collection $deliveries;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $updated_at = null;
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    private ?\DateTimeImmutable $removed_at = null;
+    private ?\DateTimeImmutable $deletedAt = null;
 
     /**
      * Get ID.
@@ -103,13 +106,33 @@ class Subscriber
     }
 
     /**
+     * Get Metas.
+     *
+     * @return Collection
+     */
+    public function getMetas(): ?Collection
+    {
+        return $this->metas;
+    }
+
+    /**
+     * Get Deliveries.
+     *
+     * @return Collection
+     */
+    public function getDeliveries(): ?Collection
+    {
+        return $this->deliveries;
+    }
+
+    /**
      * Get CreatedAt.
      *
      * @return DateTimeImmutable
      */
     public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
     /**
@@ -119,9 +142,9 @@ class Subscriber
      *
      * @return DateTimeImmutable
      */
-    public function setCreatedAt(\DateTimeImmutable $created_at): self
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -133,7 +156,7 @@ class Subscriber
      */
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
     /**
@@ -143,9 +166,9 @@ class Subscriber
      *
      * @return Subscriber
      */
-    public function setUpdatedAt(\DateTimeImmutable $updated_at): self
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
     {
-        $this->updated_at = $updated_at;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
@@ -155,9 +178,9 @@ class Subscriber
      *
      * @return DateTimeImmutable
      */
-    public function getRemovedAt(): ?\DateTimeImmutable
+    public function getDeletedAt(): ?\DateTimeImmutable
     {
-        return $this->removed_at;
+        return $this->deletedAt;
     }
 
     /**
@@ -167,9 +190,9 @@ class Subscriber
      *
      * @return Subscriber
      */
-    public function setRemovedAt(\DateTimeImmutable $removed_at): self
+    public function setDeletedAt(\DateTimeImmutable $deletedAt): self
     {
-        $this->removed_at = $removed_at;
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }
@@ -184,6 +207,6 @@ class Subscriber
             ->setStatus($data['status'])
             ->setCreatedAt(empty($data['createdAt']) ? new \DateTimeImmutable() : $data['createdAt'])
             ->setUpdatedAt(empty($data['updatedAt']) ? new \DateTimeImmutable() : $data['updatedAt'])
-            ->setRemovedAt(empty($data['removedAt']) ? new \DateTimeImmutable() : $data['removedAt']);
+            ->setDeletedAt(empty($data['deletedAt']) ? new \DateTimeImmutable() : $data['deletedAt']);
     }
 }
