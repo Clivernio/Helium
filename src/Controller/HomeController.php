@@ -64,7 +64,8 @@ class HomeController extends AbstractController
         $layout = $this->configRepository->findValueByName("he_app_home_layout", "default");
 
         return $this->render(sprintf('page/home.%s.html.twig', $layout), [
-            'title' => $this->configRepository->findValueByName("he_app_name", "Helium"),
+            'title'          => $this->configRepository->findValueByName("he_app_name", "Helium"),
+            'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
         ]);
     }
 }

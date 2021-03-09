@@ -54,6 +54,7 @@ class ErrorController extends AbstractController
         return $this->render('page/error.html.twig', [
             'title' => $this->translator->trans("500") . " | "
             . $this->configRepository->findValueByName("he_app_name", "Helium"),
+            'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
         ]);
     }
 }

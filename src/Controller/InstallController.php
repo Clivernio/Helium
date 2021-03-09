@@ -76,6 +76,7 @@ class InstallController extends AbstractController
         return $this->render('page/install.html.twig', [
             'title' => $this->translator->trans("Install") . " | "
             . $this->configRepository->findValueByName("he_app_name", "Helium"),
+            'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
         ]);
     }
 
@@ -119,7 +120,9 @@ class InstallController extends AbstractController
             'he_app_url'               => $data->appURL,
             'he_app_email'             => $data->appEmail,
             'he_app_home_layout'       => 'default',
-            'he_google_analytics_code' => 'G-V7G0HKSRRQ',
+            'he_google_analytics_code' => '',
+            'he_mailer_provider'       => 'disabled',
+            'he_mailer_dsn'            => 'null://null',
         ]);
 
         // Create admin account

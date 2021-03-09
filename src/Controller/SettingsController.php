@@ -11,8 +11,11 @@ namespace App\Controller;
 
 use App\Module\Settings as SettingsModule;
 use App\Repository\ConfigRepository;
+use App\Service\Validator;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -34,6 +37,9 @@ class SettingsController extends AbstractController
     /** @var SettingsModule */
     private $settingsModule;
 
+    /** @var Validator */
+    private $validator;
+
     /**
      * Class Constructor.
      */
@@ -41,12 +47,14 @@ class SettingsController extends AbstractController
         LoggerInterface $logger,
         ConfigRepository $configRepository,
         TranslatorInterface $translator,
-        SettingsModule $settingsModule
+        SettingsModule $settingsModule,
+        Validator $validator
     ) {
         $this->logger           = $logger;
         $this->translator       = $translator;
         $this->configRepository = $configRepository;
         $this->settingsModule   = $settingsModule;
+        $this->validator        = $validator;
     }
 
     /**
@@ -60,6 +68,13 @@ class SettingsController extends AbstractController
         return $this->render('page/settings.html.twig', [
             'title' => $this->translator->trans("General Settings") . " | "
             . $this->configRepository->findValueByName("he_app_name", "Helium"),
+            'analytics_code'  => $this->configRepository->findValueByName("he_google_analytics_code", ""),
+            'app_name'        => $this->configRepository->findValueByName("he_app_name", ""),
+            'app_url'         => $this->configRepository->findValueByName("he_app_url", ""),
+            'app_email'       => $this->configRepository->findValueByName("he_app_email", ""),
+            'app_home_layout' => $this->configRepository->findValueByName("he_app_home_layout", ""),
+            'mailer_provider' => $this->configRepository->findValueByName("he_mailer_provider", ""),
+            'mailer_dsn'      => $this->configRepository->findValueByName("he_mailer_dsn", ""),
         ]);
     }
 
@@ -73,7 +88,7 @@ class SettingsController extends AbstractController
 
         $this->validator->validate(
             $content,
-            "v1/settingsAction.schema.json"
+            "v1/updateSettingsAction.schema.json"
         );
 
         $this->logger->info("Trigger settings v1 endpoint");
@@ -85,6 +100,19 @@ class SettingsController extends AbstractController
         }
 
         $this->logger->info("Updating settings");
+
+        // Update settings
+        $this->settingsModule->update([
+            'he_app_name'              => $data->appName,
+            'he_app_url'               => $data->appURL,
+            'he_app_email'             => $data->appEmail,
+            'he_app_home_layout'       => $data->appLayout,
+            'he_google_analytics_code' => $data->appGoogleTrackingCode,
+            'he_mailer_provider'       => $data->appMailerProdvider,
+            'he_mailer_dsn'            => $data->appMailerDSN,
+        ]);
+
+        $this->logger->info("Settings updated");
 
         return $this->json([
             'successMessage' => $this->translator->trans(

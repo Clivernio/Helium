@@ -1,0 +1,63 @@
+{
+  "$id": "updateSettingsAction",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Update Settings Action",
+  "type": "object",
+  "properties": {
+    "appName": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 50
+    },
+    "appURL": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 50
+    },
+    "appEmail": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 50,
+      "format": "email"
+    },
+    "appLayout": {
+      "type": "string",
+      "enum": ["default"]
+    },
+    "appGoogleTrackingCode": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 50
+    },
+    "appMailerProdvider": {
+      "type": "string",
+      "enum": [
+        "disabled",
+        "sendmail",
+        "aws_ses",
+        "mailchimp",
+        "mailgun",
+        "mailjet",
+        "postmark",
+        "sendgrid",
+        "sendinblue",
+        "ohmysmtp",
+        "mailtrap"
+      ]
+    },
+    "appMailerDSN": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 200
+    }
+  },
+  "required": [
+    "appName",
+    "appURL",
+    "appEmail",
+    "appLayout",
+    "appGoogleTrackingCode",
+    "appMailerProdvider",
+    "appMailerDSN"
+  ]
+}

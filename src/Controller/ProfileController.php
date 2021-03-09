@@ -52,7 +52,8 @@ class ProfileController extends AbstractController
         $this->logger->info("Render profile page");
 
         return $this->render('page/profile.html.twig', [
-            'title' => $this->configRepository->findValueByName("he_app_name", "Helium"),
+            'title'          => $this->configRepository->findValueByName("he_app_name", "Helium"),
+            'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
         ]);
     }
 }

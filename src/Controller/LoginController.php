@@ -82,6 +82,7 @@ class LoginController extends AbstractController
         return $this->render('page/login.html.twig', [
             'title' => $this->translator->trans("Login") . " | "
             . $this->configRepository->findValueByName("he_app_name", "Helium"),
+            'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
         ]);
     }
 

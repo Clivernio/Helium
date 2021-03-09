@@ -54,6 +54,7 @@ class NewsletterController extends AbstractController
         return $this->render('page/newsletters.index.html.twig', [
             'title' => $this->translator->trans("Newsletters") . " | "
             . $this->configRepository->findValueByName("he_app_name", "Helium"),
+            'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
         ]);
     }
 }

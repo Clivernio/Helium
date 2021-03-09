@@ -54,6 +54,7 @@ class NotFoundController extends AbstractController
         return $this->render('page/not_found.html.twig', [
             'title' => $this->translator->trans("404") . " | "
             . $this->configRepository->findValueByName("he_app_name", "Helium"),
+            'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
         ]);
     }
 }

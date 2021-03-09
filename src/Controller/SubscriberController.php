@@ -54,6 +54,7 @@ class SubscriberController extends AbstractController
         return $this->render('page/subscribers.index.html.twig', [
             'title' => $this->translator->trans("Subscribers") . " | "
             . $this->configRepository->findValueByName("he_app_name", "Helium"),
+            'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
         ]);
     }
 }

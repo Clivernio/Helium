@@ -10,16 +10,79 @@
             <div class="col-3 d-none d-md-block border-end">
               <div class="card-body">
                 <div class="list-group list-group-transparent">
-                  <a href="{{ path('app_ui_general_settings') }}" class="list-group-item list-group-item-action d-flex align-items-center active">{% trans %}General{% endtrans %}</a>
+                  <a href="{{ path('app_ui_settings') }}" class="list-group-item list-group-item-action d-flex align-items-center active">{% trans %}General{% endtrans %}</a>
                 </div>
               </div>
             </div>
-						<div class="col d-flex flex-column">
-	            <form action="#" method="post">
+						<div class="col d-flex flex-column" id="app_settings">
+	            <form action="{{ path('app_endpoint_v1_settings') }}" v-on:submit.prevent="settingsAction"  method="post">
 	              <div class="card-body">
 	                <h2 class="mb-4">{% trans %}General{% endtrans %}</h2>
-	              </div>
-	              <input type="hidden" name="csrf_token" value="{{ csrf_token('settings-action') }}"/>
+		              <input type="hidden" name="csrf_token" value="{{ csrf_token('settings-action') }}"/>
+		              <div class="row g-3">
+		                <div class="col-md">
+		                  <div class="form-label">Application Name</div>
+		                  <input type="text" class="form-control" name="appName" value="{{ app_name }}" required>
+		                </div>
+	                </div>
+	                <br/>
+		              <div class="row g-3">
+		                <div class="col-md">
+		                  <div class="form-label">Application URL</div>
+		                  <input type="url" class="form-control" name="appURL" value="{{ app_url }}" required>
+		                </div>
+	                </div>
+	                <br/>
+		              <div class="row g-3">
+		                <div class="col-md">
+		                  <div class="form-label">Application Email</div>
+		                  <input type="email" class="form-control" name="appEmail" value="{{ app_email }}" required>
+		                </div>
+	                </div>
+	                <br/>
+		              <div class="row g-3">
+		                <div class="col-md">
+                      <div class="form-label">Application Layout</div>
+                      <select class="form-select" name="appLayout" required>
+                        <option value="default" {% if app_home_layout == 'default' %} selected="selected" {% endif %}>Default</option>
+                      </select>
+		                </div>
+	                </div>
+	                <br/><br/>
+		              <div class="row g-3">
+		                <div class="col-md">
+		                  <div class="form-label">Google Analytics Code</div>
+		                  <input type="text" class="form-control" name="appGoogleTrackingCode" value="{{ analytics_code }}">
+		                </div>
+	                </div>
+	                <br/>
+		              <div class="row g-3">
+		                <div class="col-md">
+                      <div class="form-label">Mailer Provider</div>
+                      <select class="form-select" name="appMailerProdvider" required>
+                        <option value="disabled" {% if mailer_provider == 'disabled' %} selected="selected" {% endif %}>Disabled</option>
+                        <option value="sendmail" {% if mailer_provider == 'sendmail' %} selected="selected" {% endif %}>Sendmail</option>
+                        <option value="aws_ses" {% if mailer_provider == 'aws_ses' %} selected="selected" {% endif %}>Amazon SES</option>
+                        <option value="mailchimp" {% if mailer_provider == 'mailchimp' %} selected="selected" {% endif %}>MailChimp</option>
+                        <option value="mailgun" {% if mailer_provider == 'mailgun' %} selected="selected" {% endif %}>Mailgun</option>
+                        <option value="mailjet" {% if mailer_provider == 'mailjet' %} selected="selected" {% endif %}>Mailjet</option>
+                        <option value="postmark" {% if mailer_provider == 'postmark' %} selected="selected" {% endif %}>Postmark</option>
+                        <option value="sendgrid" {% if mailer_provider == 'sendgrid' %} selected="selected" {% endif %}>SendGrid</option>
+                        <option value="sendinblue" {% if mailer_provider == 'sendinblue' %} selected="selected" {% endif %}>Sendinblue</option>
+                        <option value="ohmysmtp" {% if mailer_provider == 'ohmysmtp' %} selected="selected" {% endif %}>OhMySMTP</option>
+                        <option value="mailtrap" {% if mailer_provider == 'mailtrap' %} selected="selected" {% endif %}>Mailtrap</option>
+                      </select>
+		                </div>
+	                </div>
+	                <br/><br/>
+		              <div class="row g-3">
+		                <div class="col-md">
+		                  <div class="form-label">Mailer DSN</div>
+		                  <input type="text" class="form-control" name="appMailerDSN" value="{{ mailer_dsn }}">
+		                </div>
+	                </div>
+	                <br/><br/><br/>
+                </div>
 	              <div class="card-footer bg-transparent mt-auto">
 	                <div class="btn-list justify-content-end">
 	                  <button type="submit" class="btn btn-primary">{% trans %}Submit{% endtrans %}</button>

@@ -89,7 +89,8 @@ class ResetPasswordController extends AbstractController
         return $this->render('page/reset_password.html.twig', [
             'title' => $this->translator->trans("Reset Password") . " | "
             . $this->configRepository->findValueByName("he_app_name", "Helium"),
-            'token' => $token,
+            'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
+            'token'          => $token,
         ]);
     }
 

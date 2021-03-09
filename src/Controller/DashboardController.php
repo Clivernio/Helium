@@ -54,6 +54,7 @@ class DashboardController extends AbstractController
         return $this->render('page/dashboard.html.twig', [
             'title' => $this->translator->trans("Dashboard") . " | "
             . $this->configRepository->findValueByName("he_app_name", "Helium"),
+            'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
         ]);
     }
 }

@@ -82,6 +82,7 @@ class ForgotPasswordController extends AbstractController
         return $this->render('page/forgot_password.html.twig', [
             'title' => $this->translator->trans("Forgot Password") . " | "
             . $this->configRepository->findValueByName("he_app_name", "Helium"),
+            'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
         ]);
     }
 
