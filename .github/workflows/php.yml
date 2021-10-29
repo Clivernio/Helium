@@ -1,0 +1,28 @@
+name: CI Build
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ ubuntu-18.04 ]
+        php: [ '7.2', '7.4', '8.0', '8.1' ]
+    name: Run CI PHP ${{ matrix.php }}
+    steps:
+      - uses: actions/checkout@master
+      - name: Setup PHP
+        uses: nanasess/setup-php@master
+        with:
+          php-version: ${{ matrix.php }}
+      - run: php -v
+
+      - name: Run CI
+        run: |
+          curl -sS https://get.symfony.com/cli/installer | bash
+          composer validate
+          export APP_ENV=test
+          make ci
+          make fix
+          git diff --exit-code
