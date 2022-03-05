@@ -13,6 +13,8 @@ use App\Module\Install as InstallModule;
 use App\Repository\ConfigRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -66,6 +68,21 @@ class HomeController extends AbstractController
         return $this->render(sprintf('page/home.%s.html.twig', $layout), [
             'title'          => $this->configRepository->findValueByName("he_app_name", "Helium"),
             'analytics_code' => $this->configRepository->findValueByName("he_google_analytics_code", ""),
+        ]);
+    }
+
+    /**
+     * Smubscribe API Endpoint.
+     */
+    #[Route('/api/v1/subscribe', name: 'app_endpoint_v1_subscribe')]
+    public function subscribeEndpoint(Request $request): JsonResponse
+    {
+        $this->logger->info("Trigger subscribe v1 endpoint");
+
+        return $this->json([
+            'successMessage' => $this->translator->trans(
+                'Email subscribed successfully.'
+            ),
         ]);
     }
 }
