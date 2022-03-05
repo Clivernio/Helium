@@ -43,3 +43,12 @@ Basically `Helium` should run as three processes:
 1. The http web process: Serves http requests. Runs with `nginx` & `php-fpm`.
 2. The worker process: Watch the newsletters and create async tasks to send emails. Runs as a `systemd` process.
 3. The symfony messenger process: Send emails to the end user in Async manner. Runs as a `systemd` process.
+
+
+### Subscribers Status:
+
+- `PENDING_VERIFY`: The email not verified yet. The user subscribed from the homepage, email sent but he didn't click the verify link yet.
+- `SUBSCRIBED`: The email is approved or added from the dashboard.
+- `UNSUBSCRIBED`: The user unsubscribed by using the unsubscribe link sent on the email.
+- `TRASHED`: Not usable right now.
+- `REMOVED`: Not usable, used for delete requests.
