@@ -202,7 +202,7 @@ class NewsletterController extends AbstractController
     /**
      * Newsletter List API Endpoint.
      */
-    #[Route('/api/v1/newsletter', name: 'app_endpoint_v1_newsletter_list', methods: ['GET', 'HEAD'])]
+    #[Route('/admin/api/v1/newsletter', name: 'app_endpoint_v1_newsletter_list', methods: ['GET', 'HEAD'])]
     public function newsletterListEndpoint(Request $request): JsonResponse
     {
         $this->logger->info("Trigger newsletter list v1 endpoint");
@@ -261,7 +261,7 @@ class NewsletterController extends AbstractController
     /**
      * Newsletter Add API Endpoint.
      */
-    #[Route('/api/v1/newsletter', name: 'app_endpoint_v1_newsletter_add', methods: ['POST'])]
+    #[Route('/admin/api/v1/newsletter', name: 'app_endpoint_v1_newsletter_add', methods: ['POST'])]
     public function newsletterAddEndpoint(Request $request): JsonResponse
     {
         $this->logger->info("Trigger newsletter add v1 endpoint");
@@ -315,7 +315,7 @@ class NewsletterController extends AbstractController
     /**
      * Newsletter Edit API Endpoint.
      */
-    #[Route('/api/v1/newsletter/{id}', name: 'app_endpoint_v1_newsletter_edit', methods: ['PUT'])]
+    #[Route('/admin/api/v1/newsletter/{id}', name: 'app_endpoint_v1_newsletter_edit', methods: ['PUT'])]
     public function newsletterEditEndpoint(Request $request, int $id): JsonResponse
     {
         $this->logger->info("Trigger newsletter edit v1 endpoint");
@@ -372,7 +372,7 @@ class NewsletterController extends AbstractController
     /**
      * Newsletter Delete API Endpoint.
      */
-    #[Route('/api/v1/newsletter/{id}', name: 'app_endpoint_v1_newsletter_delete', methods: ['DELETE'])]
+    #[Route('/admin/api/v1/newsletter/{id}', name: 'app_endpoint_v1_newsletter_delete', methods: ['DELETE'])]
     public function newsletterDeleteEndpoint(Request $request, int $id): JsonResponse
     {
         $this->logger->info("Trigger newsletter delete v1 endpoint");
@@ -401,7 +401,7 @@ class NewsletterController extends AbstractController
     /**
      * Newsletter Preview API Endpoint.
      */
-    #[Route('/api/v1/newsletter/preview', name: 'app_endpoint_v1_newsletter_preview', methods: ['POST'])]
+    #[Route('/admin/api/v1/newsletter/preview', name: 'app_endpoint_v1_newsletter_preview', methods: ['POST'])]
     public function newsletterPreviewEndpoint(Request $request): JsonResponse
     {
         $this->logger->info("Trigger newsletter add v1 endpoint");

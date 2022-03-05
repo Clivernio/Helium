@@ -22,7 +22,8 @@
     },
     "appLayout": {
       "type": "string",
-      "enum": ["default"]
+      "minLength": 2,
+      "maxLength": 50
     },
     "appGoogleTrackingCode": {
       "type": "string",

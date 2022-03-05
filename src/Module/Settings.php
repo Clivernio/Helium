@@ -12,6 +12,7 @@ namespace App\Module;
 use App\Entity\Config;
 use App\Repository\ConfigRepository;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * Settings Module.
@@ -24,15 +25,20 @@ class Settings
     /** @var ConfigRepository */
     private $configRepository;
 
+    /** KernelInterface $appKernel */
+    private $appKernel;
+
     /**
      * Class Constructor.
      */
     public function __construct(
         LoggerInterface $logger,
-        ConfigRepository $configRepository
+        ConfigRepository $configRepository,
+        KernelInterface $appKernel
     ) {
         $this->logger           = $logger;
         $this->configRepository = $configRepository;
+        $this->appKernel        = $appKernel;
     }
 
     /**
@@ -60,5 +66,26 @@ class Settings
             $this->logger->info(sprintf("Store a config with key %s", $key));
             $this->configRepository->save($config, true);
         }
+    }
+
+    /**
+     * Get Home Layouts.
+     */
+    public function getHomeLayouts(): array
+    {
+        $result       = [];
+        $basePath     = rtrim($this->appKernel->getProjectDir(), "/");
+        $templatePath = sprintf("%s/templates/default/page", $basePath);
+        $templates    = scandir($templatePath);
+
+        foreach ($templates as $template) {
+            if (false !== strpos($template, "home.")) {
+                $items    = explode(".", $template);
+                $name     = ucwords(str_replace("_", " ", $items[1]));
+                $result[] = ['id' => $items[1], 'name' => $name];
+            }
+        }
+
+        return $result;
     }
 }

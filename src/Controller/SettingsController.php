@@ -75,6 +75,7 @@ class SettingsController extends AbstractController
             'app_home_layout' => $this->configRepository->findValueByName("he_app_home_layout", ""),
             'mailer_provider' => $this->configRepository->findValueByName("he_mailer_provider", ""),
             'mailer_dsn'      => $this->configRepository->findValueByName("he_mailer_dsn", ""),
+            'home_layouts'    => $this->settingsModule->getHomeLayouts(),
             'user'            => [
                 'first_name' => $this->getUser()->getFirstName(),
                 'last_name'  => $this->getUser()->getLastName(),
