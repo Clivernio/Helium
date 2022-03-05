@@ -9,8 +9,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Exception\InvalidRequest;
 use App\Module\Install as InstallModule;
+use App\Module\Subscriber as SubscriberModule;
 use App\Repository\ConfigRepository;
+use App\Repository\SubscriberRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -33,6 +36,9 @@ class HomeController extends AbstractController
     /** @var TranslatorInterface */
     private $translator;
 
+    /** @var SubscriberModule */
+    private $subscriberModule;
+
     /**
      * Class Constructor.
      */
@@ -40,12 +46,14 @@ class HomeController extends AbstractController
         LoggerInterface $logger,
         ConfigRepository $configRepository,
         TranslatorInterface $translator,
-        InstallModule $installModule
+        InstallModule $installModule,
+        SubscriberModule $subscriberModule
     ) {
         $this->logger           = $logger;
         $this->translator       = $translator;
         $this->configRepository = $configRepository;
         $this->installModule    = $installModule;
+        $this->subscriberModule = $subscriberModule;
     }
 
     /**
@@ -72,16 +80,34 @@ class HomeController extends AbstractController
     }
 
     /**
-     * Smubscribe API Endpoint.
+     * Subscribe API Endpoint.
      */
     #[Route('/api/v1/subscribe', name: 'app_endpoint_v1_subscribe')]
     public function subscribeEndpoint(Request $request): JsonResponse
     {
         $this->logger->info("Trigger subscribe v1 endpoint");
 
+        $content = $request->getContent();
+
+        $this->validator->validate(
+            $content,
+            "v1/subscribeAction.schema.json"
+        );
+
+        $data = json_decode($content);
+
+        if (empty($data->csrf_token) || !$this->isCsrfTokenValid('subscribe-action', $data->csrf_token)) {
+            throw new InvalidRequest('Invalid request');
+        }
+
+        $this->subscriberModule->add([
+            'email'  => $data->email,
+            'status' => SubscriberRepository::PENDING_VERIFY,
+        ]);
+
         return $this->json([
             'successMessage' => $this->translator->trans(
-                'Email subscribed successfully.'
+                'Email subscribed successfully. Please check your inbox to verify!'
             ),
         ]);
     }

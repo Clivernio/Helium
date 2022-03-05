@@ -150,10 +150,12 @@ class SubscriberController extends AbstractController
 
         foreach ($subscribers as $subscriber) {
             $outStatus = str_replace([
+                SubscriberRepository::PENDING_VERIFY,
                 SubscriberRepository::UNSUBSCRIBED,
                 SubscriberRepository::SUBSCRIBED,
                 SubscriberRepository::TRASHED,
             ], [
+                $this->translator->trans("Pending Verification"),
                 $this->translator->trans("Disabled"),
                 $this->translator->trans("Enabled"),
                 $this->translator->trans("Trashed"),

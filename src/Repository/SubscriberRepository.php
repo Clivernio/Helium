@@ -20,10 +20,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SubscriberRepository extends ServiceEntityRepository
 {
-    public const SUBSCRIBED   = "SUBSCRIBED";
-    public const UNSUBSCRIBED = "UNSUBSCRIBED";
-    public const TRASHED      = "TRASHED";
-    public const REMOVED      = "REMOVED";
+    public const PENDING_VERIFY = "PENDING_VERIFY";
+    public const SUBSCRIBED     = "SUBSCRIBED";
+    public const UNSUBSCRIBED   = "UNSUBSCRIBED";
+    public const TRASHED        = "TRASHED";
+    public const REMOVED        = "REMOVED";
 
     /**
      * Class Constructor.
