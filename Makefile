@@ -165,8 +165,8 @@ release:
 .PHONY: code
 code:
 	@echo ">> ============= Release The Code ============= <<"
-	zip -r helium.zip "./" -x "release/*" -x ".git/*" -x "vendor/*" -x "var/*"
-	mv helium.zip ./release/helium/1.0.0/code/
+	zip -r code.zip "./" -x "release/*" -x ".git/*" -x "vendor/*" -x "var/*"
+	mv code.zip ./release/helium/1.0.0/
 
 ## ci: Run CI Checks
 .PHONY: ci
