@@ -161,6 +161,13 @@ release:
 	cp -r ./docs/book/* ./release/out/1.0.0/documentation/
 
 
+## code: Release the code
+.PHONY: code
+code:
+	@echo ">> ============= Release The Code ============= <<"
+	zip -r helium.zip "./" -x "release/*" -x ".git/*" -x "vendor/*" -x "var/*"
+	mv helium.zip ./release/helium/1.0.0/code/
+
 ## ci: Run CI Checks
 .PHONY: ci
 ci: config purge composer lint test

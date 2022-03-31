@@ -4,6 +4,8 @@
 <br/>
 <p align="center">
   <img width="20%" src="screenshots/logo.png">
+  <br/>
+  <strong>Helium</strong>
 </p>
 <br/>
 
