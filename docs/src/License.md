@@ -1,1 +1,3 @@
-*This product is covered by Codecanyon Standard and Extended Licenses. For more info, please check this* [link](https://codecanyon.net/licenses/standard).
+### License
+
+This project is released under codecanyon standard and extended licenses. For more info, please check this link [link](https://codecanyon.net/licenses/standard).

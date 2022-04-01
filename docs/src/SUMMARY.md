@@ -3,9 +3,11 @@
 [Introduction](README.md)
 
 - [Free Hosting](Hosting.md)
-- [Installation](INSTALLATION.md)
+- [Installation](Installation.md)
 - [Configuration](Configuration.md)
+- [Advanced](Advanced.md)
 - [Support](Support.md)
 - [Security](Security.md)
-- [Changelog](CHANGELOG.md)
+- [Versioning](Versioning.md)
+- [Changelog](Changelog.md)
 - [License](License.md)

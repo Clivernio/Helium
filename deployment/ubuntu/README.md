@@ -91,6 +91,7 @@ app_db_password: R2ZBmTR6nED6a71AxeTO2UIok
 app_secret: 3999bf7e3a408f15942779447e01dd7a
 app_timezone: UTC
 app_env: prod
+app_locale: en
 messenger_transport: doctrine://default
 mailer_dsn: sendmail://default
 ```

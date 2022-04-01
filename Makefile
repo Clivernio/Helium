@@ -147,6 +147,13 @@ watch:
 	@$(php) bin/console watch
 
 
+## release: Release the project
+.PHONY: release
+release:
+	@echo ">> ============= Release The Project ============= <<"
+	cp -r ./docs/book/* ./release/out/1.0.0/documentation/
+
+
 ## ci: Run CI Checks
 .PHONY: ci
 ci: config purge composer lint test
