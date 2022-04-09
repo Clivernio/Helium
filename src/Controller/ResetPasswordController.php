@@ -80,6 +80,11 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('app_ui_install');
         }
 
+        // Validate reset token
+        if (!$this->authModule->validateResetToken($token)) {
+            return $this->redirectToRoute('app_ui_login');
+        }
+
         return $this->render('page/reset_password.html.twig', [
             'title' => $this->translator->trans("Reset Password") . " | "
             . $this->configRepository->findValueByName("he_app_name", "Helium"),

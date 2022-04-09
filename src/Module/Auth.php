@@ -134,4 +134,12 @@ class Auth
             ["email" => $email, "token" => $token]
         );
     }
+
+    /**
+     * Validate Reset Token.
+     */
+    public function validateResetToken(string $token): bool
+    {
+        return !empty($this->userMetaRepository->findMetaByValue($token));
+    }
 }
