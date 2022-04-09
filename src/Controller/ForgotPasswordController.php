@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Exception\InvalidRequest;
 use App\Module\Auth as AuthModule;
 use App\Module\Install as InstallModule;
 use App\Repository\ConfigRepository;
@@ -100,6 +101,10 @@ class ForgotPasswordController extends AbstractController
         $this->logger->info("Trigger forgot password v1 endpoint");
 
         $data = json_decode($content);
+
+        if (empty($data->csrf_token) || !$this->isCsrfTokenValid('forgot-password-action', $data->csrf_token)) {
+            throw new InvalidRequest('Invalid request');
+        }
 
         $this->logger->info(sprintf(
             "Send a password reset email to %s",

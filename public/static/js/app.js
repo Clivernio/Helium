@@ -201,8 +201,7 @@ helium_app.forgot_password_screen = (Vue, axios, Cookies, $) => {
 
 $(document).ready(() => {
     axios.defaults.headers.common = {
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRFToken': Cookies.get('csrftoken')
+        'X-Requested-With': 'XMLHttpRequest'
     };
 
     if (document.getElementById("app_login")) {

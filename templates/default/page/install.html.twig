@@ -14,6 +14,7 @@
           <div class="card-body">
             <h2 class="h2 text-center mb-4">{% trans %}Install Helium{% endtrans %}</h2>
             <form v-on:submit.prevent="installAction" action="{{ path('app_endpoint_v1_install') }}" data-redirect-url="{{ path('app_ui_login') }}" method="post">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token('install-action') }}"/>
               <div class="mb-3">
                 <label class="form-label">{% trans %}Application Name{% endtrans %}</label>
                 <input type="text" class="form-control" name="appName" placeholder="Helium" required>

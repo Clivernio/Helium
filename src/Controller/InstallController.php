@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Exception\InvalidRequest;
 use App\Module\Install as InstallModule;
 use App\Repository\ConfigRepository;
 use App\Service\Validator;
@@ -106,6 +107,10 @@ class InstallController extends AbstractController
         $this->logger->info("Install the application");
 
         $data = json_decode($content);
+
+        if (empty($data->csrf_token) || !$this->isCsrfTokenValid('install-action', $data->csrf_token)) {
+            throw new InvalidRequest('Invalid request');
+        }
 
         // Install application
         $this->installModule->installApplication([
