@@ -15,6 +15,7 @@ use App\Service\Mailer;
 use App\Service\Worker;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Reset Passsword Message Handler.
@@ -34,6 +35,9 @@ class ResetPasssword
     /** @var ConfigRepository */
     private $configRepository;
 
+    /** @var TranslatorInterface */
+    private $translator;
+
     /**
      * Class Constructor.
      */
@@ -41,12 +45,14 @@ class ResetPasssword
         LoggerInterface $logger,
         Worker $worker,
         Mailer $mailer,
-        ConfigRepository $configRepository
+        ConfigRepository $configRepository,
+        TranslatorInterface $translator
     ) {
         $this->logger           = $logger;
         $this->worker           = $worker;
         $this->mailer           = $mailer;
         $this->configRepository = $configRepository;
+        $this->translator       = $translator;
     }
 
     /**
