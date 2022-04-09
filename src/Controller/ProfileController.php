@@ -17,9 +17,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * Appearance Controller.
+ * Profile Controller.
  */
-class AppearanceController extends AbstractController
+class ProfileController extends AbstractController
 {
     /** @var LoggerInterface */
     private $logger;
@@ -44,14 +44,14 @@ class AppearanceController extends AbstractController
     }
 
     /**
-     * Appearance Web Page.
+     * Profile Web Page.
      */
-    #[Route('/admin/appearance', name: 'app_appearance_web')]
-    public function appearance(): Response
+    #[Route('/admin/profile', name: 'app_ui_profile')]
+    public function profile(): Response
     {
-        $this->logger->info("Render appearance page");
+        $this->logger->info("Render profile page");
 
-        return $this->render('page/appearance.html.twig', [
+        return $this->render('page/profile.html.twig', [
             'title' => $this->configRepository->findValueByName("he_app_name", "Helium"),
         ]);
     }
