@@ -119,6 +119,16 @@ class Auth
             throw new InvalidRequest('Invalid email provided.');
         }
 
+        // Clean up current meta
+        $currentMeta = $this->userMetaRepository->filterMeta([
+            "user" => $user,
+            "name" => "reset_password_token",
+        ]);
+
+        if (!empty($currentMeta)) {
+            $this->userMetaRepository->remove($currentMeta, true);
+        }
+
         // Create reset token & attach to user
         $meta = UserMeta::fromArray([
             "name"  => "reset_password_token",

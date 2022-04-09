@@ -69,4 +69,16 @@ class UserMetaRepository extends ServiceEntityRepository
 
         return !empty($meta) ? $meta : null;
     }
+
+    /**
+     * Filter Meta.
+     *
+     * @return UserMeta
+     */
+    public function filterMeta(array $filter = []): ?UserMeta
+    {
+        $meta = $this->findOneBy($filter);
+
+        return !empty($meta) ? $meta : null;
+    }
 }
