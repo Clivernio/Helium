@@ -11,8 +11,11 @@ namespace App\Controller;
 
 use App\Module\Auth as AuthModule;
 use App\Repository\OptionRepository;
+use App\Service\Validator;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -34,6 +37,9 @@ class LoginController extends AbstractController
     /** @var AuthModule */
     private $authModule;
 
+    /** @var Validator */
+    private $validator;
+
     /**
      * Class Constructor.
      */
@@ -41,12 +47,14 @@ class LoginController extends AbstractController
         LoggerInterface $logger,
         OptionRepository $optionRepository,
         TranslatorInterface $translator,
-        AuthModule $authModule
+        AuthModule $authModule,
+        Validator $validator
     ) {
         $this->logger           = $logger;
         $this->translator       = $translator;
         $this->optionRepository = $optionRepository;
         $this->authModule       = $authModule;
+        $this->validator        = $validator;
     }
 
     /**
@@ -85,10 +93,23 @@ class LoginController extends AbstractController
             $data->email
         ));
 
-        $this->authModule->loginAction(
+        $result = $this->authModule->loginAction(
             $data->email,
             $data->password
         );
+
+        if (!$result) {
+            $this->logger->info(sprintf(
+                "User %s has invalid email or password",
+                $data->email
+            ));
+
+            return $this->json([
+                'errorMessage' => $this->translator->trans(
+                    'Invalid email or password.'
+                ),
+            ]);
+        }
 
         $this->logger->info(sprintf(
             "User %s logged in successfully",

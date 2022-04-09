@@ -11,6 +11,7 @@ namespace App\Module;
 
 use App\Repository\OptionRepository;
 use App\Repository\UserRepository;
+use App\Security\Authenticator;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -31,6 +32,9 @@ class Auth
     /** @var UserPasswordHasherInterface */
     private $passwordHasher;
 
+    /** @var Authenticator */
+    private $authenticator;
+
     /**
      * Class Constructor.
      */
@@ -38,17 +42,30 @@ class Auth
         LoggerInterface $logger,
         OptionRepository $optionRepository,
         UserRepository $userRepository,
-        UserPasswordHasherInterface $passwordHasher
+        UserPasswordHasherInterface $passwordHasher,
+        Authenticator $authenticator
     ) {
         $this->logger           = $logger;
         $this->optionRepository = $optionRepository;
         $this->userRepository   = $userRepository;
         $this->passwordHasher   = $passwordHasher;
+        $this->authenticator    = $authenticator;
     }
 
-    public function loginAction(string $email, string $password): bool
+    /**
+     * Login Action.
+     */
+    public function loginAction(string $email, string $plainPassword): bool
     {
-        // code...
+        $user = $this->authenticator->findUserByEmail($email);
+
+        if (!$this->authenticator->validatePassword($user, $plainPassword)) {
+            return false;
+        }
+
+        $this->authenticator->initSession($user);
+
+        return true;
     }
 
     public function resetPasswordAction(string $token, string $newPassword): bool
