@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Message\Ping;
 use App\Repository\ConfigRepository;
 use App\Service\Worker;
 use Psr\Log\LoggerInterface;
@@ -57,7 +58,7 @@ class HealthController extends AbstractController
     {
         $this->logger->info("Trigger health check");
 
-        $this->worker->ping();
+        $this->worker->dispatch(new Ping(), ["message" => "pong"]);
 
         return $this->json([
             'status' => 'ok',

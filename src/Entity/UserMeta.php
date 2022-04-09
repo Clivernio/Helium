@@ -9,30 +9,30 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\DeliveryRepository;
+use App\Repository\UserMetaRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Delivery Entity.
+ * UserMeta Entity.
  */
-#[ORM\Table(name: 'he_delivery')]
-#[ORM\Entity(repositoryClass: DeliveryRepository::class)]
-class Delivery
+#[ORM\Table(name: 'he_user_meta')]
+#[ORM\Entity(repositoryClass: UserMetaRepository::class)]
+class UserMeta
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 30)]
-    private ?string $status = null;
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
 
-    #[ORM\OneToOne(targetEntity: Subscriber::class, mappedBy: 'subscriber')]
-    private $subscriber;
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $value = null;
 
-    #[ORM\OneToOne(targetEntity: Newsletter::class, mappedBy: 'newsletter')]
-    private $newsletter;
+    #[ORM\OneToOne(targetEntity: User::class, mappedBy: 'user')]
+    private $user;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $created_at = null;
@@ -51,73 +51,73 @@ class Delivery
     }
 
     /**
-     * Get Status.
+     * Get a Name.
      *
      * @return string
      */
-    public function getStatus(): ?string
+    public function getName(): ?string
     {
-        return $this->status;
+        return $this->name;
     }
 
     /**
-     * Set a Status.
+     * Set a Name.
      *
      * @param string
      *
-     * @return Newsletter
+     * @return Option
      */
-    public function setStatus(string $status): self
+    public function setName(string $name): self
     {
-        $this->status = $status;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get Subscriber.
+     * Get a Value.
      *
-     * @return Subscriber
+     * @return string
      */
-    public function getSubscriber(): ?Subscriber
+    public function getValue(): ?string
     {
-        return $this->subscriber;
+        return $this->value;
     }
 
     /**
-     * Set Subscriber.
+     * Set a Value.
      *
-     * @param Subscriber
+     * @param string
      *
-     * @return Delivery
+     * @return Option
      */
-    public function setSubscriber(?Subscriber $subscriber): self
+    public function setValue(?string $value): self
     {
-        $this->subscriber = $subscriber;
+        $this->value = $value;
 
         return $this;
     }
 
     /**
-     * Get Newsletter.
+     * Get User.
      *
-     * @return Newsletter
+     * @return User
      */
-    public function getNewsletter(): ?Newsletter
+    public function getUser(): ?User
     {
-        return $this->newsletter;
+        return $this->user;
     }
 
     /**
-     * Set Newsletter.
+     * Set User.
      *
-     * @param Newsletter
+     * @param User
      *
-     * @return Delivery
+     * @return UserMeta
      */
-    public function setNewsletter(?Newsletter $newsletter): self
+    public function setUser(?User $user): self
     {
-        $this->newsletter = $newsletter;
+        $this->user = $user;
 
         return $this;
     }
@@ -161,7 +161,7 @@ class Delivery
      *
      * @param \DateTimeImmutable
      *
-     * @return Delivery
+     * @return UserMeta
      */
     public function setUpdatedAt(\DateTimeImmutable $updated_at): self
     {
@@ -173,12 +173,12 @@ class Delivery
     /**
      * Create an option from an array.
      */
-    public static function fromArray(array $data): Delivery
+    public static function fromArray(array $data): UserMeta
     {
-        return (new Delivery())
-            ->setStatus($data['status'])
-            ->setSubscriber($data['subscriber'])
-            ->setNewsletter($data['newsletter'])
+        return (new UserMeta())
+            ->setName($data['name'])
+            ->setValue($data['value'])
+            ->setUser($data['user'])
             ->setCreatedAt(empty($data['createdAt']) ? new \DateTimeImmutable() : $data['createdAt'])
             ->setUpdatedAt(empty($data['updatedAt']) ? new \DateTimeImmutable() : $data['updatedAt']);
     }

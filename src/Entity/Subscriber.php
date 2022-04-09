@@ -40,7 +40,7 @@ class Subscriber
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $updated_at = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $removed_at = null;
 
     /**
@@ -181,8 +181,8 @@ class Subscriber
         return (new Subscriber())
             ->setEmail($data['email'])
             ->setStatus($data['status'])
-            ->setCreatedAt($data['createdAt'])
-            ->setUpdatedAt($data['updatedAt'])
-            ->setRemovedAt($data['removedAt']);
+            ->setCreatedAt(empty($data['createdAt']) ? new \DateTimeImmutable() : $data['createdAt'])
+            ->setUpdatedAt(empty($data['updatedAt']) ? new \DateTimeImmutable() : $data['updatedAt'])
+            ->setRemovedAt(empty($data['removedAt']) ? new \DateTimeImmutable() : $data['removedAt']);
     }
 }

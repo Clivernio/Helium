@@ -12,7 +12,7 @@ namespace App\Message;
 /**
  * Newsletter Message.
  */
-class Newsletter
+class Newsletter implements MessageInterface
 {
     /**
      * @var string
@@ -22,7 +22,7 @@ class Newsletter
     /**
      * Class Constructor.
      */
-    public function __construct(array $content)
+    public function __construct(array $content = [])
     {
         $this->content = json_encode($content);
     }
@@ -33,5 +33,13 @@ class Newsletter
     public function getContent(): array
     {
         return json_decode($this->content, true);
+    }
+
+    /**
+     * Set Content.
+     */
+    public function setContent(array $content = [])
+    {
+        $this->content = json_encode($content);
     }
 }

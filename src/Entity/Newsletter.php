@@ -136,7 +136,7 @@ class Newsletter
     {
         return (new Newsletter())
             ->setName($data['name'])
-            ->setCreatedAt($data['createdAt'])
-            ->setCreatedAt($data['updatedAt']);
+            ->setCreatedAt(empty($data['createdAt']) ? new \DateTimeImmutable() : $data['createdAt'])
+            ->setUpdatedAt(empty($data['updatedAt']) ? new \DateTimeImmutable() : $data['updatedAt']);
     }
 }

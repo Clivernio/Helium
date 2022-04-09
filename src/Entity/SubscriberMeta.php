@@ -179,7 +179,7 @@ class SubscriberMeta
             ->setName($data['name'])
             ->setValue($data['value'])
             ->setSubscriber($data['subscriber'])
-            ->setCreatedAt($data['createdAt'])
-            ->setCreatedAt($data['updatedAt']);
+            ->setCreatedAt(empty($data['createdAt']) ? new \DateTimeImmutable() : $data['createdAt'])
+            ->setUpdatedAt(empty($data['updatedAt']) ? new \DateTimeImmutable() : $data['updatedAt']);
     }
 }

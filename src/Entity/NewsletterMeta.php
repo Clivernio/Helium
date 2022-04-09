@@ -179,7 +179,7 @@ class NewsletterMeta
             ->setName($data['name'])
             ->setValue($data['value'])
             ->setNewsletter($data['newsletter'])
-            ->setCreatedAt($data['createdAt'])
-            ->setUpdatedAt($data['updatedAt']);
+            ->setCreatedAt(empty($data['createdAt']) ? new \DateTimeImmutable() : $data['createdAt'])
+            ->setUpdatedAt(empty($data['updatedAt']) ? new \DateTimeImmutable() : $data['updatedAt']);
     }
 }

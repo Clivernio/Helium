@@ -59,4 +59,14 @@ class UserMetaRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    /**
+     * Find a Meta by Value.
+     */
+    public function findMetaByValue(string $value): ?UserMeta
+    {
+        $meta = $this->findOneBy(['value' => $value]);
+
+        return !empty($meta) ? $meta : null;
+    }
 }

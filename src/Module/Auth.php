@@ -9,7 +9,10 @@ declare(strict_types=1);
 
 namespace App\Module;
 
+use App\Entity\UserMeta;
+use App\Exception\InvalidRequest;
 use App\Repository\ConfigRepository;
+use App\Repository\UserMetaRepository;
 use App\Repository\UserRepository;
 use App\Security\Authenticator;
 use Psr\Log\LoggerInterface;
@@ -29,6 +32,9 @@ class Auth
     /** @var UserRepository */
     private $userRepository;
 
+    /** @var UserMetaRepository */
+    private $userMetaRepository;
+
     /** @var UserPasswordHasherInterface */
     private $passwordHasher;
 
@@ -42,14 +48,16 @@ class Auth
         LoggerInterface $logger,
         ConfigRepository $configRepository,
         UserRepository $userRepository,
+        UserMetaRepository $userMetaRepository,
         UserPasswordHasherInterface $passwordHasher,
         Authenticator $authenticator
     ) {
-        $this->logger           = $logger;
-        $this->configRepository = $configRepository;
-        $this->userRepository   = $userRepository;
-        $this->passwordHasher   = $passwordHasher;
-        $this->authenticator    = $authenticator;
+        $this->logger             = $logger;
+        $this->configRepository   = $configRepository;
+        $this->userRepository     = $userRepository;
+        $this->userMetaRepository = $userMetaRepository;
+        $this->passwordHasher     = $passwordHasher;
+        $this->authenticator      = $authenticator;
     }
 
     /**
@@ -58,6 +66,10 @@ class Auth
     public function loginAction(string $email, string $plainPassword): bool
     {
         $user = $this->authenticator->findUserByEmail($email);
+
+        if (empty($user)) {
+            throw new InvalidRequest('Invalid email or password.');
+        }
 
         if (!$this->authenticator->validatePassword($user, $plainPassword)) {
             return false;
@@ -68,13 +80,47 @@ class Auth
         return true;
     }
 
-    public function resetPasswordAction(string $token, string $newPassword): bool
+    /**
+     * Reset User Password by a Token.
+     */
+    public function resetPasswordAction(string $token, string $newPassword): void
     {
-        // code...
+        $meta = $this->userMetaRepository->findMetaByValue($token);
+
+        if (empty($meta)) {
+            throw new InvalidRequest('Invalid reset password request');
+        }
+
+        $this->authenticator->updatePassword($meta->getUser(), $newPassword);
     }
 
-    public function forgotPasswordAction(string $email): bool
+    /**
+     * Forgot Password Request.
+     */
+    public function forgotPasswordAction(string $email): void
     {
-        // code...
+        // Create a random token
+        $token = bin2hex(random_bytes(rand(30, 40)));
+
+        while (!empty($this->userMetaRepository->findMetaByValue($token))) {
+            $token = bin2hex(random_bytes(rand(30, 40)));
+        }
+
+        $user = $this->authenticator->findUserByEmail($email);
+
+        if (empty($user)) {
+            throw new InvalidRequest('Invalid email provided.');
+        }
+
+        // Create reset token & attach to user
+        $meta = UserMeta::fromArray([
+            "name"  => "reset_password_token",
+            "value" => $token,
+            "user"  => $user,
+        ]);
+
+        $this->userMetaRepository->add($meta, true);
+
+        // Dispatch email task
     }
 }

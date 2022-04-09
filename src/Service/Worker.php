@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Entity\Task;
-use App\Message\Ping;
+use App\Message\MessageInterface;
 use App\Repository\TaskRepository;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -42,25 +42,24 @@ class Worker
     }
 
     /**
-     * Ping Task.
+     * Dispatch a Task.
      */
-    public function ping(string $message = "pong")
+    public function dispatch(MessageInterface $messageObj, array $data = []): string
     {
-        $uuid = Uuid::uuid4()->toString();
+        $uuid    = Uuid::uuid4()->toString();
+        $content = array_merge(['task_id' => $uuid], $data);
 
-        $data = [
-            'task_id' => $uuid,
-            'message' => $message,
-        ];
+        $this->storeTask($uuid, json_encode($content));
+        $messageObj->setContent($content);
+        $this->messageBus->dispatch($messageObj);
 
-        $this->storeTask($uuid, json_encode($data));
-        $this->messageBus->dispatch(new Ping($data));
+        return $uuid;
     }
 
     /**
      * Store a Task.
      */
-    public function storeTask(string $uuid, string $payload)
+    private function storeTask(string $uuid, string $payload)
     {
         $task = Task::fromArray([
             'status'  => 'PENDING',
