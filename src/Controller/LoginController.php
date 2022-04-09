@@ -111,19 +111,6 @@ class LoginController extends AbstractController
             $data->password
         );
 
-        if (!$result) {
-            $this->logger->info(sprintf(
-                "User %s has invalid email or password",
-                $data->email
-            ));
-
-            return $this->json([
-                'errorMessage' => $this->translator->trans(
-                    'Invalid email or password.'
-                ),
-            ]);
-        }
-
         $this->logger->info(sprintf(
             "User %s logged in successfully",
             $data->email

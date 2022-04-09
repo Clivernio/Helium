@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -24,7 +25,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
@@ -32,6 +33,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::JSON, nullable: false)]
     private array $roles = [];
+
+    #[ORM\OneToMany(targetEntity: UserMeta::class, mappedBy: 'user', cascade: ['ALL'])]
+    private ?Collection $metas = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: false)]
     private ?string $password;
@@ -202,5 +206,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->updated_at = $updated_at;
 
         return $this;
+    }
+
+    /**
+     * Get Metas.
+     *
+     * @return Collection
+     */
+    public function getMetas(): ?Collection
+    {
+        return $this->metas;
     }
 }

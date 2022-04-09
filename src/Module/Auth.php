@@ -11,10 +11,12 @@ namespace App\Module;
 
 use App\Entity\UserMeta;
 use App\Exception\InvalidRequest;
+use App\Message\ResetPasssword;
 use App\Repository\ConfigRepository;
 use App\Repository\UserMetaRepository;
 use App\Repository\UserRepository;
 use App\Security\Authenticator;
+use App\Service\Worker;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -41,6 +43,9 @@ class Auth
     /** @var Authenticator */
     private $authenticator;
 
+    /** @var Worker */
+    private $worker;
+
     /**
      * Class Constructor.
      */
@@ -50,7 +55,8 @@ class Auth
         UserRepository $userRepository,
         UserMetaRepository $userMetaRepository,
         UserPasswordHasherInterface $passwordHasher,
-        Authenticator $authenticator
+        Authenticator $authenticator,
+        Worker $worker
     ) {
         $this->logger             = $logger;
         $this->configRepository   = $configRepository;
@@ -58,12 +64,13 @@ class Auth
         $this->userMetaRepository = $userMetaRepository;
         $this->passwordHasher     = $passwordHasher;
         $this->authenticator      = $authenticator;
+        $this->worker             = $worker;
     }
 
     /**
      * Login Action.
      */
-    public function loginAction(string $email, string $plainPassword): bool
+    public function loginAction(string $email, string $plainPassword): void
     {
         $user = $this->authenticator->findUserByEmail($email);
 
@@ -72,12 +79,10 @@ class Auth
         }
 
         if (!$this->authenticator->validatePassword($user, $plainPassword)) {
-            return false;
+            throw new InvalidRequest('Invalid email or password.');
         }
 
         $this->authenticator->initSession($user);
-
-        return true;
     }
 
     /**
@@ -92,6 +97,8 @@ class Auth
         }
 
         $this->authenticator->updatePassword($meta->getUser(), $newPassword);
+
+        $this->userMetaRepository->remove($meta, true);
     }
 
     /**
@@ -119,8 +126,12 @@ class Auth
             "user"  => $user,
         ]);
 
-        $this->userMetaRepository->add($meta, true);
+        $this->userMetaRepository->save($meta, true);
 
         // Dispatch email task
+        $this->worker->dispatch(
+            new ResetPasssword(),
+            ["email" => $email, "token" => $token]
+        );
     }
 }

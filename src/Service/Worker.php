@@ -44,14 +44,14 @@ class Worker
     /**
      * Dispatch a Task.
      */
-    public function dispatch(MessageInterface $messageObj, array $data = []): string
+    public function dispatch(MessageInterface $message, array $data = []): string
     {
         $uuid    = Uuid::uuid4()->toString();
         $content = array_merge(['task_id' => $uuid], $data);
 
         $this->storeTask($uuid, json_encode($content));
-        $messageObj->setContent($content);
-        $this->messageBus->dispatch($messageObj);
+        $message->setContent($content);
+        $this->messageBus->dispatch($message);
 
         return $uuid;
     }

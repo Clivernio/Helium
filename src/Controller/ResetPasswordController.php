@@ -10,10 +10,13 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Module\Auth as AuthModule;
+use App\Module\Install as InstallModule;
 use App\Repository\ConfigRepository;
 use App\Service\Validator;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -38,6 +41,9 @@ class ResetPasswordController extends AbstractController
     /** @var AuthModule */
     private $authModule;
 
+    /** @var InstallModule */
+    private $installModule;
+
     /**
      * Class Constructor.
      */
@@ -46,20 +52,22 @@ class ResetPasswordController extends AbstractController
         ConfigRepository $configRepository,
         TranslatorInterface $translator,
         Validator $validator,
-        AuthModule $authModule
+        AuthModule $authModule,
+        InstallModule $installModule
     ) {
         $this->logger           = $logger;
         $this->translator       = $translator;
         $this->configRepository = $configRepository;
         $this->validator        = $validator;
         $this->authModule       = $authModule;
+        $this->installModule    = $installModule;
     }
 
     /**
      * Reset Password Web Page.
      */
     #[Route('/reset-password/{token}', name: 'app_ui_reset_password')]
-    public function resetPassword(): Response
+    public function resetPassword($token): Response
     {
         $this->logger->info("Render reset password page");
 
@@ -73,6 +81,7 @@ class ResetPasswordController extends AbstractController
         return $this->render('page/reset_password.html.twig', [
             'title' => $this->translator->trans("Reset Password") . " | "
             . $this->configRepository->findValueByName("he_app_name", "Helium"),
+            'token' => $token,
         ]);
     }
 

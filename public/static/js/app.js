@@ -20,6 +20,8 @@ helium_app.login_screen = (Vue, axios, Cookies, $) => {
                 let _self = $(event.target);
                 let _form = _self.closest("form");
 
+                _form.find("button").attr("disabled", "disabled");
+
                 _form.serializeArray().map((item, index) => {
                     inputs[item.name] = item.value;
                 });
@@ -40,6 +42,7 @@ helium_app.login_screen = (Vue, axios, Cookies, $) => {
                         // Show error
                         toastr.clear();
                         toastr.error(error.response.data.errorMessage);
+                        _form.find("button").removeAttr("disabled");
                     });
             }
         }
@@ -67,6 +70,8 @@ helium_app.reset_password_screen = (Vue, axios, Cookies, $) => {
                 let _self = $(event.target);
                 let _form = _self.closest("form");
 
+                _form.find("button").attr("disabled", "disabled");
+
                 _form.serializeArray().map((item, index) => {
                     inputs[item.name] = item.value;
                 });
@@ -87,6 +92,7 @@ helium_app.reset_password_screen = (Vue, axios, Cookies, $) => {
                         // Show error
                         toastr.clear();
                         toastr.error(error.response.data.errorMessage);
+                        _form.find("button").removeAttr("disabled");
                     });
             }
         }
@@ -114,6 +120,8 @@ helium_app.install_screen = (Vue, axios, Cookies, $) => {
                 let _self = $(event.target);
                 let _form = _self.closest("form");
 
+                _form.find("button").attr("disabled", "disabled");
+
                 _form.serializeArray().map((item, index) => {
                     inputs[item.name] = item.value;
                 });
@@ -133,6 +141,7 @@ helium_app.install_screen = (Vue, axios, Cookies, $) => {
                         this.isInProgress = false;
                         toastr.clear();
                         toastr.error(error.response.data.errorMessage);
+                        _form.find("button").removeAttr("disabled");
                     });
             }
         }
@@ -160,6 +169,8 @@ helium_app.forgot_password_screen = (Vue, axios, Cookies, $) => {
                 let _self = $(event.target);
                 let _form = _self.closest("form");
 
+                _form.find("button").attr("disabled", "disabled");
+
                 _form.serializeArray().map((item, index) => {
                     inputs[item.name] = item.value;
                 });
@@ -180,6 +191,7 @@ helium_app.forgot_password_screen = (Vue, axios, Cookies, $) => {
                         // Show error
                         toastr.clear();
                         toastr.error(error.response.data.errorMessage);
+                        _form.find("button").removeAttr("disabled");
                     });
             }
         }

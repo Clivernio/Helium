@@ -22,16 +22,16 @@ class UserMeta
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 100)]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $value = null;
 
-    #[ORM\OneToOne(targetEntity: User::class, mappedBy: 'user')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'metas')]
     private $user;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
