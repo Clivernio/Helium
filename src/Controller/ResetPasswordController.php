@@ -65,6 +65,8 @@ class ResetPasswordController extends AbstractController
 
     /**
      * Reset Password Web Page.
+     *
+     * @param mixed $token
      */
     #[Route('/reset-password/{token}', name: 'app_ui_reset_password')]
     public function resetPassword($token): Response
