@@ -3,5 +3,60 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
+	<div class="page-body">
+      <div class="container-xl">
+        <div class="card">
+          <div class="row g-0">
+            <div class="col-3 d-none d-md-block border-end">
+              <div class="card-body">
+                <div class="list-group list-group-transparent">
+                	{% if tab == "general" %}
+                  		<a href="{{ path('app_ui_general_settings') }}" class="list-group-item list-group-item-action d-flex align-items-center active">{% trans %}General{% endtrans %}</a>
+                  	{% else %}
+                  		<a href="{{ path('app_ui_general_settings') }}" class="list-group-item list-group-item-action d-flex align-items-center">{% trans %}General{% endtrans %}</a>
+                  	{% endif %}
 
+                  	{% if tab == "appearance" %}
+                 		<a href="{{ path('app_ui_appearance_settings') }}" class="list-group-item list-group-item-action d-flex align-items-center active">{% trans %}Appearance{% endtrans %}</a>
+                 	{% else %}
+                 		<a href="{{ path('app_ui_appearance_settings') }}" class="list-group-item list-group-item-action d-flex align-items-center">{% trans %}Appearance{% endtrans %}</a>
+                 	{% endif %}
+                </div>
+              </div>
+            </div>
+            {% if tab == "general" %}
+				<div class="col d-flex flex-column">
+		            <form action="#" method="post">
+		              <div class="card-body">
+		                <h2 class="mb-4">{% trans %}General Settings{% endtrans %}</h2>
+		              </div>
+		              <input type="hidden" name="csrf_token" value="{{ csrf_token('settings-action') }}"/>
+		              <div class="card-footer bg-transparent mt-auto">
+		                <div class="btn-list justify-content-end">
+		                  <button type="submit" class="btn btn-primary">{% trans %}Submit{% endtrans %}</button>
+		                </div>
+		              </div>
+		            </form>
+	            </div>
+            {% endif %}
+
+            {% if tab == "appearance" %}
+				<div class="col d-flex flex-column">
+		            <form action="#" method="post">
+		              <div class="card-body">
+		                <h2 class="mb-4">{% trans %}Appearance Settings{% endtrans %}</h2>
+		              </div>
+		              <input type="hidden" name="csrf_token" value="{{ csrf_token('settings-action') }}"/>
+		              <div class="card-footer bg-transparent mt-auto">
+		                <div class="btn-list justify-content-end">
+		                  <button type="submit" class="btn btn-primary">{% trans %}Submit{% endtrans %}</button>
+		                </div>
+		              </div>
+		            </form>
+	            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+	</div>
 {% endblock %}

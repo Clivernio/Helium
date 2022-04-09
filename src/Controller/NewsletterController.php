@@ -46,13 +46,14 @@ class NewsletterController extends AbstractController
     /**
      * Newsletter Web Page.
      */
-    #[Route('/admin/newsletter', name: 'app_newsletter_web')]
+    #[Route('/admin/newsletter', name: 'app_ui_newsletters_index')]
     public function newsletter(): Response
     {
         $this->logger->info("Render newsletter page");
 
-        return $this->render('page/newsletter.html.twig', [
-            'title' => $this->configRepository->findValueByName("he_app_name", "Helium"),
+        return $this->render('page/newsletters_index.html.twig', [
+            'title' => $this->translator->trans("Newsletters") . " | "
+            . $this->configRepository->findValueByName("he_app_name", "Helium"),
         ]);
     }
 }

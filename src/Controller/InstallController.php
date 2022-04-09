@@ -114,10 +114,11 @@ class InstallController extends AbstractController
 
         // Install application
         $this->installModule->installApplication([
-            'he_app_installed' => "done",
-            'he_app_name'      => $data->appName,
-            'he_app_url'       => $data->appURL,
-            'he_app_email'     => $data->appEmail,
+            'he_app_installed'   => 'done',
+            'he_app_name'        => $data->appName,
+            'he_app_url'         => $data->appURL,
+            'he_app_email'       => $data->appEmail,
+            'he_app_home_layout' => 'default',
         ]);
 
         // Create admin account

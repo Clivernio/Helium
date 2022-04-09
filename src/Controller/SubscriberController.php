@@ -46,13 +46,14 @@ class SubscriberController extends AbstractController
     /**
      * Subscriber Web Page.
      */
-    #[Route('/admin/subscriber', name: 'app_subscriber_web')]
+    #[Route('/admin/subscriber', name: 'app_ui_subscribers_index')]
     public function subscriber(): Response
     {
         $this->logger->info("Render subscriber page");
 
-        return $this->render('page/subscriber.html.twig', [
-            'title' => $this->configRepository->findValueByName("he_app_name", "Helium"),
+        return $this->render('page/subscribers_index.html.twig', [
+            'title' => $this->translator->trans("Subscribers") . " | "
+            . $this->configRepository->findValueByName("he_app_name", "Helium"),
         ]);
     }
 }

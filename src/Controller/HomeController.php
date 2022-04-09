@@ -49,7 +49,7 @@ class HomeController extends AbstractController
     /**
      * Home Web Page.
      */
-    #[Route('/', name: 'app_home_web')]
+    #[Route('/', name: 'app_ui_home')]
     public function home(): Response
     {
         $this->logger->info("Render home page");
@@ -61,7 +61,9 @@ class HomeController extends AbstractController
             return $this->redirectToRoute('app_ui_install');
         }
 
-        return $this->render('page/home.html.twig', [
+        $layout = $this->configRepository->findValueByName("he_app_home_layout", "default");
+
+        return $this->render(sprintf('page/home.%s.html.twig', $layout), [
             'title' => $this->configRepository->findValueByName("he_app_name", "Helium"),
         ]);
     }

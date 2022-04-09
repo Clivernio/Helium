@@ -15,9 +15,12 @@ use Exception;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -31,13 +34,17 @@ class ExceptionSubscriber implements EventSubscriberInterface
     /** @var TranslatorInterface */
     private $translator;
 
+    /** @var RouterInterface */
+    private $router;
+
     /**
      * Class Constructor.
      */
-    public function __construct(LoggerInterface $logger, TranslatorInterface $translator)
+    public function __construct(LoggerInterface $logger, TranslatorInterface $translator, RouterInterface $router)
     {
         $this->logger     = $logger;
         $this->translator = $translator;
+        $this->router     = $router;
     }
 
     /**
@@ -51,6 +58,10 @@ class ExceptionSubscriber implements EventSubscriberInterface
 
         if ($event->getThrowable() instanceof ResourceNotFound) {
             return $this->handleResourceNotFound($event, $event->getThrowable());
+        }
+
+        if ($event->getThrowable() instanceof NotFoundHttpException) {
+            return $this->handleNotFoundError($event, $event->getThrowable());
         }
 
         return $this->handleUnexpectedError($event, $event->getThrowable());
@@ -118,5 +129,19 @@ class ExceptionSubscriber implements EventSubscriberInterface
             'errorMessage'  => $this->translator->trans('Internal server error!'),
             'correlationId' => $event->getRequest()->headers->get('X-Correlation-ID', ''),
         ], Response::HTTP_INTERNAL_SERVER_ERROR));
+    }
+
+    /**
+     * Handle Not Found Error Exception.
+     */
+    private function handleNotFoundError(ExceptionEvent $event, NotFoundHttpException $e): void
+    {
+        $this->logger->debug(sprintf(
+            'NotFoundHttpException Exception with errorMessage [%s] thrown: %s',
+            $e->getMessage(),
+            $e->getTraceAsString()
+        ));
+
+        $event->setResponse(new RedirectResponse($this->router->generate('app_ui_not_found')));
     }
 }
