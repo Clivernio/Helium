@@ -46,7 +46,7 @@ class ErrorController extends AbstractController
     /**
      * Error Web Page.
      */
-    #[Route('/500', name: 'app_error_web')]
+    #[Route('/500', name: 'app_ui_error')]
     public function error(): Response
     {
         $this->logger->info("Render error page");

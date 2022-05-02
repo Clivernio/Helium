@@ -46,7 +46,7 @@ class NotFoundController extends AbstractController
     /**
      * Not Found Web Page.
      */
-    #[Route('/404', name: 'app_not_found_web')]
+    #[Route('/404', name: 'app_ui_not_found')]
     public function notFound(): Response
     {
         $this->logger->info("Render not found page");

@@ -69,7 +69,7 @@ class InstallController extends AbstractController
         if ($this->installModule->isInstalled()) {
             $this->logger->info("Application is already installed, Redirect to 404");
 
-            return $this->redirectToRoute('app_not_found_web');
+            return $this->redirectToRoute('app_ui_not_found');
         }
 
         return $this->render('page/install.html.twig', [
