@@ -133,6 +133,13 @@ dasyn:
 	@$(php) bin/console debug:messenger
 
 
+## async: Run async tasks
+.PHONY: async
+async:
+	@echo ">> ============= Async Tasks ============= <<"
+	@$(php) bin/console messenger:consume async -vv
+
+
 ## ci: Run CI Checks
 .PHONY: ci
 ci: config purge composer lint test
