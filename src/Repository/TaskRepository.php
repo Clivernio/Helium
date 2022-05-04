@@ -59,4 +59,14 @@ class TaskRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    /**
+     * Find a Task by UUID.
+     */
+    public function findOneByUuid(string $uuid): ?Task
+    {
+        $task = $this->findOneBy(['uuid' => $uuid]);
+
+        return !empty($task) ? $task : null;
+    }
 }

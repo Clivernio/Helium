@@ -33,6 +33,9 @@ class Task
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $payload = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $result = null;
+
     #[ORM\Column]
     private ?\DateTimeImmutable $run_at = null;
 
@@ -125,6 +128,30 @@ class Task
     }
 
     /**
+     * Get a Result.
+     *
+     * @return string
+     */
+    public function getResult(): ?string
+    {
+        return $this->result;
+    }
+
+    /**
+     * Set a Result.
+     *
+     * @param string
+     *
+     * @return Task
+     */
+    public function setResult(?string $result): self
+    {
+        $this->result = $result;
+
+        return $this;
+    }
+
+    /**
      * Get CreatedAt.
      *
      * @return DateTimeImmutable
@@ -203,7 +230,9 @@ class Task
     {
         return (new Task())
             ->setStatus($data['status'])
-            ->setValue($data['payload'])
+            ->setUuid($data['uuid'])
+            ->setPayload($data['payload'])
+            ->setResult($data['result'])
             ->setRunAt(empty($data['runAt']) ? new \DateTimeImmutable() : $data['runAt'])
             ->setCreatedAt(empty($data['createdAt']) ? new \DateTimeImmutable() : $data['createdAt'])
             ->setUpdatedAt(empty($data['updatedAt']) ? new \DateTimeImmutable() : $data['updatedAt']);

@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Repository\OptionRepository;
+use App\Service\Worker;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -30,17 +31,22 @@ class HealthController extends AbstractController
     /** @var TranslatorInterface */
     private $translator;
 
+    /** @var Worker */
+    private $worker;
+
     /**
      * Class Constructor.
      */
     public function __construct(
         LoggerInterface $logger,
         OptionRepository $optionRepository,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        Worker $worker
     ) {
         $this->logger           = $logger;
         $this->translator       = $translator;
         $this->optionRepository = $optionRepository;
+        $this->worker           = $worker;
     }
 
     /**
@@ -50,6 +56,8 @@ class HealthController extends AbstractController
     public function health(): JsonResponse
     {
         $this->logger->info("Trigger health check");
+
+        $this->worker->ping();
 
         return $this->json([
             'status' => 'ok',
