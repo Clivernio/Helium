@@ -125,6 +125,14 @@ docs:
 	@$(mdbook) build docs
 
 
+
+## dasyn: Debug async messages and handlers
+.PHONY: dasyn
+dasyn:
+	@echo ">> ============= Debug Messenger ============= <<"
+	@$(php) bin/console debug:messenger
+
+
 ## ci: Run CI Checks
 .PHONY: ci
 ci: config purge composer lint test
