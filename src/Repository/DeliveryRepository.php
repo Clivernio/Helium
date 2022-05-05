@@ -59,4 +59,24 @@ class DeliveryRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    /**
+     * Find a Delivery By ID.
+     */
+    public function findOneByID(int $id): ?Delivery
+    {
+        $delivery = $this->findOneBy(['id' => $id]);
+
+        return !empty($delivery) ? $delivery : null;
+    }
+
+    /**
+     * Find by a Filter.
+     */
+    public function findByFilter(array $filter): ?Delivery
+    {
+        $delivery = $this->findOneBy($filter);
+
+        return !empty($delivery) ? $delivery : null;
+    }
 }

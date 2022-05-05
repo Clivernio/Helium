@@ -164,4 +164,29 @@ class NewsletterRepository extends ServiceEntityRepository
 
         return $resultSet->fetchAllAssociative();
     }
+
+    /**
+     * Get Pending Newsletters.
+     */
+    public function getPendingNewsletters(): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = sprintf(
+            "SELECT * FROM he_newsletter n
+            WHERE (n.delivery_type = '%s' AND n.delivery_status = '%s')
+            OR (n.delivery_status = '%s')
+            OR (n.delivery_type = '%s' AND n.delivery_status = '%s' AND n.delivery_time <= :timeNow)",
+            self::NOW_TYPE,
+            self::PENDING_STATUS,
+            self::IN_PROGRESS_STATUS,
+            self::SCHEDULED_TYPE,
+            self::ON_HOLD_STATUS
+        );
+
+        $stmt      = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['timeNow' => (new \DateTime())->format("Y-m-d H:i:s")]);
+
+        return $resultSet->fetchAllAssociative();
+    }
 }

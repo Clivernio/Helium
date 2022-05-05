@@ -15,5 +15,5 @@ framework:
         routing:
             App\Message\Ping: sync
             App\Message\ResetPasssword: sync
-            App\Message\VerifyEmail: sync
+            App\Message\VerifyEmail: async
             App\Message\Newsletter: async

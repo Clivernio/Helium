@@ -53,6 +53,11 @@
                         </a>
                       </td>
                     </tr>
+                    <tr v-show="noRecords">
+                      <td colspan="6" class="text-center text-muted">
+                        {% trans %}No Records Found!{% endtrans %}
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>

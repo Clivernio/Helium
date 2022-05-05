@@ -133,11 +133,18 @@ dasyn:
 	@$(php) bin/console debug:messenger
 
 
-## async: Run async tasks
-.PHONY: async
-async:
-	@echo ">> ============= Async Tasks ============= <<"
+## worker: Run async tasks
+.PHONY: worker
+worker:
+	@echo ">> ============= Run Worker ============= <<"
 	@$(php) bin/console messenger:consume async -vv
+
+
+## watch: Watch for new newsletters
+.PHONY: watch
+watch:
+	@echo ">> ============= Watch Newsletter ============= <<"
+	@$(php) bin/console watch
 
 
 ## ci: Run CI Checks

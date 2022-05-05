@@ -307,6 +307,7 @@ helium_app.subscriber_index_screen = (Vue, axios, $) => {
                 subscribers: [
 
                 ],
+                noRecords: false
             }
         },
         methods: {
@@ -333,6 +334,10 @@ helium_app.subscriber_index_screen = (Vue, axios, $) => {
                 .then((response) => {
                     this.subscribers = this.subscribers.concat(response.data.subscribers);
                     this.offset += 20;
+
+                    if (response.data._metadata.totalCount == 0) {
+                        this.noRecords = true;
+                    }
 
                     if (this.offset >= response.data._metadata.totalCount) {
                         this.showLoad = false;
@@ -699,6 +704,7 @@ helium_app.newsletter_index_screen = (Vue, axios, $) => {
                 newsletters: [
 
                 ],
+                noRecords: false,
             }
         },
         methods: {
@@ -748,6 +754,12 @@ helium_app.newsletter_index_screen = (Vue, axios, $) => {
                 .then((response) => {
                     this.newsletters = this.newsletters.concat(response.data.newsletters);
                     this.offset += 20;
+
+                    console.log(response.data._metadata.totalCount);
+
+                    if (response.data._metadata.totalCount == 0) {
+                        this.noRecords = true;
+                    }
 
                     if (this.offset >= response.data._metadata.totalCount) {
                         this.showLoad = false;

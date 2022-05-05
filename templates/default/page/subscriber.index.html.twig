@@ -48,6 +48,11 @@
                         <a :href="subscriber.editLink">{% trans %}Edit{% endtrans %}</a>
                       </td>
                     </tr>
+                    <tr v-show="noRecords">
+                      <td colspan="5" class="text-center text-muted">
+                        {% trans %}No Records Found!{% endtrans %}
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
