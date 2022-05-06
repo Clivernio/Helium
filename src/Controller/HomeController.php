@@ -264,19 +264,19 @@ class HomeController extends AbstractController
         $data = json_decode($content);
 
         if (empty($data->csrf_token) || !$this->isCsrfTokenValid('unsubscribe-action', $data->csrf_token)) {
-            throw new InvalidRequest('Invalid request1');
+            throw new InvalidRequest('Invalid request');
         }
 
         $result = $this->subscriberModule->verifySubscriber($data->email, $data->token);
 
         if (!$result) {
-            throw new InvalidRequest('Invalid request2');
+            throw new InvalidRequest('Invalid request');
         }
 
         $subscriber = $this->subscriberModule->findOneByEmail($data->email);
 
         if (empty($subscriber)) {
-            throw new InvalidRequest('Invalid request3');
+            throw new InvalidRequest('Invalid request');
         }
 
         // Unsubscribe
