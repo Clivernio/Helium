@@ -117,7 +117,7 @@ class HomeController extends AbstractController
         $result = $this->subscriberModule->verifySubscriber($email, $token);
 
         if (!$result) {
-            throw new NotFoundHttpException(sprintf("Newsletter with email %s not found", $email));
+            throw new NotFoundHttpException(sprintf("Subscriber with email %s not found", $email));
         }
 
         $subscriber = $this->subscriberModule->findOneByEmail(
@@ -146,6 +146,52 @@ class HomeController extends AbstractController
     }
 
     /**
+     * Unsubscribe Page.
+     */
+    #[Route('/unsubscribe/{email}/{token}', name: 'app_ui_unsubscribe')]
+    public function unsubscribe(string $email, string $token): Response
+    {
+        $this->logger->info(sprintf("Verify subscriber with email %s and token %s", $email, $token));
+
+        $result = $this->subscriberModule->verifySubscriber($email, $token);
+
+        if (!$result) {
+            throw new NotFoundHttpException(sprintf("Subscriber with email %s not found", $email));
+        }
+
+        $subscriber = $this->subscriberModule->findOneByEmail(
+            $email
+        );
+
+        if (SubscriberRepository::SUBSCRIBED !== $subscriber->getStatus()) {
+            return $this->redirectToRoute('app_ui_home');
+        }
+
+        return $this->render('page/unsubscribe.html.twig', [
+            'title'                  => $this->configRepository->findValueByName("he_app_name", "Helium"),
+            'analytics_code'         => $this->configRepository->findValueByName("he_google_analytics_code", ""),
+            'newsletter_title'       => $this->configRepository->findValueByName("he_newsletter_title", ""),
+            'newsletter_description' => $this->configRepository->findValueByName("he_newsletter_description", ""),
+            'newsletter_footer'      => $this->configRepository->findValueByName("he_newsletter_footer", ""),
+            "meta"                   => [
+                "description"         => $this->configRepository->findValueByName("he_seo_description", ""),
+                "keywords"            => $this->configRepository->findValueByName("he_seo_keywords", ""),
+                "canonical"           => $this->configRepository->findValueByName("he_seo_canonical", ""),
+                "twitter_title"       => $this->configRepository->findValueByName("he_seo_twitter_title", ""),
+                "twitter_description" => $this->configRepository->findValueByName("he_seo_twitter_description", ""),
+                "twitter_image"       => $this->configRepository->findValueByName("he_seo_twitter_image", ""),
+                "twitter_site"        => $this->configRepository->findValueByName("he_seo_twitter_site", ""),
+                "twitter_creator"     => $this->configRepository->findValueByName("he_seo_twitter_creator", ""),
+            ],
+            'subscriber' => [
+                'id'    => $subscriber->getId(),
+                'email' => $subscriber->getEmail(),
+                'token' => $subscriber->getToken(),
+            ],
+        ]);
+    }
+
+    /**
      * Subscribe API Endpoint.
      */
     #[Route('/api/v1/subscribe', name: 'app_endpoint_v1_subscribe', methods: ['POST'])]
@@ -166,10 +212,23 @@ class HomeController extends AbstractController
             throw new InvalidRequest('Invalid request');
         }
 
-        $subscriber = $this->subscriberModule->add([
-            'email'  => $data->email,
-            'status' => SubscriberRepository::PENDING_VERIFY,
-        ]);
+        $subscriber = $this->subscriberModule->findOneByEmail($data->email);
+
+        if (empty($subscriber)) {
+            // Add a new subscriber
+            $subscriber = $this->subscriberModule->add([
+                'email'  => $data->email,
+                'status' => SubscriberRepository::PENDING_VERIFY,
+            ]);
+        } else {
+            // Edit current subscriber
+            $this->subscriberModule->edit(
+                $subscriber->getId(),
+                [
+                    'status' => SubscriberRepository::PENDING_VERIFY,
+                ]
+            );
+        }
 
         // Dispatch verify email task
         $this->worker->dispatch(
@@ -183,6 +242,54 @@ class HomeController extends AbstractController
         return $this->json([
             'successMessage' => $this->translator->trans(
                 'Email added successfully. Please check your inbox to verify!'
+            ),
+        ]);
+    }
+
+    /**
+     * Unsubscribe API Endpoint.
+     */
+    #[Route('/api/v1/unsubscribe', name: 'app_endpoint_v1_unsubscribe', methods: ['POST'])]
+    public function unsubscribeEndpoint(Request $request): JsonResponse
+    {
+        $this->logger->info("Trigger unsubscribe v1 endpoint");
+
+        $content = $request->getContent();
+
+        $this->validator->validate(
+            $content,
+            "v1/unsubscribeAction.schema.json"
+        );
+
+        $data = json_decode($content);
+
+        if (empty($data->csrf_token) || !$this->isCsrfTokenValid('unsubscribe-action', $data->csrf_token)) {
+            throw new InvalidRequest('Invalid request1');
+        }
+
+        $result = $this->subscriberModule->verifySubscriber($data->email, $data->token);
+
+        if (!$result) {
+            throw new InvalidRequest('Invalid request2');
+        }
+
+        $subscriber = $this->subscriberModule->findOneByEmail($data->email);
+
+        if (empty($subscriber)) {
+            throw new InvalidRequest('Invalid request3');
+        }
+
+        // Unsubscribe
+        $this->subscriberModule->edit(
+            $subscriber->getId(),
+            [
+                'status' => SubscriberRepository::UNSUBSCRIBED,
+            ]
+        );
+
+        return $this->json([
+            'successMessage' => $this->translator->trans(
+                'Email unsubscribed successfully!'
             ),
         ]);
     }

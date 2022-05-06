@@ -1,0 +1,23 @@
+{
+  "$id": "unsubscriberAction",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Unsubscriber Action",
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 50,
+      "format": "email"
+    },
+    "token": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 2000
+    }
+  },
+  "required": [
+    "email",
+    "token"
+  ]
+}
