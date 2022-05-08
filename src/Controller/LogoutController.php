@@ -45,7 +45,7 @@ class LogoutController extends AbstractController
     /**
      * Logout Endpoint.
      */
-    #[Route('/logout', name: 'app_logout_web')]
+    #[Route('/logout', name: 'app_ui_logout')]
     public function logout()
     {
         $this->logger->info("Trigger logout action");

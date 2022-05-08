@@ -19,7 +19,7 @@ security:
             provider: app_user_provider
 
             logout:
-                path: app_logout_web
+                path: app_ui_logout
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
