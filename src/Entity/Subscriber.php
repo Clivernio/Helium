@@ -29,6 +29,9 @@ class Subscriber
     #[ORM\Column(length: 255, unique: true)]
     private ?string $email = null;
 
+    #[ORM\Column(length: 200)]
+    private ?string $token = null;
+
     #[ORM\Column(length: 30)]
     private ?string $status = null;
 
@@ -43,9 +46,6 @@ class Subscriber
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private ?\DateTimeImmutable $updatedAt = null;
-
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    private ?\DateTimeImmutable $deletedAt = null;
 
     /**
      * Get ID.
@@ -101,6 +101,30 @@ class Subscriber
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get Token.
+     *
+     * @return string
+     */
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    /**
+     * Set a Token.
+     *
+     * @param string
+     *
+     * @return Newsletter
+     */
+    public function setToken(string $token): self
+    {
+        $this->token = $token;
 
         return $this;
     }
@@ -174,30 +198,6 @@ class Subscriber
     }
 
     /**
-     * Get Removed At.
-     *
-     * @return DateTimeImmutable
-     */
-    public function getDeletedAt(): ?\DateTimeImmutable
-    {
-        return $this->deletedAt;
-    }
-
-    /**
-     * Set Removed At.
-     *
-     * @param \DateTimeImmutable
-     *
-     * @return Subscriber
-     */
-    public function setDeletedAt(\DateTimeImmutable $deletedAt): self
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
-
-    /**
      * Create an option from an array.
      */
     public static function fromArray(array $data): Subscriber
@@ -205,8 +205,8 @@ class Subscriber
         return (new Subscriber())
             ->setEmail($data['email'])
             ->setStatus($data['status'])
+            ->setToken($data['token'])
             ->setCreatedAt(empty($data['createdAt']) ? new \DateTimeImmutable() : $data['createdAt'])
-            ->setUpdatedAt(empty($data['updatedAt']) ? new \DateTimeImmutable() : $data['updatedAt'])
-            ->setDeletedAt(empty($data['deletedAt']) ? new \DateTimeImmutable() : $data['deletedAt']);
+            ->setUpdatedAt(empty($data['updatedAt']) ? new \DateTimeImmutable() : $data['updatedAt']);
     }
 }

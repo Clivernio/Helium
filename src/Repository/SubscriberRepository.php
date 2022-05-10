@@ -20,6 +20,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SubscriberRepository extends ServiceEntityRepository
 {
+    public const SUBSCRIBED   = "SUBSCRIBED";
+    public const UNSUBSCRIBED = "UNSUBSCRIBED";
+    public const TRASHED      = "TRASHED";
+    public const REMOVED      = "REMOVED";
+
     /**
      * Class Constructor.
      *
@@ -58,5 +63,54 @@ class SubscriberRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * Find a Subscriber By ID.
+     */
+    public function findOneByID(int $id): ?Subscriber
+    {
+        $subscriber = $this->findOneBy(['id' => $id]);
+
+        return !empty($subscriber) ? $subscriber : null;
+    }
+
+    /**
+     * Find a Subscriber By Email.
+     */
+    public function findOneByEmail(string $email): ?Subscriber
+    {
+        $subscriber = $this->findOneBy(['email' => $email]);
+
+        return !empty($subscriber) ? $subscriber : null;
+    }
+
+    /**
+     * Count Subscribers.
+     *
+     * @return int
+     */
+    public function countByStatus(string $status): ?int
+    {
+        if (empty($status)) {
+            return $this->createQueryBuilder('s')
+                ->select('count(s.id)')
+                ->getQuery()
+                ->getSingleScalarResult();
+        }
+
+        return $this->createQueryBuilder('s')
+            ->where(sprintf('s.status = %s', $status))
+            ->select('count(s.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /**
+     * Find Many By Status.
+     */
+    public function findManyByStatus(string $status, array $order, int $limit, int $offset): array
+    {
+        return $this->findBy(['status' => $status], $order, $limit, $offset);
     }
 }
