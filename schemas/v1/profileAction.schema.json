@@ -1,0 +1,35 @@
+{
+  "$id": "profileAction",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Profile Action",
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 60,
+      "format": "email"
+    },
+    "firstName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 60
+    },
+    "lastName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 60
+    },
+    "jobTitle": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    }
+  },
+  "required": [
+    "email",
+    "firstName",
+    "lastName",
+    "jobTitle"
+  ]
+}

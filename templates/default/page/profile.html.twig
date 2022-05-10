@@ -3,5 +3,37 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-
+  <div class="page-body">
+    <div class="container-xl" id="app_profile">
+      <form class="card" action="{{ path('app_endpoint_v1_profile') }}" v-on:submit.prevent="profileAction" method="post">
+        <div class="card-header">
+          <h3 class="card-title">{% trans %}My Profile{% endtrans %}</h3>
+        </div>
+        <div class="card-body">
+      	  <input type="hidden" name="csrf_token" value="{{ csrf_token('profile-action') }}"/>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}First Name{% endtrans %}</label>
+            <input class="form-control" name="firstName" placeholder="Joe" value="{{ user.first_name }}">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}Last Name{% endtrans %}</label>
+            <input class="form-control" name="lastName" placeholder="Doe" value="{{ user.last_name }}">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}Job Title{% endtrans %}</label>
+            <input class="form-control" name="jobTitle" placeholder="Software Engineer" value="{{ user.job }}">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">{% trans %}Email Address{% endtrans %}</label>
+            <input class="form-control" name="email" placeholder="hello@domain.com" value="{{ user.email }}">
+          </div>
+        </div>
+        <div class="card-footer text-end">
+          <button type="submit" class="btn btn-primary">
+            {% trans %}Submit{% endtrans %}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 {% endblock %}
