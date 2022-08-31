@@ -9,7 +9,7 @@ mdbook = mdbook
 
 help: Makefile
 	@echo
-	@echo " Choose a command run in Weekly:"
+	@echo " Choose a command run in Midway:"
 	@echo
 	@sed -n 's/^##//p' $< | column -t -s ':' |  sed -e 's/^/ /'
 	@echo
@@ -79,7 +79,7 @@ fix:
 	./vendor/bin/php-cs-fixer fix
 
 
-## run: Run Weekly
+## run: Run Midway
 .PHONY: run
 run:
 	@echo ">> ============= Run App ============= <<"

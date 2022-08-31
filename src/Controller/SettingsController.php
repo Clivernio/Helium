@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Clivern/Weekly project.
+ * This file is part of the Clivern/Midway project.
  * (c) Clivern <hello@clivern.com>
  */
 
@@ -49,7 +49,7 @@ class SettingsController extends AbstractController
         $this->logger->info("Render settings page");
 
         return $this->render('page/settings.html.twig', [
-            'title' => "Weekly",
+            'title' => "Midway",
         ]);
     }
 }

@@ -1,1 +1,1 @@
-*If you discover a security vulnerability within Weekly, please send an email to [hello+weekly@clivern.com](mailto:hello+weekly@clivern.com)*
+*If you discover a security vulnerability within Midway, please send an email to [hello+midway@clivern.com](mailto:hello+midway@clivern.com)*

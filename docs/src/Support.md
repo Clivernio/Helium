@@ -11,4 +11,4 @@
 
 - Customization and installation services.
 
-*In order to reach out, please send an email to [hello+weekly@clivern.com](mailto:hello+weekly@clivern.com)*
+*In order to reach out, please send an email to [hello+midway@clivern.com](mailto:hello+midway@clivern.com)*

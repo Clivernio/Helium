@@ -8,7 +8,7 @@ use PhpCsFixer\Finder;
 
 
 $fileHeaderComment = <<<COMMENT
-This file is part of the Clivern/Weekly project.
+This file is part of the Clivern/Midway project.
 (c) Clivern <hello@clivern.com>
 COMMENT;
 

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Clivern/Weekly project.
+ * This file is part of the Clivern/Midway project.
  * (c) Clivern <hello@clivern.com>
  */
 
@@ -49,7 +49,7 @@ class NotFoundController extends AbstractController
         $this->logger->info("Render not found page");
 
         return $this->render('page/not_found.html.twig', [
-            'title' => "Weekly",
+            'title' => "Midway",
         ]);
     }
 }

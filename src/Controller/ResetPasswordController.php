@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Clivern/Weekly project.
+ * This file is part of the Clivern/Midway project.
  * (c) Clivern <hello@clivern.com>
  */
 
@@ -49,7 +49,7 @@ class ResetPasswordController extends AbstractController
         $this->logger->info("Render reset password page");
 
         return $this->render('page/reset_password.html.twig', [
-            'title' => "Weekly",
+            'title' => "Midway",
         ]);
     }
 }
