@@ -1,5 +1,5 @@
 twig:
-    default_path: '%kernel.project_dir%/templates'
+    default_path: '%kernel.project_dir%/templates/default'
 
 when@test:
     twig:

@@ -1,7 +1,10 @@
-COMPOSER ?= composer
+composer ?= composer
 PHPUNIT_OPTS =
-SYMFONY = symfony
-PHP = php
+symfony = symfony
+php = php
+docker = docker
+cargo = cargo
+mdbook = mdbook
 
 
 help: Makefile
@@ -12,108 +15,119 @@ help: Makefile
 	@echo
 
 
+## purge: Clear the cache
+.PHONY: purge
+purge:
+	@echo ">> ============= Clear Cache ============= <<"
+	-rm -rf var/cache/*
+	-rm -rf var/logs/*
+
+
+## composer: Install packages
+.PHONY: composer
 composer:
-	$(COMPOSER) install
+	@echo ">> ============= Install Packages ============= <<"
+	@$(composer) install
 
 
-cc:
-	rm -rf var/cache/*
-
-
-clear: cc
-	rm -rf var/logs/*
-
-
+## fix-diff: Format diff
+.PHONY: fix-diff
 fix-diff:
+	@echo ">> ============= Fix code diff ============= <<"
 	./vendor/bin/php-cs-fixer fix --diff --dry-run -v
 
 
-clear_db:
-	rm -f ./var/cache/data.db
-
-
+## migrate: Migrate the database
+.PHONY: migrate
 migrate:
-	@echo "\n==> Migrate DB Tables"
-	$(PHP) bin/console doctrine:schema:update --force
+	@echo ">> ============= Run db migration ============= <<"
+	@$(php) bin/console doctrine:schema:update --force
 
 
-test: cc composer clear_db migrate
+## test: Run test cases
+.PHONY: test
+test: purge composer migrate
+	@echo ">> ============= Run test cases ============= <<"
 	bin/phpunit -c . $(PHPUNIT_OPTS) --log-junit build/phpunit.xml --coverage-text
 
 
-lint: cc lint-yaml lint-php phpcs php-cs lint-composer lint-eol
-	@echo All good.
-
-
-lint-eol:
-	@echo "\n==> Validating unix style line endings of files:files"
-	@! grep -lIUr --color '^M' config/ public/ src/ composer.json composer.lock || ( echo '[ERROR] Above files have CRLF line endings' && exit 1 )
-	@echo All files have valid line endings
-
-
-lint-composer:
-	@echo "\n==> Validating composer.json and composer.lock:"
-	$(COMPOSER) validate --strict
-
-
-lint-yaml:
-	@echo "\n==> Validating all yaml files:"
+## lint: Lint all the things
+.PHONY: lint
+lint: purge composer migrate
+	@echo ">> ============= Lint all the things ============= <<"
+	@! grep -lIUr --color '^M' config/ src/ composer.json composer.lock || ( echo '[ERROR] Above files have CRLF line endings' && exit 1 )
+	$(composer) validate --strict
 	./bin/console lint:yaml config
 	@find config -type f -name \*.yaml | while read file; do echo -n "$$file"; php bin/console --no-debug --no-interaction --env=test lint:yaml "$$file" || exit 1; done
-
-
-lint-php:
-	@echo "\n==> Validating all php files:"
 	@find src tests -type f -name \*.php | while read file; do php -l "$$file" || exit 1; done
-
-
-phpcs:
 	./vendor/bin/phpcs
-
-
-php-cs:
 	./vendor/bin/php-cs-fixer fix --diff --dry-run -v
 
 
-analyse:
-	@echo "\n==> Run phpstan analyse:"
-	vendor/bin/phpstan analyse src --memory-limit=-1
-
-
 ## coverage: Get Coverage Report
+.PHONY: coverage
 coverage: cc composer
-	@echo "\n==> Get Coverage Report:"
+	@echo ">> ============= Get Coverage Report ============= <<"
 	mkdir -p build/coverage
 	bin/phpunit  --log-junit build/phpunit.xml
 
 
 ## fix: Fix Style Issues
+.PHONY: fix
 fix:
-	@echo "\n==> Fix Style Issues:"
+	@echo ">> ============= Fix Code Format ============= <<"
 	./vendor/bin/php-cs-fixer fix
 
 
-## ci: Run CI Checks
-ci: config clear composer lint test analyse
-	@echo "All quality checks passed"
-
-
 ## run: Run Weekly
+.PHONY: run
 run:
-	@echo "\n==> Run Weekly:"
-	$(SYMFONY) serve
+	@echo ">> ============= Run App ============= <<"
+	@$(symfony) serve --no-tls
 
 
 ## installed: Show a list of installed packages
+.PHONY: installed
 installed:
-	@echo "\n==> Show a list of installed packages:"
-	$(COMPOSER) show -i
+	@echo ">> ============= Show Installed Packages ============= <<"
+	@$(composer) show -i
 
 
 ## outdated: Show a list of outdated packages
+.PHONY: outdated
 outdated:
-	@echo "\n==> Show a list of outdated packages:"
-	$(COMPOSER) outdated
+	@echo ">> ============= Show Outdated Packages ============= <<"
+	@$(composer) outdated
+
+
+## db: Run a db container
+.PHONY: db
+db:
+	@echo ">> ============= Run a docker container ============= <<"
+	@$(docker) run -d --name=mysql-server \
+		-p 3306:3306 \
+		-v mysql-data:/var/lib/mysql \
+		-e MYSQL_ROOT_PASSWORD=root mysql
+
+
+## mdbook: Install mdbook rust package (Rust and Cargo needed)
+.PHONY: mdbook
+mdbook:
+	@echo ">> ============= Install mdbook ============= <<"
+	@$(cargo) install mdbook
+
+
+## docs: Build docs
+.PHONY: docs
+docs:
+	@echo ">> ============= Building docs ============= <<"
+	@$(mdbook) build docs
+
+
+## ci: Run CI Checks
+.PHONY: ci
+ci: config purge composer lint test
+	@echo "All Quality Checks Passed"
 
 
 .PHONY: help

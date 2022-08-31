@@ -1,0 +1,1 @@
+*If you discover a security vulnerability within Weekly, please send an email to [hello+weekly@clivern.com](mailto:hello+weekly@clivern.com)*

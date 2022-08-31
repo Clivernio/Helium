@@ -1,0 +1,17 @@
+{
+  "$id": "loginAction",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Login Action",
+  "type": "object",
+  "properties": {
+    "username": {
+      "type": "string",
+      "minLength": 1
+    },
+    "password": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": ["username", "password"]
+}
