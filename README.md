@@ -1,5 +1,5 @@
 <p align="center">
-    <img alt="Logo" src="/public/static/logo.png?v=1.0.0" width="250" />
+    <img alt="Logo" src="/static/logo.jpeg?v=1.0.0" height="400" />
     <h3 align="center">Weekly</h3>
     <p align="center">Fast, Secure and Reliable Newsletter System, Set up in Minutes.</p>
     <p align="center">
