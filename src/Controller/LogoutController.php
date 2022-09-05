@@ -29,6 +29,9 @@ class LogoutController extends AbstractController
     /** @var TranslatorInterface */
     private $translator;
 
+    /**
+     * Class Constructor.
+     */
     public function __construct(
         LoggerInterface $logger,
         OptionRepository $optionRepository,

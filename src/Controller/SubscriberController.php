@@ -30,6 +30,9 @@ class SubscriberController extends AbstractController
     /** @var TranslatorInterface */
     private $translator;
 
+    /**
+     * Class Constructor.
+     */
     public function __construct(
         LoggerInterface $logger,
         OptionRepository $optionRepository,
@@ -49,7 +52,7 @@ class SubscriberController extends AbstractController
         $this->logger->info("Render subscriber page");
 
         return $this->render('page/subscriber.html.twig', [
-            'title' => "Midway",
+            'title' => $this->optionRepository->findValueByKey("mw_app_name", "Midway"),
         ]);
     }
 }

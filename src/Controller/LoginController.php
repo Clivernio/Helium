@@ -30,6 +30,9 @@ class LoginController extends AbstractController
     /** @var TranslatorInterface */
     private $translator;
 
+    /**
+     * Class Constructor.
+     */
     public function __construct(
         LoggerInterface $logger,
         OptionRepository $optionRepository,
@@ -49,7 +52,7 @@ class LoginController extends AbstractController
         $this->logger->info("Render login page");
 
         return $this->render('page/login.html.twig', [
-            'title' => "Midway",
+            'title' => $this->optionRepository->findValueByKey("mw_app_name", "Midway"),
         ]);
     }
 }

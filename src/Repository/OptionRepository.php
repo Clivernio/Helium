@@ -71,6 +71,18 @@ class OptionRepository extends ServiceEntityRepository
     }
 
     /**
+     * Find Value by A Key.
+     *
+     * @return string
+     */
+    public function findValueByKey(string $key, string $default): ?string
+    {
+        $option = $this->findOne($key);
+
+        return !empty($option) ? $option->getValue() : $default;
+    }
+
+    /**
      * Find options list by keys.
      */
     public function findMany(array $keys): array

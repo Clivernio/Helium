@@ -30,6 +30,9 @@ class ErrorController extends AbstractController
     /** @var TranslatorInterface */
     private $translator;
 
+    /**
+     * Class Constructor.
+     */
     public function __construct(
         LoggerInterface $logger,
         OptionRepository $optionRepository,
@@ -49,7 +52,7 @@ class ErrorController extends AbstractController
         $this->logger->info("Render error page");
 
         return $this->render('page/error.html.twig', [
-            'title' => "Midway",
+            'title' => $this->optionRepository->findValueByKey("mw_app_name", "Midway"),
         ]);
     }
 }

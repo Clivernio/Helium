@@ -30,6 +30,9 @@ class NotFoundController extends AbstractController
     /** @var TranslatorInterface */
     private $translator;
 
+    /**
+     * Class Constructor.
+     */
     public function __construct(
         LoggerInterface $logger,
         OptionRepository $optionRepository,
@@ -49,7 +52,7 @@ class NotFoundController extends AbstractController
         $this->logger->info("Render not found page");
 
         return $this->render('page/not_found.html.twig', [
-            'title' => "Midway",
+            'title' => $this->optionRepository->findValueByKey("mw_app_name", "Midway"),
         ]);
     }
 }

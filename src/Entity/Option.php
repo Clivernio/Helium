@@ -178,7 +178,7 @@ class Option
             ->setKey($data['key'])
             ->setValue($data['value'])
             ->setAutoload($data['autoload'])
-            ->setCreatedAt($data['createdAt'])
-            ->setUpdatedAt($data['updatedAt']);
+            ->setCreatedAt(empty($data['createdAt']) ? new \DateTimeImmutable() : $data['createdAt'])
+            ->setUpdatedAt(empty($data['updatedAt']) ? new \DateTimeImmutable() : $data['updatedAt']);
     }
 }

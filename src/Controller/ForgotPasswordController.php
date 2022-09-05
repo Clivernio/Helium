@@ -30,6 +30,9 @@ class ForgotPasswordController extends AbstractController
     /** @var TranslatorInterface */
     private $translator;
 
+    /**
+     * Class Constructor.
+     */
     public function __construct(
         LoggerInterface $logger,
         OptionRepository $optionRepository,
@@ -49,7 +52,7 @@ class ForgotPasswordController extends AbstractController
         $this->logger->info("Render forgot password page");
 
         return $this->render('page/fpwd.html.twig', [
-            'title' => "Midway",
+            'title' => $this->optionRepository->findValueByKey("mw_app_name", "Midway"),
         ]);
     }
 }

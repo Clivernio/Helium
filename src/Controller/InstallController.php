@@ -31,6 +31,9 @@ class InstallController extends AbstractController
     /** @var TranslatorInterface */
     private $translator;
 
+    /**
+     * Class Constructor.
+     */
     public function __construct(
         LoggerInterface $logger,
         OptionRepository $optionRepository,
@@ -44,23 +47,25 @@ class InstallController extends AbstractController
     /**
      * Install Web Page.
      */
-    #[Route('/install', name: 'app_install_web')]
+    #[Route('/install', name: 'app_ui_install')]
     public function installPage(): Response
     {
         $this->logger->info("Render install page");
 
         return $this->render('page/install.html.twig', [
-            'title' => "Midway",
+            'title' => $this->optionRepository->findValueByKey("mw_app_name", "Midway"),
         ]);
     }
 
     /**
      * Install API Endpoint.
+     *
+     * Adds the options and admin user account
      */
-    #[Route('/api/v1/install', name: 'app_install_v1_endpoint')]
+    #[Route('/api/v1/install', name: 'app_endpoint_v1_install')]
     public function installEndpoint(): JsonResponse
     {
-        $this->logger->info("Trigger install endpoint");
+        $this->logger->info("Trigger install v1 endpoint");
 
         return $this->json([
             'successMessage' => $this->translator->trans(
