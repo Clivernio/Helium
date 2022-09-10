@@ -66,7 +66,8 @@ class InstallController extends AbstractController
         $this->logger->info("Render install page");
 
         return $this->render('page/install.html.twig', [
-            'title' => $this->optionRepository->findValueByKey("mw_app_name", "Midway"),
+            'title' => $this->translator->trans("Install") . " | "
+            . $this->optionRepository->findValueByKey("mw_app_name", "Midway"),
         ]);
     }
 

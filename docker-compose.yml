@@ -3,16 +3,16 @@ version: '3.1'
 services:
 
   # Web UI
-  app:
-    build: .
-    depends_on:
-      - db
+  # app:
+  #   build: .
+  #   depends_on:
+  #     - db
 
   # Background Worker
-  worker:
-    build: .
-    depends_on:
-      - db
+  # worker:
+  #   build: .
+  #   depends_on:
+  #     - db
 
   # MySQL Database
   db:
