@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace App\Module;
 
+use App\Entity\Option;
 use App\Repository\OptionRepository;
 use Psr\Log\LoggerInterface;
 
@@ -45,12 +46,18 @@ class Install
     }
 
     /**
-     * Install the app.
+     * Install the App.
      */
-    public function install(array $data): bool
+    public function install(array $data): void
     {
         foreach ($data as $key => $value) {
-            // code...
+            $option = Option::fromArray([
+                'key'      => $key,
+                'value'    => $value,
+                'autoload' => 'on',
+            ]);
+
+            $this->optionRepository->save($option);
         }
     }
 }

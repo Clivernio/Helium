@@ -1,0 +1,42 @@
+{
+  "$id": "installAction",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Install Action",
+  "type": "object",
+  "properties": {
+    "appName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 50
+    },
+    "appURL": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 50
+    },
+    "appEmail": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 50,
+      "format": "email"
+    },
+    "adminUsername": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 50
+    },
+    "adminEmail": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 50,
+      "format": "email"
+    }
+  },
+  "required": [
+    "appName",
+    "appURL",
+    "appEmail",
+    "adminUsername",
+    "adminEmail"
+  ]
+}
