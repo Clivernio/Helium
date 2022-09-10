@@ -96,9 +96,19 @@ class InstallController extends AbstractController
 
         $this->logger->info("Install the application");
 
-        $this->installModule->install([
-            'mw_app_name' => 'Midway',
+        $data = json_decode($content);
+
+        $this->installModule->installApplication([
+            'mw_app_installed' => 'true',
+            'mw_app_name'      => $data->appName,
+            'mw_app_url'       => $data->appURL,
+            'mw_app_email'     => $data->appEmail,
         ]);
+
+        $this->installModule->createAdmin(
+            $data->adminEmail,
+            $data->adminPassword
+        );
 
         $this->logger->info("Application installed successfully");
 

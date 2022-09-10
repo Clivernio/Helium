@@ -21,6 +21,7 @@ purge:
 	@echo ">> ============= Clear Cache ============= <<"
 	-rm -rf var/cache/*
 	-rm -rf var/logs/*
+	-rm var/data.db
 
 
 ## composer: Install packages

@@ -20,23 +20,23 @@
       "maxLength": 50,
       "format": "email"
     },
-    "adminUsername": {
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 50
-    },
     "adminEmail": {
       "type": "string",
       "minLength": 1,
       "maxLength": 50,
       "format": "email"
+    },
+    "adminPassword": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 50
     }
   },
   "required": [
     "appName",
     "appURL",
     "appEmail",
-    "adminUsername",
-    "adminEmail"
+    "adminEmail",
+    "adminPassword"
   ]
 }
