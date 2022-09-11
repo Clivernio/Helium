@@ -77,20 +77,29 @@ class ResetPasswordController extends AbstractController
     {
         $content = $request->getContent();
 
-        $this->validator->validate($content, "v1/resetPasswordAction.schema.json");
+        $this->validator->validate(
+            $content,
+            "v1/resetPasswordAction.schema.json"
+        );
 
         $this->logger->info("Trigger reset password v1 endpoint");
 
         $data = json_decode($content);
 
-        $this->logger->info(sprintf("Reset password for a request with token %s", $data->token));
+        $this->logger->info(sprintf(
+            "Reset password for a request with token %s",
+            $data->token
+        ));
 
         $this->authModule->resetPasswordAction(
             $data->token,
             $data->newPassword
         );
 
-        $this->logger->info(sprintf("Password got updated for a request with token %s", $data->token));
+        $this->logger->info(sprintf(
+            "Password got updated for a request with token %s",
+            $data->token
+        ));
 
         return $this->json([
             'successMessage' => $this->translator->trans(

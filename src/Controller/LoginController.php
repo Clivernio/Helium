@@ -71,20 +71,29 @@ class LoginController extends AbstractController
     {
         $content = $request->getContent();
 
-        $this->validator->validate($content, "v1/loginAction.schema.json");
+        $this->validator->validate(
+            $content,
+            "v1/loginAction.schema.json"
+        );
 
         $this->logger->info("Trigger login v1 endpoint");
 
         $data = json_decode($content);
 
-        $this->logger->info(sprintf("Authenticate the user %s", $data->email));
+        $this->logger->info(sprintf(
+            "Authenticate the user %s",
+            $data->email
+        ));
 
         $this->authModule->loginAction(
             $data->email,
             $data->password
         );
 
-        $this->logger->info(sprintf("User %s logged in successfully", $data->email));
+        $this->logger->info(sprintf(
+            "User %s logged in successfully",
+            $data->email
+        ));
 
         return $this->json([
             'successMessage' => $this->translator->trans(

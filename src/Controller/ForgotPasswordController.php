@@ -77,17 +77,26 @@ class ForgotPasswordController extends AbstractController
     {
         $content = $request->getContent();
 
-        $this->validator->validate($content, "v1/forgotPasswordAction.schema.json");
+        $this->validator->validate(
+            $content,
+            "v1/forgotPasswordAction.schema.json"
+        );
 
         $this->logger->info("Trigger forgot password v1 endpoint");
 
         $data = json_decode($content);
 
-        $this->logger->info(sprintf("Send a password reset email to %s", $data->email));
+        $this->logger->info(sprintf(
+            "Send a password reset email to %s",
+            $data->email
+        ));
 
         $this->authModule->forgotPasswordAction($data->email);
 
-        $this->logger->info(sprintf("An email sent to %s to reset password", $data->email));
+        $this->logger->info(sprintf(
+            "An email sent to %s to reset password",
+            $data->email
+        ));
 
         return $this->json([
             'successMessage' => $this->translator->trans(
