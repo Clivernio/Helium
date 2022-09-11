@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Module\Auth as AuthModule;
 use App\Repository\OptionRepository;
 use App\Service\Validator;
 use Psr\Log\LoggerInterface;
@@ -34,6 +35,9 @@ class ForgotPasswordController extends AbstractController
     /** @var Validator */
     private $validator;
 
+    /** @var AuthModule */
+    private $authModule;
+
     /**
      * Class Constructor.
      */
@@ -41,12 +45,14 @@ class ForgotPasswordController extends AbstractController
         LoggerInterface $logger,
         OptionRepository $optionRepository,
         TranslatorInterface $translator,
-        Validator $validator
+        Validator $validator,
+        AuthModule $authModule
     ) {
         $this->logger           = $logger;
         $this->translator       = $translator;
         $this->optionRepository = $optionRepository;
         $this->validator        = $validator;
+        $this->authModule       = $authModule;
     }
 
     /**
@@ -75,6 +81,18 @@ class ForgotPasswordController extends AbstractController
 
         $this->logger->info("Trigger forgot password v1 endpoint");
 
-        return $this->json([]);
+        $data = json_decode($content);
+
+        $this->logger->info(sprintf("Send a password reset email to %s", $data->email));
+
+        $this->authModule->forgotPasswordAction($data->email);
+
+        $this->logger->info(sprintf("An email sent to %s to reset password", $data->email));
+
+        return $this->json([
+            'successMessage' => $this->translator->trans(
+                'An email sent to update your password.'
+            ),
+        ]);
     }
 }

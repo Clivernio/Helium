@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Module\Auth as AuthModule;
 use App\Repository\OptionRepository;
 use App\Service\Validator;
 use Psr\Log\LoggerInterface;
@@ -34,6 +35,9 @@ class ResetPasswordController extends AbstractController
     /** @var Validator */
     private $validator;
 
+    /** @var AuthModule */
+    private $authModule;
+
     /**
      * Class Constructor.
      */
@@ -41,12 +45,14 @@ class ResetPasswordController extends AbstractController
         LoggerInterface $logger,
         OptionRepository $optionRepository,
         TranslatorInterface $translator,
-        Validator $validator
+        Validator $validator,
+        AuthModule $authModule
     ) {
         $this->logger           = $logger;
         $this->translator       = $translator;
         $this->optionRepository = $optionRepository;
         $this->validator        = $validator;
+        $this->authModule       = $authModule;
     }
 
     /**
@@ -75,6 +81,21 @@ class ResetPasswordController extends AbstractController
 
         $this->logger->info("Trigger reset password v1 endpoint");
 
-        return $this->json([]);
+        $data = json_decode($content);
+
+        $this->logger->info(sprintf("Reset password for a request with token %s", $data->token));
+
+        $this->authModule->resetPasswordAction(
+            $data->token,
+            $data->newPassword
+        );
+
+        $this->logger->info(sprintf("Password got updated for a request with token %s", $data->token));
+
+        return $this->json([
+            'successMessage' => $this->translator->trans(
+                'Password updated successfully.'
+            ),
+        ]);
     }
 }
