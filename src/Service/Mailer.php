@@ -10,9 +10,9 @@ declare(strict_types=1);
 namespace App\Service;
 
 /**
- * Auth Service.
+ * Mailer Service.
  */
-class Auth
+class Mailer
 {
     /**
      * Class Constructor.
