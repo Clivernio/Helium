@@ -46,7 +46,7 @@ class HomeController extends AbstractController
     /**
      * Home Web Page.
      */
-    #[Route('/home', name: 'app_home_web')]
+    #[Route('/', name: 'app_home_web')]
     public function home(): Response
     {
         $this->logger->info("Render home page");

@@ -65,6 +65,13 @@ class InstallController extends AbstractController
     {
         $this->logger->info("Render install page");
 
+        // Redirect to 404 if installed
+        if ($this->installModule->isInstalled()) {
+            $this->logger->info("Application is already installed, Redirect to 404");
+
+            return $this->redirectToRoute('app_not_found_web');
+        }
+
         return $this->render('page/install.html.twig', [
             'title' => $this->translator->trans("Install") . " | "
             . $this->optionRepository->findValueByKey("mw_app_name", "Midway"),
@@ -85,6 +92,7 @@ class InstallController extends AbstractController
 
         $this->logger->info("Trigger install v1 endpoint");
 
+        // stop the call if app is already installed
         if ($this->installModule->isInstalled()) {
             $this->logger->error("Application is already installed");
 
@@ -99,6 +107,7 @@ class InstallController extends AbstractController
 
         $data = json_decode($content);
 
+        // Install application
         $this->installModule->installApplication([
             'mw_app_installed' => 'true',
             'mw_app_name'      => $data->appName,
@@ -106,6 +115,7 @@ class InstallController extends AbstractController
             'mw_app_email'     => $data->appEmail,
         ]);
 
+        // Create admin account
         $this->installModule->createAdmin(
             $data->adminEmail,
             $data->adminPassword

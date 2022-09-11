@@ -52,7 +52,8 @@ class ErrorController extends AbstractController
         $this->logger->info("Render error page");
 
         return $this->render('page/error.html.twig', [
-            'title' => $this->optionRepository->findValueByKey("mw_app_name", "Midway"),
+            'title' => $this->translator->trans("500") . " | "
+            . $this->optionRepository->findValueByKey("mw_app_name", "Midway"),
         ]);
     }
 }

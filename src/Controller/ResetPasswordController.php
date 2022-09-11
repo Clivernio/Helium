@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Repository\OptionRepository;
+use App\Service\Validator;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,29 +31,50 @@ class ResetPasswordController extends AbstractController
     /** @var TranslatorInterface */
     private $translator;
 
+    /** @var Validator */
+    private $validator;
+
     /**
      * Class Constructor.
      */
     public function __construct(
         LoggerInterface $logger,
         OptionRepository $optionRepository,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        Validator $validator
     ) {
         $this->logger           = $logger;
         $this->translator       = $translator;
         $this->optionRepository = $optionRepository;
+        $this->validator        = $validator;
     }
 
     /**
      * Reset Password Web Page.
      */
-    #[Route('/reset-password/{token}', name: 'app_reset_password_web')]
+    #[Route('/reset-password/{token}', name: 'app_ui_reset_password')]
     public function fpwd(): Response
     {
         $this->logger->info("Render reset password page");
 
         return $this->render('page/reset_password.html.twig', [
-            'title' => $this->optionRepository->findValueByKey("mw_app_name", "Midway"),
+            'title' => $this->translator->trans("Reset Password") . " | "
+            . $this->optionRepository->findValueByKey("mw_app_name", "Midway"),
         ]);
+    }
+
+    /**
+     * Reset Password API Endpoint.
+     */
+    #[Route('/api/v1/reset-password', name: 'app_endpoint_v1_reset_password', methods: ['POST'])]
+    public function resetPasswordEndpoint(Request $request): JsonResponse
+    {
+        $content = $request->getContent();
+
+        $this->validator->validate($content, "v1/resetPasswordAction.schema.json");
+
+        $this->logger->info("Trigger reset password v1 endpoint");
+
+        return $this->json([]);
     }
 }

@@ -4,14 +4,20 @@
   "description": "Login Action",
   "type": "object",
   "properties": {
-    "username": {
+    "email": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "maxLength": 50,
+      "format": "email"
     },
     "password": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "maxLength": 50
     }
   },
-  "required": ["username", "password"]
+  "required": [
+    "email",
+    "password"
+  ]
 }

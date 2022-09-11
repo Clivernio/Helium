@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Repository\OptionRepository;
+use App\Service\Validator;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,29 +31,50 @@ class ForgotPasswordController extends AbstractController
     /** @var TranslatorInterface */
     private $translator;
 
+    /** @var Validator */
+    private $validator;
+
     /**
      * Class Constructor.
      */
     public function __construct(
         LoggerInterface $logger,
         OptionRepository $optionRepository,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        Validator $validator
     ) {
         $this->logger           = $logger;
         $this->translator       = $translator;
         $this->optionRepository = $optionRepository;
+        $this->validator        = $validator;
     }
 
     /**
      * Forgot Password Web Page.
      */
-    #[Route('/forgot-password', name: 'app_forgot_password_web')]
+    #[Route('/forgot-password', name: 'app_ui_forgot_password')]
     public function fpwd(): Response
     {
         $this->logger->info("Render forgot password page");
 
         return $this->render('page/fpwd.html.twig', [
-            'title' => $this->optionRepository->findValueByKey("mw_app_name", "Midway"),
+            'title' => $this->translator->trans("Forgot Password") . " | "
+            . $this->optionRepository->findValueByKey("mw_app_name", "Midway"),
         ]);
+    }
+
+    /**
+     * Forgot Password API Endpoint.
+     */
+    #[Route('/api/v1/forgot-password', name: 'app_endpoint_v1_forgot_password', methods: ['POST'])]
+    public function forgotPasswordEndpoint(Request $request): JsonResponse
+    {
+        $content = $request->getContent();
+
+        $this->validator->validate($content, "v1/forgotPasswordAction.schema.json");
+
+        $this->logger->info("Trigger forgot password v1 endpoint");
+
+        return $this->json([]);
     }
 }

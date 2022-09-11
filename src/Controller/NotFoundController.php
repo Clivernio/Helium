@@ -52,7 +52,8 @@ class NotFoundController extends AbstractController
         $this->logger->info("Render not found page");
 
         return $this->render('page/not_found.html.twig', [
-            'title' => $this->optionRepository->findValueByKey("mw_app_name", "Midway"),
+            'title' => $this->translator->trans("404") . " | "
+            . $this->optionRepository->findValueByKey("mw_app_name", "Midway"),
         ]);
     }
 }
