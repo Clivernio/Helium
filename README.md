@@ -1,5 +1,5 @@
 <p align="center">
-    <img alt="Logo" src="/public/static/logo.png?v=1.0.0" width="220" />
+    <img alt="Logo" src="/public/static/logo.png?v=1.0.0" width="150" />
     <h3 align="center">Midway</h3>
     <p align="center">Fast, Secure and Reliable Newsletter System, Set up in Minutes.</p>
     <p align="center">
