@@ -44,7 +44,7 @@
     "@babel/preset-env": "^7.4.4",
     "@babel/register": "^7.4.4",
     "babel-jest": "^24.7.1",
-    "babel-loader": "^8.0.5",
+    "babel-loader": "^9.0.0",
     "babel-polyfill": "^6.26.0",
     "browser-sync": "^2.26.7",
     "concurrently": "^6.2.0",
